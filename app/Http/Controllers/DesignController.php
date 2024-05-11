@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreDesignRequest;
+use App\Http\Requests\UpdateDesignRequest;
+use App\Models\Design;
+use App\Models\Machine;
+use App\Models\Wood;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
+class DesignController extends Controller
+{
+    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $designs = Design::all();
+
+        return view('design.index', [
+        'designs' => $designs,
+        ]);
+    }
+    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $woods = Wood::all();
+        $machines = Machine::all();
+
+        return view('design.create', [
+            'woods' => $woods,
+            'machines' => $machines
+        ]);
+    }
+    public function store(StoreDesignRequest $request): RedirectResponse
+    {
+        $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households']);
+        $data['user_id'] = Auth::id();
+        //TODO file
+
+        Design::create($data);
+
+        return Redirect::to('/designs')->with('success', 'Design created successfully.');
+    }
+    public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
+    {
+        $design = Design::findOrFail($id);
+
+        if ($design->user_id != Auth::id())
+            return Redirect::to('/designs')->with('error', 'You are not allowed to edit this design');
+
+        $woods = Wood::all();
+        $machines = Machine::all();
+
+        return view('design.update', [
+            'woods' => $woods,
+            'machines' => $machines,
+            'design' => $design
+        ]);
+    }
+    public function update(UpdateDesignRequest $request, $id): RedirectResponse
+    {
+        $design = Design::findOrFail($id);
+
+        if ($design->user_id != Auth::id())
+            return Redirect::to('/designs')->with('error', 'You are not allowed to edit this design');
+
+        $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households']);
+
+        //TODO file
+
+        $design->update($data);
+
+        return Redirect::to('/designs/'.$id.'/edit')->with('success', 'Design updated successfully.');
+    }
+    public function destroy($id): RedirectResponse
+    {
+        $design = Design::findOrFail($id);
+
+        if ($design->user_id != Auth::id())
+            return Redirect::to('/designs')->with('error', 'You are not allowed to delete this design');
+
+        $design->delete();
+
+        return Redirect::to('/designs')->with('success', 'Design deleted successfully.');
+    }
+
+
+}
