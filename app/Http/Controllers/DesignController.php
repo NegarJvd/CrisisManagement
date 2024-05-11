@@ -18,10 +18,10 @@ class DesignController extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $designs = Design::all();
+        $designs = Design::query()->orderByDesc('id')->paginate();
 
         return view('design.index', [
-        'designs' => $designs,
+            'designs' => $designs,
         ]);
     }
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -31,18 +31,22 @@ class DesignController extends Controller
 
         return view('design.create', [
             'woods' => $woods,
-            'machines' => $machines
+            'machines' => $machines,
         ]);
     }
     public function store(StoreDesignRequest $request): RedirectResponse
     {
         $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households']);
         $data['user_id'] = Auth::id();
-        //TODO file
+        $file = $request->file('file');
+        $path = $file->store('uploads', 'public');
+        $data['file_path'] = $path;
 
-        Design::create($data);
+        $design = Design::create($data);
+        $design->woods()->attach($request->get('woods'));
+        $design->machines()->attach($request->get('machines'));
 
-        return Redirect::to('/designs')->with('success', 'Design created successfully.');
+        return Redirect::to('/design')->with('status', 'success');
     }
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
@@ -73,18 +77,18 @@ class DesignController extends Controller
 
         $design->update($data);
 
-        return Redirect::to('/designs/'.$id.'/edit')->with('success', 'Design updated successfully.');
+        return Redirect::to('design/'.$id.'/edit')->with('success', 'Design updated successfully.');
     }
     public function destroy($id): RedirectResponse
     {
         $design = Design::findOrFail($id);
 
         if ($design->user_id != Auth::id())
-            return Redirect::to('/designs')->with('error', 'You are not allowed to delete this design');
+            return Redirect::to('/design')->with('error', 'You are not allowed to delete this design');
 
         $design->delete();
 
-        return Redirect::to('/designs')->with('success', 'Design deleted successfully.');
+        return Redirect::to('/design')->with('success', 'Design deleted successfully.');
     }
 
 

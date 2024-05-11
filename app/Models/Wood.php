@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static count()
+ * @method static pluck(string $string)
  */
 class Wood extends Model
 {

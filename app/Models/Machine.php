@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static count()
+ * @method static pluck(string $string)
  */
 class Machine extends Model
 {
