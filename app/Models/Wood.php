@@ -6,6 +6,9 @@ use App\Enums\WoodTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static count()
+ */
 class Wood extends Model
 {
     use HasFactory;
