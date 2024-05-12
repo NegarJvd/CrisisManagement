@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTimberSupplyRequest;
 use App\Http\Requests\UpdateDesignRequest;
+use App\Http\Requests\UpdateTimberSupplyRequest;
 use App\Models\TimberSupply;
 use App\Models\Wood;
 use Illuminate\Contracts\View\Factory;
@@ -58,7 +59,7 @@ class TimberSupplyController extends Controller
             'timber' => $timber
         ]);
     }
-    public function update(UpdateDesignRequest $request, $id): RedirectResponse
+    public function update(UpdateTimberSupplyRequest $request, $id): RedirectResponse
     {
         $timber = TimberSupply::findOrFail($id);
 
