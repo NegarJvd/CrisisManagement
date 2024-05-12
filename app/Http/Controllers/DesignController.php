@@ -18,7 +18,10 @@ class DesignController extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $designs = Design::query()->orderByDesc('id')->paginate();
+        $designs = Design::query()
+            ->where('user_id', Auth::id())
+            ->orderByDesc('id')
+            ->paginate();
 
         return view('design.index', [
             'designs' => $designs,
