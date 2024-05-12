@@ -91,11 +91,22 @@ class DesignController extends Controller
         $design = Design::findOrFail($id);
 
         if ($design->user_id != Auth::id())
-            return Redirect::to('/design')->with('error', 'You are not allowed to delete this design');
+            return Redirect::to('/design')->with('status', 'error');
+
+        $design->woods()->sync([]);
+        $design->machines()->sync([]);
+
+        if ($design->file_path)
+        {
+            $path = public_path('storage/'.$design->file_path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
 
         $design->delete();
 
-        return Redirect::to('/design')->with('success', 'Design deleted successfully.');
+        return Redirect::to('/design')->with('status', 'success');
     }
 
     public function delete_file($design_id): RedirectResponse

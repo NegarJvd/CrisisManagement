@@ -74,14 +74,19 @@
                                     <td class="border border-slate-600 py-3">{{$design->number_of_households}}</td>
                                     <td class="py-3 flex flex-row items-center justify-center">
                                         <div class="basis-1/2 flex items-center justify-center">
-                                            <a href="{{route('design.edit', $design->id)}}">
+                                            <a href="{{route('design.edit', $design->id)}}" title="edit">
                                                 <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}" alt="edit">
                                             </a>
                                         </div>
                                         <div class="basis-1/2 flex items-center justify-center">
-                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}" alt="delete">
+                                            <form method="post" action="{{ route('design.destroy', $design->id) }}" title="delete">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}" alt="delete">
+                                                </button>
+                                            </form>
                                         </div>
-
                                     </td>
                                 </tr>
                             @endforeach
