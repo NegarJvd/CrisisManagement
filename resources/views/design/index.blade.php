@@ -74,7 +74,9 @@
                                     <td class="border border-slate-600 py-3">{{$design->number_of_households}}</td>
                                     <td class="py-3 flex flex-row items-center justify-center">
                                         <div class="basis-1/2 flex items-center justify-center">
-                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}" alt="edit">
+                                            <a href="{{route('design.edit', $design->id)}}">
+                                                <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}" alt="edit">
+                                            </a>
                                         </div>
                                         <div class="basis-1/2 flex items-center justify-center">
                                             <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}" alt="delete">

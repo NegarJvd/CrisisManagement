@@ -53,7 +53,7 @@ class DesignController extends Controller
         $design = Design::findOrFail($id);
 
         if ($design->user_id != Auth::id())
-            return Redirect::to('/designs')->with('error', 'You are not allowed to edit this design');
+            return Redirect::to('/design')->with('status', 'error'); //You are not allowed to edit this design
 
         $woods = Wood::all();
         $machines = Machine::all();
@@ -73,11 +73,18 @@ class DesignController extends Controller
 
         $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households']);
 
-        //TODO file
+        if ($request->has('file'))
+        {
+            $file = $request->file('file');
+            $path = $file->store('uploads', 'public');
+            $data['file_path'] = $path;
+        }
 
         $design->update($data);
+        $design->woods()->sync($request->get('woods'));
+        $design->machines()->sync($request->get('machines'));
 
-        return Redirect::to('design/'.$id.'/edit')->with('success', 'Design updated successfully.');
+        return Redirect::to('design/'.$id.'/edit')->with('status', 'success');
     }
     public function destroy($id): RedirectResponse
     {
@@ -91,5 +98,24 @@ class DesignController extends Controller
         return Redirect::to('/design')->with('success', 'Design deleted successfully.');
     }
 
+    public function delete_file($design_id): RedirectResponse
+    {
+        $design = Design::findOrFail($design_id);
 
+        if ($design->user_id == Auth::id())
+        {
+            $path = public_path('storage/'.$design->file_path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
+            $design->update([
+                'file_path' => null
+            ]);
+
+            return Redirect::back()->with('status', 'success');
+        }
+
+        return Redirect::back()->with('status', 'error');
+    }
 }
