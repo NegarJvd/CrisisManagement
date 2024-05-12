@@ -7,14 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * @method static create(array $only)
- * @method static findOrFail($id)
- */
-class Design extends Model
+class TimberSupply extends Model
 {
     use HasFactory;
-    protected $table = 'designs';
+    protected $table = "timber_supplies";
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
@@ -24,10 +20,6 @@ class Design extends Model
     }
     public function woods(): BelongsToMany
     {
-        return $this->belongsToMany(Wood::class, 'design_wood', 'design_id', 'wood_id');
-    }
-    public function machines(): BelongsToMany
-    {
-        return $this->belongsToMany(Machine::class, 'design_machine', 'design_id', 'machine_id');
+        return $this->belongsToMany(Wood::class, 'timber_supply_wood', 'timber_supply_id', 'wood_id');
     }
 }

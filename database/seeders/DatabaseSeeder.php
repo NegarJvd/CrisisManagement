@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             WoodSeeder::class,
             MachineSeeder::class,
-            DesignSeeder::class
+            DesignSeeder::class,
+            TimberSupplySeeder::class
         ]);
     }
 }
