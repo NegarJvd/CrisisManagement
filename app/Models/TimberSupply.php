@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @method static create(array $data)
+ * @method static findOrFail($id)
+ */
 class TimberSupply extends Model
 {
     use HasFactory;
