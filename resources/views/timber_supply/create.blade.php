@@ -21,6 +21,10 @@
                         @csrf
 
                         <div class="flex flex-row">
+                            <img class="rounded-lg" src="{{asset('map.png')}}" alt="map">
+                        </div>
+
+                        <div class="flex flex-row">
                             <div class="basis-1/3 mr-2">
                                 <x-input-label for="latitude" :value="__('Latitude')" />
                                 <x-text-input id="latitude" name="latitude" type="text" class="mt-1 block w-full" :value="old('latitude')" required autofocus autocomplete="latitude" />
