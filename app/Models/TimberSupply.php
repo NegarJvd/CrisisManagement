@@ -18,6 +18,15 @@ class TimberSupply extends Model
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::deleting(function ($model){
+            $model->woods()->sync([]);
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

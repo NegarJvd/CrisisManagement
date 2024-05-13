@@ -50,6 +50,32 @@ class ProfileController extends Controller
 
         Auth::logout();
 
+        foreach ($user->designs as $design)
+        {
+            $design->woods()->sync([]);
+            $design->machines()->sync([]);
+            if ($design->file_path)
+            {
+                $path = public_path('storage/'.$design->file_path);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+        }
+        $user->designs()->delete();
+
+        foreach ($user->timber_supplies as $timber)
+        {
+            $timber->woods()->sync([]);
+        }
+        $user->timber_supplies()->delete();
+
+        foreach ($user->cnc_supplies as $cnc)
+        {
+            $cnc->machines()->sync([]);
+        }
+        $user->cnc_supplies()->delete();
+
         $user->delete();
 
         $request->session()->invalidate();

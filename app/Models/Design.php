@@ -18,6 +18,24 @@ class Design extends Model
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::deleting(function ($model){
+            $model->woods()->sync([]);
+            $model->machines()->sync([]);
+
+            if ($model->file_path)
+            {
+                $path = public_path('storage/'.$model->file_path);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
