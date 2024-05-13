@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             WoodSeeder::class,
             MachineSeeder::class,
             DesignSeeder::class,
-            TimberSupplySeeder::class
+            TimberSupplySeeder::class,
+            CNCSupplySeeder::class
         ]);
     }
 }
