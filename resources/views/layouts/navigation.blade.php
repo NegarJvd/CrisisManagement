@@ -26,6 +26,11 @@
                         {{ __('Timber Supply') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('cnc-supply.index')" :active="request()->routeIs('cnc-supply.*')">
+                        {{ __('CNC Supply') }}
+                    </x-nav-link>
+                </div>
 
             </div>
 
@@ -86,6 +91,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('timber-supply.index')" :active="request()->routeIs('timber-supply.*')">
                 {{ __('Timber Supply') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('cnc-supply.index')" :active="request()->routeIs('cnc-supply.*')">
+                {{ __('CNC Supply') }}
             </x-responsive-nav-link>
         </div>
 

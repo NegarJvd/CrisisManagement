@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CNCSupplyController;
 use App\Http\Controllers\DesignController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimberSupplyController;
@@ -22,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('design/delete_file/{design_id}', [DesignController::class, 'delete_file'])->name('design.delete_file');
 
     Route::resource('timber-supply', TimberSupplyController::class)->except('show');
+    Route::resource('cnc-supply', CNCSupplyController::class)->except('show');
+
 });
 
 require __DIR__.'/auth.php';

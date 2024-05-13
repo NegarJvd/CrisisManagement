@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @method static create($data)
+ * @method static findOrFail($id)
+ */
 class CNCSupply extends Model
 {
     use HasFactory;

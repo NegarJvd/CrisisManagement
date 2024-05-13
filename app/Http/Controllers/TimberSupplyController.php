@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTimberSupplyRequest;
-use App\Http\Requests\UpdateDesignRequest;
 use App\Http\Requests\UpdateTimberSupplyRequest;
 use App\Models\TimberSupply;
 use App\Models\Wood;
