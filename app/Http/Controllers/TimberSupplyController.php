@@ -17,9 +17,12 @@ class TimberSupplyController extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $timbers = TimberSupply::query()
-            ->where('user_id', Auth::id())
-            ->orderByDesc('id')
+        $timbers = TimberSupply::query();
+
+        if(!Auth::user()->is_admin)
+            $timbers = $timbers->where('user_id', Auth::id());
+
+        $timbers = $timbers->orderByDesc('id')
             ->paginate();
 
         return view('timber_supply.index', [
@@ -48,7 +51,7 @@ class TimberSupplyController extends Controller
     {
         $timber = TimberSupply::findOrFail($id);
 
-        if ($timber->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $timber->user_id != Auth::id())
             return Redirect::to('/timber-supply')->with('status', 'error'); //You are not allowed to edit this design
 
         $woods = Wood::all();
@@ -62,7 +65,7 @@ class TimberSupplyController extends Controller
     {
         $timber = TimberSupply::findOrFail($id);
 
-        if ($timber->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $timber->user_id != Auth::id())
             return Redirect::to('/timber-supply')->with('status', 'error');
 
         $data = $request->only(['radius', 'latitude', 'longitude']);
@@ -76,7 +79,7 @@ class TimberSupplyController extends Controller
     {
         $timber = TimberSupply::findOrFail($id);
 
-        if ($timber->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $timber->user_id != Auth::id())
             return Redirect::to('/timber-supply')->with('status', 'error');
 
         $timber->woods()->sync([]);

@@ -18,9 +18,12 @@ class DesignController extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $designs = Design::query()
-            ->where('user_id', Auth::id())
-            ->orderByDesc('id')
+        $designs = Design::query();
+
+        if(!Auth::user()->is_admin)
+            $designs = $designs->where('user_id', Auth::id());
+
+        $designs = $designs->orderByDesc('id')
             ->paginate();
 
         return view('design.index', [
@@ -55,7 +58,7 @@ class DesignController extends Controller
     {
         $design = Design::findOrFail($id);
 
-        if ($design->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $design->user_id != Auth::id())
             return Redirect::to('/design')->with('status', 'error'); //You are not allowed to edit this design
 
         $woods = Wood::all();
@@ -71,7 +74,7 @@ class DesignController extends Controller
     {
         $design = Design::findOrFail($id);
 
-        if ($design->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $design->user_id != Auth::id())
             return Redirect::to('/designs')->with('error', 'You are not allowed to edit this design');
 
         $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households']);
@@ -93,7 +96,7 @@ class DesignController extends Controller
     {
         $design = Design::findOrFail($id);
 
-        if ($design->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $design->user_id != Auth::id())
             return Redirect::to('/design')->with('status', 'error');
 
         $design->woods()->sync([]);
@@ -116,7 +119,7 @@ class DesignController extends Controller
     {
         $design = Design::findOrFail($design_id);
 
-        if ($design->user_id == Auth::id())
+        if (Auth::user()->is_admin or $design->user_id == Auth::id())
         {
             $path = public_path('storage/'.$design->file_path);
             if (file_exists($path)) {

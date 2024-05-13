@@ -17,9 +17,12 @@ class CNCSupplyController extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $cnc_supplies = CNCSupply::query()
-            ->where('user_id', Auth::id())
-            ->orderByDesc('id')
+        $cnc_supplies = CNCSupply::query();
+
+        if (!Auth::user()->is_admin)
+            $cnc_supplies = $cnc_supplies->where('user_id', Auth::id());
+
+        $cnc_supplies = $cnc_supplies->orderByDesc('id')
             ->paginate();
 
         return view('cnc_supply.index', [
@@ -48,7 +51,7 @@ class CNCSupplyController extends Controller
     {
         $cnc = CNCSupply::findOrFail($id);
 
-        if ($cnc->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $cnc->user_id != Auth::id())
             return Redirect::to('/cnc-supply')->with('status', 'error'); //You are not allowed to edit this design
 
         $machines = Machine::all();
@@ -62,7 +65,7 @@ class CNCSupplyController extends Controller
     {
         $cnc = CNCSupply::findOrFail($id);
 
-        if ($cnc->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $cnc->user_id != Auth::id())
             return Redirect::to('/cnc-supply')->with('status', 'error');
 
         $data = $request->only(['radius', 'latitude', 'longitude']);
@@ -76,7 +79,7 @@ class CNCSupplyController extends Controller
     {
         $cnc = CNCSupply::findOrFail($id);
 
-        if ($cnc->user_id != Auth::id())
+        if (!Auth::user()->is_admin and $cnc->user_id != Auth::id())
             return Redirect::to('/cnc-supply')->with('status', 'error');
 
         $cnc->machines()->sync([]);
