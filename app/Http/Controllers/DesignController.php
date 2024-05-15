@@ -13,6 +13,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DesignController extends Controller
 {
@@ -121,16 +123,26 @@ class DesignController extends Controller
 
         if (Auth::user()->is_admin or $design->user_id == Auth::id())
         {
-            $path = public_path('storage/'.$design->file_path);
-            if (file_exists($path)) {
-                unlink($path);
-            }
+            if (Storage::exists($design->file_path))
+                Storage::delete($design->file_path);
 
             $design->update([
                 'file_path' => null
             ]);
 
             return Redirect::back()->with('status', 'success');
+        }
+
+        return Redirect::back()->with('status', 'error');
+    }
+
+    public function download_file($design_id): StreamedResponse|RedirectResponse
+    {
+        $design = Design::findOrFail($design_id);
+
+        if (Auth::user()->is_admin or $design->user_id == Auth::id())
+        {
+            return Storage::download($design->file_path);
         }
 
         return Redirect::back()->with('status', 'error');

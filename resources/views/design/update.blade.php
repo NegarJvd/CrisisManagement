@@ -49,11 +49,17 @@
 
                                 @if($design->file_path)
                                     <div class="mt-1 w-full p-1.5 flex flex-row justify-start items-center">
+{{--                                        <div class="mr-3">--}}
+{{--                                            <a href="{{asset('storage/'.$design->file_path)}}" title="download" download=>--}}
+{{--                                                <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/file.png')}}" alt="download">--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
                                         <div class="mr-3">
-                                            <a href="{{asset('storage/'.$design->file_path)}}" title="download" download=>
+                                            <a href="{{route('design.download_file', $design->id)}}" title="download" download=>
                                                 <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/file.png')}}" alt="download">
                                             </a>
                                         </div>
+
                                         <div class="">
                                             <a href="{{route('design.delete_file', $design->id)}}" title="delete">
                                                 <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}" alt="delete">
