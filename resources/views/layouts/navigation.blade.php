@@ -57,6 +57,16 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        @if(Auth::user()->is_admin)
+                            <x-dropdown-link :href="route('wood-management.index')">
+                                {{ __('Wood Management') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('profile.edit')">
+                                {{ __('Machines Management') }}
+                            </x-dropdown-link>
+                        @endif
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
