@@ -62,7 +62,7 @@
                                 {{ __('Wood Management') }}
                             </x-dropdown-link>
 
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('machine-management.index')">
                                 {{ __('Machines Management') }}
                             </x-dropdown-link>
                         @endif

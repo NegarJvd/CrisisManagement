@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CNCSupplyController;
 use App\Http\Controllers\DesignController;
+use App\Http\Controllers\MachineManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimberSupplyController;
 use App\Http\Controllers\WoodManagementController;
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('is_admin')->group(function (){
         Route::apiResource('wood-management', WoodManagementController::class)->except('show');
+        Route::apiResource('machine-management', MachineManagementController::class)->except('show');
     });
 });
 
