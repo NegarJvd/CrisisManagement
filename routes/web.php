@@ -5,6 +5,7 @@ use App\Http\Controllers\DesignController;
 use App\Http\Controllers\MachineManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimberSupplyController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WoodManagementController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('is_admin')->group(function (){
         Route::apiResource('wood-management', WoodManagementController::class)->except('show');
         Route::apiResource('machine-management', MachineManagementController::class)->except('show');
+        Route::get('user-management', [UserController::class, 'users_list'])->name('user-management');
     });
 });
 

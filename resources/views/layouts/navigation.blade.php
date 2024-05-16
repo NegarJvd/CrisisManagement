@@ -58,6 +58,10 @@
                         </x-dropdown-link>
 
                         @if(Auth::user()->is_admin)
+                            <x-dropdown-link :href="route('user-management')">
+                                {{ __('User Management') }}
+                            </x-dropdown-link>
+
                             <x-dropdown-link :href="route('wood-management.index')">
                                 {{ __('Wood Management') }}
                             </x-dropdown-link>
