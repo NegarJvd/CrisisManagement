@@ -79,7 +79,9 @@
                             <th class="border border-slate-600 py-3">Id</th>
                             <th class="border border-slate-600 py-3">name</th>
                             <th class="border border-slate-600 py-3">type</th>
-                            <th class="border border-slate-600 py-3">Actions</th>
+                            @if(Auth::user()->is_admin)
+                                <th class="border border-slate-600 py-3">Actions</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -88,70 +90,72 @@
                                 <td class="border border-slate-600 py-3">{{$wood->id}}</td>
                                 <td class="border border-slate-600 py-3">{{$wood->name}}</td>
                                 <td class="border border-slate-600 py-3">{{$wood->type}}</td>
-                                <td class="py-3 flex flex-row items-center justify-center">
-                                    <div class="basis-1/2 flex items-center justify-center">
-                                        <x-button
-                                            x-data=""
-                                            x-on:click.prevent="$dispatch('open-modal', 'edit-wood-{{$wood->id}}')"
-                                        >
-                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}"
-                                                 alt="edit">
-                                        </x-button>
+                                @if(Auth::user()->is_admin)
+                                    <td class="py-3 flex flex-row items-center justify-center">
+                                        <div class="basis-1/2 flex items-center justify-center">
+                                            <x-button
+                                                x-data=""
+                                                x-on:click.prevent="$dispatch('open-modal', 'edit-wood-{{$wood->id}}')"
+                                            >
+                                                <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}"
+                                                     alt="edit">
+                                            </x-button>
 
-                                        <x-modal name="edit-wood-{{$wood->id}}" focusable>
-                                            <form method="post" action="{{ route('wood-management.update', $wood->id) }}" class="p-6">
+                                            <x-modal name="edit-wood-{{$wood->id}}" focusable>
+                                                <form method="post" action="{{ route('wood-management.update', $wood->id) }}" class="p-6">
+                                                    @csrf
+                                                    @method('put')
+
+                                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                                        {{ __('Update wood '.$wood->name) }}
+                                                    </h2>
+
+                                                    <div class="mt-6 flex flex-row">
+                                                        <div class="basis-1/3 mr-2">
+                                                            <x-input-label for="name" :value="__('Name')"/>
+                                                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                                                                          :value="$wood->name" required autofocus autocomplete="name"/>
+                                                            <x-input-error class="mt-2" :messages="$errors->get('name')"/>
+                                                        </div>
+
+                                                        <div class="basis-1/3 mr-2">
+                                                            <x-input-label for="type" :value="__('Type')"/>
+                                                            <x-select id="type" name="type" class="mt-1 block w-full" required autofocus autocomplete="type">
+                                                                @foreach(WoodTypeEnum::cases() as $type)
+                                                                    <option value="{{$type->value}}" @if($wood->type->value == $type->value) selected @endif>
+                                                                        {{$type->value}}
+                                                                    </option>
+                                                                @endforeach
+                                                            </x-select>
+                                                            <x-input-error class="mt-2" :messages="$errors->get('type')"/>
+                                                        </div>
+
+                                                        <div class="basis-1/3 flex items-end mb-1">
+                                                            <x-primary-button>
+                                                                {{ __('Update') }}
+                                                            </x-primary-button>
+                                                            <x-secondary-button x-on:click="$dispatch('close')" class="ms-3">
+                                                                {{ __('Cancel') }}
+                                                            </x-secondary-button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </x-modal>
+
+                                        </div>
+                                        <div class="basis-1/2 flex items-center justify-center">
+                                            <form method="post" action="{{ route('wood-management.destroy', $wood->id) }}"
+                                                  title="delete">
                                                 @csrf
-                                                @method('put')
-
-                                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                                    {{ __('Update wood '.$wood->name) }}
-                                                </h2>
-
-                                                <div class="mt-6 flex flex-row">
-                                                    <div class="basis-1/3 mr-2">
-                                                        <x-input-label for="name" :value="__('Name')"/>
-                                                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                                                                      :value="$wood->name" required autofocus autocomplete="name"/>
-                                                        <x-input-error class="mt-2" :messages="$errors->get('name')"/>
-                                                    </div>
-
-                                                    <div class="basis-1/3 mr-2">
-                                                        <x-input-label for="type" :value="__('Type')"/>
-                                                        <x-select id="type" name="type" class="mt-1 block w-full" required autofocus autocomplete="type">
-                                                            @foreach(WoodTypeEnum::cases() as $type)
-                                                                <option value="{{$type->value}}" @if($wood->type->value == $type->value) selected @endif>
-                                                                    {{$type->value}}
-                                                                </option>
-                                                            @endforeach
-                                                        </x-select>
-                                                        <x-input-error class="mt-2" :messages="$errors->get('type')"/>
-                                                    </div>
-
-                                                    <div class="basis-1/3 flex items-end mb-1">
-                                                        <x-primary-button>
-                                                            {{ __('Update') }}
-                                                        </x-primary-button>
-                                                        <x-secondary-button x-on:click="$dispatch('close')" class="ms-3">
-                                                            {{ __('Cancel') }}
-                                                        </x-secondary-button>
-                                                    </div>
-                                                </div>
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}"
+                                                         alt="delete">
+                                                </button>
                                             </form>
-                                        </x-modal>
-
-                                    </div>
-                                    <div class="basis-1/2 flex items-center justify-center">
-                                        <form method="post" action="{{ route('wood-management.destroy', $wood->id) }}"
-                                              title="delete">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit">
-                                                <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}"
-                                                     alt="delete">
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                                        </div>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
 

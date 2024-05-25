@@ -34,9 +34,12 @@ Route::middleware('auth')->group(function () {
     Route::get('crisis-stricken', [CrisisStrickenController::class, 'show'])->name('crisis-stricken');
     Route::post('crisis-stricken-suggest', [CrisisStrickenController::class, 'suggest'])->name('suggest');
 
+    Route::apiResource('wood-management', WoodManagementController::class)->only('index', 'store');
+    Route::apiResource('machine-management', MachineManagementController::class)->only('index', 'store');
+
     Route::middleware('is_admin')->group(function (){
-        Route::apiResource('wood-management', WoodManagementController::class)->except('show');
-        Route::apiResource('machine-management', MachineManagementController::class)->except('show');
+        Route::apiResource('wood-management', WoodManagementController::class)->only('update', 'destroy');
+        Route::apiResource('machine-management', MachineManagementController::class)->only('update', 'destroy');
         Route::get('user-management', [UserController::class, 'users_list'])->name('user-management');
     });
 });

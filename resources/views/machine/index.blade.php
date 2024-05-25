@@ -64,7 +64,9 @@
                         <tr class="border border-slate-600 bg-gray-100 py-3">
                             <th class="border border-slate-600 py-3">Id</th>
                             <th class="border border-slate-600 py-3">name</th>
-                            <th class="border border-slate-600 py-3">Actions</th>
+                            @if(Auth::user()->is_admin)
+                                <th class="border border-slate-600 py-3">Actions</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -72,58 +74,60 @@
                             <tr class="border border-slate-600 py-3">
                                 <td class="border border-slate-600 py-3">{{$machine->id}}</td>
                                 <td class="border border-slate-600 py-3">{{$machine->name}}</td>
-                                <td class="py-3 flex flex-row items-center justify-center">
-                                    <div class="basis-1/2 flex items-center justify-center">
-                                        <x-button
-                                            x-data=""
-                                            x-on:click.prevent="$dispatch('open-modal', 'edit-machine-{{$machine->id}}')"
-                                        >
-                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}"
-                                                 alt="edit">
-                                        </x-button>
+                                @if(Auth::user()->is_admin)
+                                    <td class="py-3 flex flex-row items-center justify-center">
+                                        <div class="basis-1/2 flex items-center justify-center">
+                                            <x-button
+                                                x-data=""
+                                                x-on:click.prevent="$dispatch('open-modal', 'edit-machine-{{$machine->id}}')"
+                                            >
+                                                <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}"
+                                                     alt="edit">
+                                            </x-button>
 
-                                        <x-modal name="edit-machine-{{$machine->id}}" focusable>
-                                            <form method="post" action="{{ route('machine-management.update', $machine->id) }}" class="p-6">
+                                            <x-modal name="edit-machine-{{$machine->id}}" focusable>
+                                                <form method="post" action="{{ route('machine-management.update', $machine->id) }}" class="p-6">
+                                                    @csrf
+                                                    @method('put')
+
+                                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                                        {{ __('Update machine '.$machine->name) }}
+                                                    </h2>
+
+                                                    <div class="mt-6 flex flex-row">
+                                                        <div class="basis-1/2 mr-2">
+                                                            <x-input-label for="name" :value="__('Name')"/>
+                                                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                                                                          :value="$machine->name" required autofocus autocomplete="name"/>
+                                                            <x-input-error class="mt-2" :messages="$errors->get('name')"/>
+                                                        </div>
+
+                                                        <div class="basis-1/2 flex items-end mb-1">
+                                                            <x-primary-button>
+                                                                {{ __('Update') }}
+                                                            </x-primary-button>
+                                                            <x-secondary-button x-on:click="$dispatch('close')" class="ms-3">
+                                                                {{ __('Cancel') }}
+                                                            </x-secondary-button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </x-modal>
+
+                                        </div>
+                                        <div class="basis-1/2 flex items-center justify-center">
+                                            <form method="post" action="{{ route('machine-management.destroy', $machine->id) }}"
+                                                  title="delete">
                                                 @csrf
-                                                @method('put')
-
-                                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                                    {{ __('Update machine '.$machine->name) }}
-                                                </h2>
-
-                                                <div class="mt-6 flex flex-row">
-                                                    <div class="basis-1/2 mr-2">
-                                                        <x-input-label for="name" :value="__('Name')"/>
-                                                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                                                                      :value="$machine->name" required autofocus autocomplete="name"/>
-                                                        <x-input-error class="mt-2" :messages="$errors->get('name')"/>
-                                                    </div>
-
-                                                    <div class="basis-1/2 flex items-end mb-1">
-                                                        <x-primary-button>
-                                                            {{ __('Update') }}
-                                                        </x-primary-button>
-                                                        <x-secondary-button x-on:click="$dispatch('close')" class="ms-3">
-                                                            {{ __('Cancel') }}
-                                                        </x-secondary-button>
-                                                    </div>
-                                                </div>
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}"
+                                                         alt="delete">
+                                                </button>
                                             </form>
-                                        </x-modal>
-
-                                    </div>
-                                    <div class="basis-1/2 flex items-center justify-center">
-                                        <form method="post" action="{{ route('machine-management.destroy', $machine->id) }}"
-                                              title="delete">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit">
-                                                <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}"
-                                                     alt="delete">
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                                        </div>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
 

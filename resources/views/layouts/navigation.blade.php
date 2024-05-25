@@ -67,15 +67,15 @@
                             <x-dropdown-link :href="route('user-management')">
                                 {{ __('User Management') }}
                             </x-dropdown-link>
-
-                            <x-dropdown-link :href="route('wood-management.index')">
-                                {{ __('Wood Management') }}
-                            </x-dropdown-link>
-
-                            <x-dropdown-link :href="route('machine-management.index')">
-                                {{ __('Machines Management') }}
-                            </x-dropdown-link>
                         @endif
+
+                        <x-dropdown-link :href="route('wood-management.index')">
+                            {{ __('Wood Management') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('machine-management.index')">
+                            {{ __('Machines Management') }}
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
