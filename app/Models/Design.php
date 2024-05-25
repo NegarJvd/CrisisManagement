@@ -48,4 +48,21 @@ class Design extends Model
     {
         return $this->belongsToMany(Machine::class, 'design_machine', 'design_id', 'machine_id');
     }
+    public function timbers()
+    {
+        $wood_list = $this->woods()->pluck('wood.id');
+
+        return TimberSupply::query()->whereHas('woods', function ($q) use($wood_list){
+                            $q->whereIn('id', $wood_list);
+                })->get();
+    }
+    public function cnc()
+    {
+        $machine_list = $this->machines()->pluck('machines.id');
+
+        return CNCSupply::query()->whereHas('machines', function ($q) use($machine_list){
+                            $q->whereIn('id', $machine_list);
+                })->get();
+    }
+
 }
