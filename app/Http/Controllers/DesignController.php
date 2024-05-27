@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -30,6 +31,44 @@ class DesignController extends Controller
 
         return view('design.index', [
             'designs' => $designs,
+        ]);
+    }
+    public function show($id, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $request->validate([
+            'latitude' => ['numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
+            'longitude' => ['numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
+        ]);
+
+        $design = Design::findOrFail($id);
+
+        $timber_in_range = [];
+        $cnc_in_range = [];
+
+        if ($request->has('latitude') and $request->has('longitude'))
+        {
+            $crisis_lat = $request->get('latitude');
+            $crisis_lon = $request->get('longitude');
+            $controller = new CrisisStrickenController();
+
+            foreach ($design->timbers() as $timber)
+            {
+                $is_in_range = $controller->is_in_range($timber->latitude, $timber->longitude, $crisis_lat, $crisis_lon, $timber->radius);
+                if ($is_in_range)
+                    $timber_in_range[] = $timber;
+            }
+            foreach ($design->cnc() as $c)
+            {
+                $is_in_range = $controller->is_in_range($c->latitude, $c->longitude, $crisis_lat, $crisis_lon, $c->radius);
+                if ($is_in_range)
+                    $cnc_in_range[] = $c;
+            }
+        }
+
+        return view('design.show', [
+            'design' => $design,
+            'timber_in_range' => $timber_in_range,
+            'cnc_in_range' => $cnc_in_range
         ]);
     }
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

@@ -106,7 +106,7 @@
                                     <td class="border border-slate-600 py-3">{{$design->earthquake_load}}</td>
                                     <td class="border border-slate-600 py-3">{{$design->number_of_households}}</td>
                                     <td class="py-3 flex flex-row items-center justify-center">
-                                        <a href="{{route('design.show', $design->id)}}">
+                                        <a href="{{route('design.show', ['design' => $design->id, 'latitude' => $latitude ?? null, 'longitude' => $longitude ?? null])}}">
                                             <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/show.png')}}" alt="show">
                                         </a>
                                     </td>

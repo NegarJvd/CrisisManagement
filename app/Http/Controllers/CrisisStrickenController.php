@@ -14,7 +14,7 @@ class CrisisStrickenController extends Controller
     {
         return view('crisis_stricken.index');
     }
-    private function haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000): float|int
+    public function haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000): float|int
     {
         // convert from degrees to radians
         $latFrom = deg2rad($latitudeFrom);
@@ -30,17 +30,13 @@ class CrisisStrickenController extends Controller
 
         return ($angle * $earthRadius) / 1000; //km
     }
-    private function is_in_range($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $radius): bool
+    public function is_in_range($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $radius): bool
     {
         $distance = $this->haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo);
         return $distance <= floatval($radius);
     }
     public function suggest(SuggestRequest $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-//        $crisis_lat = 19.820332;
-//        $crisis_lon = 19.820332;
-//        $number_of_households = 2;
-
         $crisis_lat = $request->get('latitude');
         $crisis_lon = $request->get('longitude');
         $number_of_households = $request->get('number_of_households');
