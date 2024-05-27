@@ -136,6 +136,20 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
+                @if(Auth::user()->is_admin)
+                    <x-responsive-nav-link :href="route('user-management')">
+                        {{ __('User Management') }}
+                    </x-responsive-nav-link>
+                @endif
+
+                <x-responsive-nav-link :href="route('wood-management.index')">
+                    {{ __('Wood Management') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('machine-management.index')">
+                    {{ __('Machines Management') }}
+                </x-responsive-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
