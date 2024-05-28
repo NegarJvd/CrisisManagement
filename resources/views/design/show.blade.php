@@ -5,18 +5,6 @@
         </h2>
     </x-slot>
 
-    {{--    <script type="module">--}}
-    {{--        $(document).ready(function() {--}}
-    {{--            $('#woods').select2({--}}
-    {{--                placeholder: 'Select options',--}}
-    {{--            });--}}
-    {{--        });--}}
-    {{--    </script>--}}
-
-
-{{--    <script type="module" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5uB1J4XxVSmlMPQI36TzUjAc63XsxXGA&libraries=places&callback=initialize"></script>--}}
-{{--    <script type="module" src="{{asset('/js/address.js')}}"></script>--}}
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -94,7 +82,7 @@
 
                                 @foreach($timber_in_range as $timber)
                                     <tr class="border border-slate-600 py-3">
-                                        <td class="border border-slate-600 py-3">
+                                        <td class="border border-slate-600 py-3 timber_name">
                                             {{$timber->user->name}}
                                         </td>
                                         <td class="border border-slate-600 py-3">
@@ -103,6 +91,10 @@
                                                     <span>[{{$wood->name}}]</span>
                                                 @endif
                                             @endforeach
+                                        </td>
+                                        <td hidden="hidden">
+                                            <input class="timber_lat" hidden="hidden" value="{{$timber->latitude ?? null}}" type="text">
+                                            <input class="timber_lon" hidden="hidden" value="{{$timber->longitude ?? null}}" type="text">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -132,7 +124,7 @@
 
                                 @foreach($cnc_in_range as $cnc)
                                     <tr class="border border-slate-600 py-3">
-                                        <td class="border border-slate-600 py-3">
+                                        <td class="border border-slate-600 py-3 cnc_name">
                                             {{$cnc->user->name}}
                                         </td>
                                         <td class="border border-slate-600 py-3">
@@ -142,6 +134,10 @@
                                                 @endif
                                             @endforeach
                                         </td>
+                                        <td hidden="hidden">
+                                            <input class="cnc_lat" hidden="hidden" value="{{$cnc->latitude ?? null}}" type="text">
+                                            <input class="cnc_lon" hidden="hidden" value="{{$cnc->longitude ?? null}}" type="text">
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -150,6 +146,12 @@
                         </div>
                     </div>
 
+                    <div class="mt-4">
+                        <input id="crisis_lat" hidden="hidden" value="{{$latitude ?? null}}" type="text">
+                        <input id="crisis_lon" hidden="hidden" value="{{$longitude ?? null}}" type="text">
+
+                        <div id="map" style="height: 400px"></div>
+                    </div>
                 </div>
             </div>
         </div>

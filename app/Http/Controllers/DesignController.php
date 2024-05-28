@@ -68,7 +68,9 @@ class DesignController extends Controller
         return view('design.show', [
             'design' => $design,
             'timber_in_range' => $timber_in_range,
-            'cnc_in_range' => $cnc_in_range
+            'cnc_in_range' => $cnc_in_range,
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude')
         ]);
     }
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
