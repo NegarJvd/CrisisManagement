@@ -21,12 +21,8 @@ class DesignController extends Controller
 {
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $designs = Design::query();
-
-        if(!Auth::user()->is_admin)
-            $designs = $designs->where('user_id', Auth::id());
-
-        $designs = $designs->orderByDesc('id')
+        $designs = Design::query()
+            ->orderByDesc('id')
             ->paginate();
 
         return view('design.index', [
@@ -85,7 +81,7 @@ class DesignController extends Controller
     }
     public function store(StoreDesignRequest $request): RedirectResponse
     {
-        $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households']);
+        $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households', 'fork_id']);
         $data['user_id'] = Auth::id();
         $file = $request->file('file');
         $path = $file->store('uploads', 'public');
@@ -187,5 +183,20 @@ class DesignController extends Controller
         }
 
         return Redirect::back()->with('status', 'error');
+    }
+
+    public function fork($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $design = Design::findOrFail($id);
+
+        $woods = Wood::all();
+        $machines = Machine::all();
+
+        return view('design.update', [
+            'woods' => $woods,
+            'machines' => $machines,
+            'design' => $design,
+            'fork' => 1
+        ]);
     }
 }

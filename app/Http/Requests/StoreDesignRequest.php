@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Design;
 use App\Models\Machine;
 use App\Models\Wood;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -27,6 +28,7 @@ class StoreDesignRequest extends FormRequest
             'woods.*' => [Rule::in(Wood::pluck('id'))],
             'machines' => ['required', 'array'],
             'machines.*' => [Rule::in(Machine::pluck('id'))],
+            'fork_id' => ['nullable', Rule::in(Design::pluck('id'))]
         ];
     }
 }

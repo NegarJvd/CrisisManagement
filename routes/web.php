@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('design', DesignController::class);
     Route::get('design/delete_file/{design_id}', [DesignController::class, 'delete_file'])->name('design.delete_file');
     Route::get('design/download_file/{design_id}', [DesignController::class, 'download_file'])->name('design.download_file');
+    Route::get('design/fork/{design_id}', [DesignController::class, 'fork'])->name('design.fork');
 
     Route::resource('timber-supply', TimberSupplyController::class)->except('show');
 

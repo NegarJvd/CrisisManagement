@@ -39,36 +39,50 @@
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 overflow-x-auto dark:text-gray-100">
-                    <form method="post" action="{{ route('design.update', $design->id) }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+                    <form method="post" action="{{ isset($fork) ? route('design.store') : route('design.update', $design->id) }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                         @csrf
+                        @isset($fork)
+                            <x-text-input id="fork_id" name="fork_id" type="hidden" class="mt-1 block w-full" :value="$design->id" required autofocus autocomplete="fork_id" />
+                        @else
                         @method('put')
+                        @endisset
 
                         <div class="flex flex-row">
                             <div class="basis-1/2 mr-2">
                                 <x-input-label for="file" :value="__('File of design')" />
 
-                                @if($design->file_path)
+                                @isset($fork)
                                     <div class="mt-1 w-full p-1.5 flex flex-row justify-start items-center">
-{{--                                        <div class="mr-3">--}}
-{{--                                            <a href="{{asset('storage/'.$design->file_path)}}" title="download" download=>--}}
-{{--                                                <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/file.png')}}" alt="download">--}}
-{{--                                            </a>--}}
-{{--                                        </div>--}}
-                                        <div class="mr-3">
+                                        <div class="mr-3 basis-1/6">
                                             <a href="{{route('design.download_file', $design->id)}}" title="download" download=>
                                                 <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/file.png')}}" alt="download">
                                             </a>
                                         </div>
 
-                                        <div class="">
-                                            <a href="{{route('design.delete_file', $design->id)}}" title="delete">
-                                                <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}" alt="delete">
-                                            </a>
+                                        <div class="basis-5/6">
+                                            <x-text-input id="file" name="file" type="file" class="mt-1 block w-full p-1.5" :value="old('file')" required autofocus />
                                         </div>
                                     </div>
+
                                 @else
-                                    <x-text-input id="file" name="file" type="file" class="mt-1 block w-full p-1.5" :value="old('file')" required autofocus />
-                                @endif
+                                    @if($design->file_path)
+                                        <div class="mt-1 w-full p-1.5 flex flex-row justify-start items-center">
+                                            <div class="mr-3">
+                                                <a href="{{route('design.download_file', $design->id)}}" title="download" download=>
+                                                    <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/file.png')}}" alt="download">
+                                                </a>
+                                            </div>
+
+                                            <div class="">
+                                                <a href="{{route('design.delete_file', $design->id)}}" title="delete">
+                                                    <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/delete.png')}}" alt="delete">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <x-text-input id="file" name="file" type="file" class="mt-1 block w-full p-1.5" :value="old('file')" required autofocus />
+                                    @endif
+                                @endisset
 
                                 <x-input-error class="mt-2" :messages="$errors->get('file')" />
                             </div>

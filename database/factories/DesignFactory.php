@@ -38,7 +38,7 @@ class DesignFactory extends Factory
 
         return $this->afterCreating(function (Design $design) {
             $woods = Wood::query()->get();
-            $design->woods()->attach($woods->random(3));
+            $design->woods()->attach($woods->random(1));
         });
     }
     public function withMachines(): DesignFactory
@@ -50,7 +50,7 @@ class DesignFactory extends Factory
 
         return $this->afterCreating(function (Design $design) {
             $machines = Machine::query()->get();
-            $design->machines()->attach($machines->random(3));
+            $design->machines()->attach($machines->random(1));
         });
     }
 }
