@@ -34,6 +34,10 @@
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 overflow-x-auto dark:text-gray-100">
+                    <div class="w-full mb-2">
+                        <div id="map" style="height: 400px"></div>
+                    </div>
+
                     <form method="post" action="{{ route('suggest') }}" class="flex flex-row">
                         @csrf
 
