@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 locations.forEach(location => {
                     L.marker([location.lat, location.lng]).addTo(map)
-                        .bindPopup(location.name)
-                        .openPopup();
+                        .bindTooltip(location.name)
+                        .openTooltip();
                 });
             }
         }
