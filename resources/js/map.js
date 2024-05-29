@@ -6,6 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let map_div = document.getElementById("map");
     if (map_div)
     {
+        const red_pin = L.icon({
+            iconUrl: '/icons/red_pin.png',
+            iconSize: [32, 32],
+        });
+        const blue_pin = L.icon({
+            iconUrl: '/icons/blue_pin.png',
+            iconSize: [32, 32],
+        });
+        const green_pin = L.icon({
+            iconUrl: '/icons/green_pin.png',
+            iconSize: [32, 32],
+        });
+
+
         let crisis_lat_element = document.getElementById('crisis_lat');
         let crisis_lon_element = document.getElementById('crisis_lon');
         let latitude_element = document.getElementById('latitude');
@@ -30,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (crisis_lat && crisis_lon)
             {
                 let locations = [
-                    { lat: crisis_lat, lng: crisis_lon, name: 'Your Location' },
+                    { lat: crisis_lat, lng: crisis_lon, name: 'Your Location',  icon:green_pin},
                 ];
 
                 //timbers
@@ -41,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 for (let i=0; i<timbers_name_elements.length; i++)
                 {
                     locations.push(
-                        {lat: timbers_lat_elements[i].value, lng: timbers_lon_elements[i].value, name: 'Timber: ' + timbers_name_elements[i].textContent}
+                        {lat: timbers_lat_elements[i].value, lng: timbers_lon_elements[i].value, name: 'Timber: ' + timbers_name_elements[i].textContent, icon: blue_pin}
                     );
                 }
 
@@ -53,12 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 for (let i=0; i<cnc_name_elements.length; i++)
                 {
                     locations.push(
-                        {lat: cnc_lat_elements[i].value, lng: cnc_lon_elements[i].value, name: 'CNC: ' + cnc_name_elements[i].textContent}
+                        {lat: cnc_lat_elements[i].value, lng: cnc_lon_elements[i].value, name: 'CNC: ' + cnc_name_elements[i].textContent, icon: red_pin}
                     );
                 }
 
                 locations.forEach(location => {
-                    L.marker([location.lat, location.lng]).addTo(map)
+                    L.marker([location.lat, location.lng], {icon: location.icon}).addTo(map)
                         .bindTooltip(location.name)
                         .openTooltip();
                 });
@@ -81,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).addTo(map);
 
             // add a marker at center
-            const marker = L.marker([center_lat, center_lon]).addTo(map);
+            const marker = L.marker([center_lat, center_lon], {icon: blue_pin}).addTo(map);
             const circle = L.circle([center_lat, center_lon], {radius: radius}).addTo(map);
 
             // Add the new marker to the array
@@ -97,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 circles.forEach(circle => map.removeLayer(circle));
 
                 // add a marker at the clicked location
-                const marker = L.marker([lat, lng]).addTo(map);
+                const marker = L.marker([lat, lng], {icon: blue_pin}).addTo(map);
                 const circle = L.circle([lat, lng], {radius: radius}).addTo(map);
 
                 //change input values
@@ -134,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).addTo(map);
 
             // add a marker at center
-            const marker = L.marker([center_lat, center_lon]).addTo(map);
+            const marker = L.marker([center_lat, center_lon], {icon: blue_pin}).addTo(map);
 
             // Add the new marker to the array
             markers.push(marker);
@@ -146,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 markers.forEach(marker => map.removeLayer(marker));
 
                 // add a marker at the clicked location
-                const marker = L.marker([lat, lng]).addTo(map);
+                const marker = L.marker([lat, lng], {icon: blue_pin}).addTo(map);
 
                 //change input values
                 latitude_element.setAttribute('value', lat);
