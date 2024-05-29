@@ -57,9 +57,7 @@
                                 <tr class="border border-slate-600 py-3">
                                     <td class="border border-slate-600 py-3">{{$cnc->id}}</td>
                                     <td class="border border-slate-600 py-3">
-                                        @foreach($cnc->machines as $machine)
-                                            <span>[{{$machine->name}}]</span>
-                                        @endforeach
+                                        {{implode(' , ', $cnc->machines()->pluck('name')->toArray())}}
                                     </td>
                                     <td class="border border-slate-600 py-3">{{$cnc->latitude}}</td>
                                     <td class="border border-slate-600 py-3">{{$cnc->longitude}}</td>

@@ -58,14 +58,10 @@
                             <tr class="border border-slate-600 py-3">
                                 <td class="border border-slate-600 py-3">{{$design->id}}</td>
                                 <td class="border border-slate-600 py-3">
-                                    @foreach($design->woods as $wood)
-                                        <span>[{{$wood->name}}]</span>
-                                    @endforeach
+                                    {{implode(' , ', $design->woods()->pluck('name')->toArray())}}
                                 </td>
                                 <td class="border border-slate-600 py-3">
-                                    @foreach($design->machines as $machine)
-                                        <span>[{{$machine->name}}]</span>
-                                    @endforeach
+                                    {{implode(' , ', $design->machines()->pluck('name')->toArray())}}
                                 </td>
                                 <td class="border border-slate-600 py-3">{{$design->snow_load}}</td>
                                 <td class="border border-slate-600 py-3">{{$design->wind_load}}</td>

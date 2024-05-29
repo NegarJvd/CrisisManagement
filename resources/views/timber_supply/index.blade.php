@@ -57,9 +57,7 @@
                                 <tr class="border border-slate-600 py-3">
                                     <td class="border border-slate-600 py-3">{{$timber->id}}</td>
                                     <td class="border border-slate-600 py-3">
-                                        @foreach($timber->woods as $wood)
-                                            <span>[{{$wood->name}}]</span>
-                                        @endforeach
+                                        {{implode(' , ', $timber->woods()->pluck('name')->toArray())}}
                                     </td>
                                     <td class="border border-slate-600 py-3">{{$timber->latitude}}</td>
                                     <td class="border border-slate-600 py-3">{{$timber->longitude}}</td>
