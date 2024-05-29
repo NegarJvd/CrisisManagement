@@ -5,14 +5,6 @@
         </h2>
     </x-slot>
 
-{{--    <script type="module">--}}
-{{--        $(document).ready(function() {--}}
-{{--            $('#woods').select2({--}}
-{{--                placeholder: 'Select options',--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -20,8 +12,8 @@
                     <form method="post" action="{{ route('cnc-supply.store') }}" class="mt-6 space-y-6">
                         @csrf
 
-                        <div class="flex flex-row">
-                            <img class="rounded-lg" src="{{asset('map.png')}}" alt="map">
+                        <div class="w-full">
+                            <div id="map" style="height: 400px"></div>
                         </div>
 
                         <div class="flex flex-row">
