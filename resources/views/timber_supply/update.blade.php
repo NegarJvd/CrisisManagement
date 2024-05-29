@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="basis-1/3 ml-2">
-                                <x-input-label for="radius" :value="__('Radius')" />
+                                <x-input-label for="radius" :value="__('Radius (km)')" />
                                 <x-text-input id="radius" name="radius" type="text" class="mt-1 block w-full" :value="old('radius', $timber->radius)" required autofocus autocomplete="radius" />
                                 <x-input-error class="mt-2" :messages="$errors->get('radius')" />
                             </div>

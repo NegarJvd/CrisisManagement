@@ -15,8 +15,8 @@ class SuggestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'latitude' => ['required', 'numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
-            'longitude' => ['required', 'numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
             'number_of_households' => ['required', 'numeric', 'min:1', 'max:100'],
         ];
     }

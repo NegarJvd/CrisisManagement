@@ -20,8 +20,8 @@ class StoreCNCSupplyRequest extends FormRequest
             'machines' => ['required', 'array'],
             'machines.*' => [Rule::in(Machine::pluck('id'))],
             'radius' => ['required', 'numeric'],
-            'latitude' => ['required', 'numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
-            'longitude' => ['required', 'numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
         ];
     }
 }

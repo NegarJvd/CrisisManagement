@@ -66,11 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
             //timber and CNC page
             let latitude_element = document.getElementById('latitude');
             let longitude_element = document.getElementById('longitude');
+            let radius_element = document.getElementById('radius');
 
             let center_lat = latitude_element.value ?? 51.505;
             let center_lon = longitude_element.value ?? -0.09;
+            let radius = radius_element.value * 1000 > 0 ? radius_element.value * 1000 > 0: 1000000; //1000 km
 
             let markers = [];
+            let circles = [];
 
             const map = L.map('map').setView([center_lat, center_lon], 5);
 
@@ -80,26 +83,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // add a marker at center
             const marker = L.marker([center_lat, center_lon]).addTo(map);
+            const circle = L.circle([center_lat, center_lon], {radius: radius}).addTo(map);
 
             // Add the new marker to the array
             markers.push(marker);
+            circles.push(circle);
 
             map.on('click', function(e) {
                 const { lat, lng } = e.latlng;
+                radius = radius_element.value * 1000;
 
                 // Remove existing markers
                 markers.forEach(marker => map.removeLayer(marker));
+                circles.forEach(circle => map.removeLayer(circle));
 
                 // add a marker at the clicked location
                 const marker = L.marker([lat, lng]).addTo(map);
+                const circle = L.circle([lat, lng], {radius: radius}).addTo(map);
 
                 //change input values
                 latitude_element.setAttribute('value', lat);
                 longitude_element.setAttribute('value', lng);
+                center_lat = lat;
+                center_lon = lng;
 
                 // Add the new marker to the array
                 markers.push(marker);
+                circles.push(circle);
             });
+
+            radius_element.onchange = function (){
+                circles.forEach(circle => map.removeLayer(circle));
+
+                radius = radius_element.value * 1000;
+                const circle = L.circle([center_lat, center_lon], {radius: radius}).addTo(map);
+                circles.push(circle);
+            };
         }
     }
 });

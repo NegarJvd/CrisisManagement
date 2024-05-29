@@ -32,8 +32,8 @@ class DesignController extends Controller
     public function show($id, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $request->validate([
-            'latitude' => ['numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
-            'longitude' => ['numeric','regex:/^(-)?[0-9]{1,4}+(\.[0-9]{1,15})?$/'],
+            'latitude' => ['numeric'],
+            'longitude' => ['numeric'],
         ]);
 
         $design = Design::findOrFail($id);
