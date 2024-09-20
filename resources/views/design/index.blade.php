@@ -6,13 +6,28 @@
                 {{ __('Designs') }}
             </h2>
 
-            <div class="flex flex-row justify-center text-center">
+            <div id="create_new_design" class="hidden flex flex-row justify-center text-center">
                 <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('design.create')}}">Create
                     new</a>
             </div>
         </div>
     </x-slot>
 
+    <script type="module">
+        $(document).ready(function() {
+            $('.design_type').on('click', function (){
+                alert("Coming soon ...")
+            })
+
+            $('#timber_frame').on('click', function (){
+                $('#create_new_design').removeClass('hidden')
+                $('#design_list').removeClass('hidden')
+                $('#design_list_paginate').removeClass('hidden')
+
+                $('#design_types_select').addClass('hidden')
+            })
+        })
+    </script>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
@@ -40,7 +55,40 @@
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 overflow-x-auto dark:text-gray-100">
-                    <table class="table-auto w-full border-collapse border border-slate-500 text-center">
+                    <div id="design_types_select" class="flex flex-row justify-center mb-6">
+                        <div class="basis-1/6 group block max-w-xs mx-auto rounded-lg p-2 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100 design_type">
+                            <div class="items-center text-center">
+                                <h2 class="mt-2 dark:text-gray-100">{{ __('Solid Log Construction') }}</h2>
+                            </div>
+                        </div>
+
+                        <div class="basis-1/6 group block max-w-xs mx-auto rounded-lg p-2 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100 design_type">
+                            <div class="items-center text-center">
+                                <h2 class="mt-2 dark:text-gray-100">{{ __('Frame Construction') }}</h2>
+                            </div>
+                        </div>
+
+                        <div id="timber_frame" class="basis-1/6 group block max-w-xs mx-auto rounded-lg p-2 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100">
+                            <div class="items-center text-center">
+                                <h2 class="mt-2 dark:text-gray-100">{{ __('Timber Frame') }}</h2>
+                            </div>
+                        </div>
+
+                        <div class="basis-2/6 group block max-w-xs mx-auto rounded-lg p-2 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100 design_type">
+                            <div class="items-center text-center">
+                                <h2 class="mt-2 dark:text-gray-100">{{ __('Light Bearing Construction') }}</h2>
+                            </div>
+                        </div>
+
+                        <div class="basis-1/6 group block max-w-xs mx-auto rounded-lg p-2 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100 design_type">
+                            <div class="items-center text-center">
+                                <h2 class="mt-2 dark:text-gray-100">{{ __('Panel Construction') }}</h2>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <table id="design_list" class="hidden table-auto w-full border-collapse border border-slate-500 text-center">
                         <thead>
                         <tr class="border border-slate-600 bg-gray-100 py-3">
                             <th class="border border-slate-600 py-3">Id</th>
@@ -101,11 +149,12 @@
                         </tbody>
                     </table>
 
-                    <div class="mt-3">
+                    <div id="design_list_paginate" class="hidden mt-3">
                         {{$designs->links()}}
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </x-app-layout>
