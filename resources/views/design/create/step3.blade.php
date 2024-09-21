@@ -1,0 +1,63 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Create Design') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 overflow-x-auto dark:text-gray-100">
+
+                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 60%"> 60%</div>
+                    </div>
+
+                    <form method="post" action="{{ route('design.store.step3') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+                        @csrf
+
+                        <h2>
+                            Enter loading actions:
+                        </h2>
+
+                        <div class="flex flex-row">
+                            <div class="basis-1/3 mr-2">
+                                <x-input-label for="snow_load" :value="__('Snow Load')" />
+                                <x-text-input id="snow_load" name="snow_load" type="number" class="mt-1 block w-full" :value="$design->snow_load" required autofocus autocomplete="snow_load" />
+                                <x-input-error class="mt-2" :messages="$errors->get('snow_load')" />
+                            </div>
+
+                            <div class="basis-1/3 mr-2 ml-2">
+                                <x-input-label for="wind_load" :value="__('Wind load')" />
+                                <x-text-input id="wind_load" name="wind_load" type="number" class="mt-1 block w-full" :value="$design->wind_load" required autofocus autocomplete="wind_load" />
+                                <x-input-error class="mt-2" :messages="$errors->get('wind_load')" />
+                            </div>
+
+                            <div class="basis-1/3 mr-2 ml-2">
+                                <x-input-label for="dead_load" :value="__('Dead load')" />
+                                <x-text-input id="dead_load" name="dead_load" type="number" class="mt-1 block w-full" :value="$design->dead_load" required autofocus autocomplete="dead_load" />
+                                <x-input-error class="mt-2" :messages="$errors->get('dead_load')" />
+                            </div>
+
+                            <div class="basis-1/3 ml-2">
+                                <x-input-label for="live_load" :value="__('Live load')" />
+                                <x-text-input id="live_load" name="live_load" type="number" class="mt-1 block w-full" :value="$design->live_load" required autofocus autocomplete="live_load" />
+                                <x-input-error class="mt-2" :messages="$errors->get('live_load')" />
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <a href="{{route('design.create.step2')}}">
+                                <x-secondary-button>{{__('Previous')}}</x-secondary-button>
+                            </a>
+
+                            <x-primary-button>{{ __('Save and next') }}</x-primary-button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

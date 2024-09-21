@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DesignController extends Controller
@@ -69,6 +70,161 @@ class DesignController extends Controller
             'longitude' => $request->get('longitude')
         ]);
     }
+
+    public function create_step_1(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        return view('design.create.step1', compact('design', 'woods'));
+    }
+
+    public function store_step_1(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'woods' => ['required', 'array'],
+            'woods.*' => [Rule::in(Wood::pluck('id'))],
+        ]);
+
+        if(empty($request->session()->get('woods'))){
+            $design = new Design();
+        }else{
+            $design = $request->session()->get('design');
+        }
+
+        $request->session()->put('design', $design);
+        $request->session()->put('woods', $request->get('woods'));
+
+        return Redirect::to('/design/create/step2')->with('status', 'success');
+    }
+
+    public function create_step_2(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        return view('design.create.step2', compact('design', 'woods'));
+    }
+
+    public function store_step_2(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'width' => ['required', 'numeric', 'min:0'],
+            'length' => ['required', 'numeric', 'min:0'],
+            'height' => ['required', 'numeric', 'min:0'],
+            'column_number' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        $input = $request->only(['width', 'length', 'height', 'column_number']);
+        $design->fill($input);
+
+        $request->session()->put('design', $design);
+        $request->session()->put('woods', $woods);
+
+        return Redirect::to('/design/create/step3')->with('status', 'success');
+    }
+
+    public function create_step_3(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        return view('design.create.step3',
+            compact('design', 'woods'));
+    }
+
+    public function store_step_3(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'snow_load' => ['required', 'numeric', 'min:0'],
+            'wind_load' => ['required', 'numeric', 'min:0'],
+            'dead_load' => ['required', 'numeric', 'min:0'],
+            'live_load' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        $input = $request->only(['snow_load', 'wind_load', 'dead_load', 'live_load']);
+        $design->fill($input);
+
+        $request->session()->put('design', $design);
+        $request->session()->put('woods', $woods);
+
+        return Redirect::to('/design/create/step4')->with('status', 'success');
+    }
+
+    public function create_step_4(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        return view('design.create.step4',
+            compact('design', 'woods'));
+    }
+
+    public function store_step_4(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'beam_w' => ['required', 'numeric', 'min:0'],
+            'beam_h' => ['required', 'numeric', 'min:0'],
+            'column_w' => ['required', 'numeric', 'min:0'],
+            'column_h' => ['required', 'numeric', 'min:0'],
+            'top_plate_w' => ['required', 'numeric', 'min:0'],
+            'top_plate_h' => ['required', 'numeric', 'min:0'],
+            'long_sill_w' => ['required', 'numeric', 'min:0'],
+            'long_sill_h' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        $input = $request->only(['beam_w', 'beam_h', 'column_w', 'column_h', 'top_plate_w', 'top_plate_h', 'long_sill_w', 'long_sill_h']);
+        $design->fill($input);
+
+        $request->session()->put('design', $design);
+        $request->session()->put('woods', $woods);
+
+        return Redirect::to('/design/create/step5')->with('status', 'success');
+    }
+
+    public function create_step_5(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        return view('design.create.step5',
+            compact('design', 'woods'));
+    }
+
+    public function store_step_5(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'joint_1' => ['required'],
+            'joint_2' => ['required'],
+            'joint_3' => ['required'],
+            'joint_4' => ['required'],
+        ]);
+
+        $design = $request->session()->get('design');
+        $woods = $request->session()->get('woods');
+
+        $input = $request->only(['joint_1', 'joint_2', 'joint_3', 'joint_4']);
+        $design->fill($input);
+        $design->user_id = Auth::id();
+        $design->save();
+
+        $design->woods()->attach($woods);
+
+        $request->session()->forget('design');
+        $request->session()->forget('woods');
+
+        return Redirect::to('/design')->with('status', 'success');
+    }
+
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $woods = Wood::all();

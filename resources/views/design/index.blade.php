@@ -7,7 +7,7 @@
             </h2>
 
             <div id="create_new_design" class="hidden flex flex-row justify-center text-center">
-                <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('design.create')}}">Create
+                <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('design.create.step1')}}">Create
                     new</a>
             </div>
         </div>
