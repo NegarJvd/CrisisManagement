@@ -46,7 +46,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('joint_3')" />
                             </div>
 
-                            <div class="basis-1/3 mr-2">
+                            <div class="basis-1/3 ml-2">
                                 <x-input-label for="joint_4" :value="__('Joint 4')" />
                                 <x-select id="joint_4" name="joint_4" class="mt-1 block w-full" required autofocus autocomplete="joint_4">
                                     <option value="PMT" @if($design->joint_4 == 'PMT') selected @endif>PMT</option>

@@ -93,11 +93,11 @@
                         <tr class="border border-slate-600 bg-gray-100 py-3">
                             <th class="border border-slate-600 py-3">Id</th>
                             <th class="border border-slate-600 py-3">Woods</th>
-                            <th class="border border-slate-600 py-3">Machines</th>
+{{--                            <th class="border border-slate-600 py-3">Machines</th>--}}
                             <th class="border border-slate-600 py-3">Snow load</th>
                             <th class="border border-slate-600 py-3">Wind load</th>
-                            <th class="border border-slate-600 py-3">Earthquake load</th>
-                            <th class="border border-slate-600 py-3">Number of households</th>
+{{--                            <th class="border border-slate-600 py-3">Earthquake load</th>--}}
+{{--                            <th class="border border-slate-600 py-3">Number of households</th>--}}
                             <th class="border border-slate-600 py-3">Actions</th>
                         </tr>
                         </thead>
@@ -108,13 +108,13 @@
                                 <td class="border border-slate-600 py-3">
                                     {{implode(' , ', $design->woods()->pluck('name')->toArray())}}
                                 </td>
-                                <td class="border border-slate-600 py-3">
-                                    {{implode(' , ', $design->machines()->pluck('name')->toArray())}}
-                                </td>
+{{--                                <td class="border border-slate-600 py-3">--}}
+{{--                                    {{implode(' , ', $design->machines()->pluck('name')->toArray())}}--}}
+{{--                                </td>--}}
                                 <td class="border border-slate-600 py-3">{{$design->snow_load}}</td>
                                 <td class="border border-slate-600 py-3">{{$design->wind_load}}</td>
-                                <td class="border border-slate-600 py-3">{{$design->earthquake_load}}</td>
-                                <td class="border border-slate-600 py-3">{{$design->number_of_households}}</td>
+{{--                                <td class="border border-slate-600 py-3">{{$design->earthquake_load}}</td>--}}
+{{--                                <td class="border border-slate-600 py-3">{{$design->number_of_households}}</td>--}}
                                 <td class="py-3 flex flex-row items-center justify-center">
                                     <div class="basis-1/2 flex items-center justify-center">
                                         <a href="{{route('design.fork', $design->id)}}" title="fork">
