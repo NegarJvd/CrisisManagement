@@ -24,34 +24,42 @@
                         <div class="flex flex-row">
                             <div class="basis-1/3 mr-2">
                                 <x-input-label for="joint_1" :value="__('Joint 1')" />
-                                <x-select id="joint_1" name="joint_1" class="mt-1 block w-full" required autofocus autocomplete="joint_1">
-                                    <option value="PMT" @if($design->joint_1 == 'PMT') selected @endif>PMT</option>
+                                <x-select id="joint_1" name="joint1" class="mt-1 block w-full" required autofocus autocomplete="joint1">
+                                    @foreach(\App\Enums\JointTypeEnum::values() as $joint_type)
+                                        <option value="{{$joint_type}}" @if($design->joint1 == $joint_type) selected @endif>{{$joint_type}}</option>
+                                    @endforeach
                                 </x-select>
-                                <x-input-error class="mt-2" :messages="$errors->get('joint_1')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint1')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="joint_2" :value="__('Joint 2')" />
-                                <x-select id="joint_2" name="joint_2" class="mt-1 block w-full" required autofocus autocomplete="joint_2">
-                                    <option value="PMT" @if($design->joint_2 == 'PMT') selected @endif>PMT</option>
+                                <x-select id="joint_2" name="joint2" class="mt-1 block w-full" required autofocus autocomplete="joint2">
+                                    @foreach(\App\Enums\JointTypeEnum::values() as $joint_type)
+                                        <option value="{{$joint_type}}" @if($design->joint2 == $joint_type) selected @endif>{{$joint_type}}</option>
+                                    @endforeach
                                 </x-select>
-                                <x-input-error class="mt-2" :messages="$errors->get('joint_2')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint2')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="joint_3" :value="__('Joint 3')" />
-                                <x-select id="joint_3" name="joint_3" class="mt-1 block w-full" required autofocus autocomplete="joint_3">
-                                    <option value="PMT" @if($design->joint_3 == 'PMT') selected @endif>PMT</option>
+                                <x-select id="joint_3" name="joint3" class="mt-1 block w-full" required autofocus autocomplete="joint3">
+                                    @foreach(\App\Enums\JointTypeEnum::values() as $joint_type)
+                                        <option value="{{$joint_type}}" @if($design->joint3 == $joint_type) selected @endif>{{$joint_type}}</option>
+                                    @endforeach
                                 </x-select>
-                                <x-input-error class="mt-2" :messages="$errors->get('joint_3')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint3')" />
                             </div>
 
                             <div class="basis-1/3 ml-2">
                                 <x-input-label for="joint_4" :value="__('Joint 4')" />
-                                <x-select id="joint_4" name="joint_4" class="mt-1 block w-full" required autofocus autocomplete="joint_4">
-                                    <option value="PMT" @if($design->joint_4 == 'PMT') selected @endif>PMT</option>
+                                <x-select id="joint_4" name="joint4" class="mt-1 block w-full" required autofocus autocomplete="joint4">
+                                    @foreach(\App\Enums\JointTypeEnum::values() as $joint_type)
+                                        <option value="{{$joint_type}}" @if($design->joint4 == $joint_type) selected @endif>{{$joint_type}}</option>
+                                    @endforeach
                                 </x-select>
-                                <x-input-error class="mt-2" :messages="$errors->get('joint_4')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint4')" />
                             </div>
                         </div>
 

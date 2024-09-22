@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\JointTypeEnum;
 use App\Http\Requests\StoreDesignRequest;
 use App\Http\Requests\UpdateDesignRequest;
 use App\Models\Design;
@@ -203,16 +204,16 @@ class DesignController extends Controller
     public function store_step_5(Request $request): RedirectResponse
     {
         $request->validate([
-            'joint_1' => ['required'],
-            'joint_2' => ['required'],
-            'joint_3' => ['required'],
-            'joint_4' => ['required'],
+            'joint1' => ['required', Rule::in(JointTypeEnum::values())],
+            'joint2' => ['required', Rule::in(JointTypeEnum::values())],
+            'joint3' => ['required', Rule::in(JointTypeEnum::values())],
+            'joint4' => ['required', Rule::in(JointTypeEnum::values())],
         ]);
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
 
-        $input = $request->only(['joint_1', 'joint_2', 'joint_3', 'joint_4']);
+        $input = $request->only(['joint1', 'joint2', 'joint3', 'joint4']);
         $design->fill($input);
         $design->user_id = Auth::id();
         $design->save();
