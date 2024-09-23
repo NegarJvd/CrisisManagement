@@ -83,8 +83,7 @@ class DesignController extends Controller
     public function store_step_1(Request $request): RedirectResponse
     {
         $request->validate([
-            'woods' => ['required', 'array'],
-            'woods.*' => [Rule::in(Wood::pluck('id'))],
+            'woods' => ['required', Rule::in(Wood::pluck('id'))],
         ]);
 
         if(empty($request->session()->get('woods'))){

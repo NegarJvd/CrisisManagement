@@ -20,9 +20,9 @@
                         <div class="flex flex-row">
                             <div class="basis-1/2 mr-2">
                                 <x-input-label for="woods" :value="__('Select woods')" />
-                                <x-select multiple id="woods" name="woods[]" class="mt-1 block w-full" required autofocus autocomplete="woods">
+                                <x-select id="woods" name="woods" class="mt-1 block w-full" required autofocus autocomplete="woods">
                                     @foreach(App\Models\Wood::all() as $wood)
-                                        <option value="{{$wood->id}}" @if($woods and in_array($wood->id, $woods)) selected @endif>{{$wood->name}} ({{$wood->type}})</option>
+                                        <option value="{{$wood->id}}" @if($woods and $wood->id == $woods) selected @endif>{{$wood->name}} ({{$wood->type}})</option>
                                     @endforeach
                                 </x-select>
                                 <x-input-error class="mt-2" :messages="$errors->get('woods')" />
