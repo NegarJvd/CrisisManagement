@@ -100,7 +100,11 @@
 
                             <x-primary-button>{{ __('Save and next') }}</x-primary-button>
 
-                            <x-secondary-button id="optimizer">{{__('Optimizer')}}</x-secondary-button>
+                            <x-select id="optimizer" class="mt-1 block" required autofocus autocomplete="optimizer">
+                                <option>optimize method 1</option>
+                                <option>optimize method 2</option>
+                                <option>optimize method 3</option>
+                            </x-select>
                         </div>
                     </form>
 

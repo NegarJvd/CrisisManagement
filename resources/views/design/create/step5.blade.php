@@ -5,6 +5,21 @@
         </h2>
     </x-slot>
 
+    <script type="module">
+        $(document).ready(function() {
+            $('#joint_detail_select').on('click', function (){
+                $('#optimizer_result').removeClass('hidden')
+
+                $('#joint_d').val(24.416);
+                $('#joint_lim_e').val(56.85);
+                $('#joint_lim_g').val(42.64);
+                $('#joint_lim_s').val(71.07);
+                $('#joint_lim_v').val(42.64)
+
+            })
+        })
+    </script>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -63,15 +78,59 @@
                             </div>
                         </div>
 
+                        <div class="flex flex-row">
+                            <div class="basis-1/3 mr-2">
+                                <x-input-label for="joint_d" :value="__('D (mm)')" />
+                                <x-text-input id="joint_d" name="joint_d" type="text" class="mt-1 block w-full" :value="$design->joint_d" required autofocus autocomplete="joint_d" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint_d')" />
+                            </div>
+
+                            <div class="basis-1/3 mr-2 ml-2">
+                                <x-input-label for="joint_lim_e" :value="__('lim_e (mm)')" />
+                                <x-text-input id="joint_lim_e" name="joint_lim_e" type="text" class="mt-1 block w-full" :value="$design->joint_lim_e" required autofocus autocomplete="joint_lim_e" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint_lim_e')" />
+                            </div>
+
+                            <div class="basis-1/3 mr-2 ml-2">
+                                <x-input-label for="joint_lim_s" :value="__('lim_s (mm)')" />
+                                <x-text-input id="joint_lim_s" name="joint_lim_s" type="text" class="mt-1 block w-full" :value="$design->joint_lim_s" required autofocus autocomplete="joint_lim_s" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint_lim_s')" />
+                            </div>
+
+                            <div class="basis-1/3 ml-2">
+                                <x-input-label for="joint_lim_v" :value="__('lim_v (mm)')" />
+                                <x-text-input id="joint_lim_v" name="joint_lim_v" type="text" class="mt-1 block w-full" :value="$design->joint_lim_v" required autofocus autocomplete="joint_lim_v" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint_lim_v')" />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-row">
+                            <div class="basis-1/3 mr-2">
+                                <x-input-label for="joint_lim_g" :value="__('lim_g (mm)')" />
+                                <x-text-input id="joint_lim_g" name="joint_lim_g" type="text" class="mt-1 block w-full" :value="$design->joint_lim_g" required autofocus autocomplete="joint_lim_g" />
+                                <x-input-error class="mt-2" :messages="$errors->get('joint_lim_g')" />
+                            </div>
+                        </div>
+
                         <div class="flex items-center gap-4">
                             <a href="{{route('design.create.step4')}}">
                                 <x-secondary-button>{{__('Previous')}}</x-secondary-button>
                             </a>
 
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
+
+                            <x-select id="joint_detail_select" class="mt-1 block" required autofocus autocomplete="joint_detail_select">
+                                <option>optimize method 1</option>
+                                <option>optimize method 2</option>
+                                <option>optimize method 3</option>
+                            </x-select>
                         </div>
                     </form>
 
+                    <div id="optimizer_result" class="hidden mt-4">
+                        joints details:
+                        D (mm): 26.416, lim_e (mm): 56.85, lim_s (mm): 71.07, lim_v (mm): 42.64, lim_g (mm): 42.64, Capacity (kN): 11.47, Status: Acceptable
+                    </div>
                 </div>
             </div>
         </div>

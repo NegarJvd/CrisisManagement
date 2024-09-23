@@ -207,12 +207,18 @@ class DesignController extends Controller
             'joint2' => ['required', Rule::in(JointTypeEnum::values())],
             'joint3' => ['required', Rule::in(JointTypeEnum::values())],
             'joint4' => ['required', Rule::in(JointTypeEnum::values())],
+            'joint_d' => ['required'],
+            'joint_lim_e' => ['required'],
+            'joint_lim_s' => ['required'],
+            'joint_lim_v' => ['required'],
+            'joint_lim_g' => ['required'],
+
         ]);
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
 
-        $input = $request->only(['joint1', 'joint2', 'joint3', 'joint4']);
+        $input = $request->only(['joint1', 'joint2', 'joint3', 'joint4', 'joint_d', 'joint_lim_e', 'joint_lim_s', 'joint_lim_v', 'joint_lim_g']);
         $design->fill($input);
         $design->user_id = Auth::id();
         $design->save();
