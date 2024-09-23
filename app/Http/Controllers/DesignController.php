@@ -200,7 +200,7 @@ class DesignController extends Controller
             compact('design', 'woods'));
     }
 
-    public function store_step_5(Request $request): RedirectResponse
+    public function store_step_5(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $request->validate([
             'joint1' => ['required', Rule::in(JointTypeEnum::values())],
@@ -228,7 +228,7 @@ class DesignController extends Controller
         $request->session()->forget('design');
         $request->session()->forget('woods');
 
-        return Redirect::to('/design')->with('status', 'success');
+        return view('design.create.final_result');
     }
 
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
