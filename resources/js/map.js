@@ -168,6 +168,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Add the new marker to the array
                 markers.push(marker);
+
+
+                $('#load_calculator_result').text(
+                    'Wind pressure results for direct wind:\n' +
+                    'We for area A: -0.50 kN/mˆ2\n' +
+                    'We for area B: -0.33 kN/mˆ2\n' +
+                    'We for area C: -0.21 kN/mˆ2\n' +
+                    'We for area D: 0.33 kN/mˆ2\n' +
+                    'We for area E: -0.21 kN/mˆ2\n' +
+                    '\n' +
+                    '\n' +
+                    'Wind pressure results for side wind:\n' +
+                    'We for area A: -0.50 kN/mˆ2\n' +
+                    'We for area B: -0.33 kN/mˆ2\n' +
+                    'We for area C: -0.21 kN/mˆ2\n' +
+                    'We for area D: 0.33 kN/mˆ2\n' +
+                    'We for area E: -0.21 kN/mˆ2\n' +
+                    '\n' +
+                    '\n' +
+                    'Wind load on the beam (wk): 0.66 kN/m\n' +
+                    'Maximum load for ULS Category 1 (Permanent): 2.98 kN/m\n' +
+                    'Maximum load for ULS Category 2 (Medium-term): 3.82 kN/m\n' +
+                    'Maximum load for ULS Category 3 (Instantaneous): 4.82 kN/m\n' +
+                    'Maximum load for SLS: 3.43 kN/m\n' +
+                    'Leading varible action: 0.80 kN/m\n' +
+                    'accompanying variable action: 0.66 kN/m\n' +
+                    'psi_lead: 0.20\n' +
+                    'psi_acmp: 0.00'
+                )
             });
 
         }

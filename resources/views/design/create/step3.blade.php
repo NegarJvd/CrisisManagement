@@ -5,6 +5,14 @@
         </h2>
     </x-slot>
 
+    <script type="module">
+        $(document).ready(function() {
+            $('#load_calculator').on('click', function (){
+                $('#calculator_div').removeClass('hidden')
+            })
+        })
+    </script>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -53,8 +61,34 @@
                             </a>
 
                             <x-primary-button>{{ __('Save and next') }}</x-primary-button>
+
+                            <x-secondary-button id="load_calculator">{{__('Load calculator')}}</x-secondary-button>
                         </div>
                     </form>
+
+                    <div id="calculator_div" class="mt-6 space-y-6 hidden">
+                        <div class="w-full mb-2">
+                            <div id="map" style="height: 400px"></div>
+                        </div>
+
+                        <div class="flex flex-row hidden">
+                            <div class="basis-1/4 mr-2">
+                                <x-input-label for="latitude" :value="__('Latitude')"/>
+                                <x-text-input id="latitude" name="latitude" type="text" class="mt-1 block w-full"
+                                              :value="$latitude ?? null" required autofocus autocomplete="latitude"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('latitude')"/>
+                            </div>
+
+                            <div class="basis-1/4 mr-2">
+                                <x-input-label for="longitude" :value="__('Longitude')"/>
+                                <x-text-input id="longitude" name="longitude" type="text" class="mt-1 block w-full"
+                                              :value="$longitude ?? null" required autofocus autocomplete="longitude"/>
+                                <x-input-error class="mt-2" :messages="$errors->get('longitude')"/>
+                            </div>
+                        </div>
+
+                        <div class="mt-2" id="load_calculator_result"></div>
+                    </div>
 
                 </div>
             </div>
