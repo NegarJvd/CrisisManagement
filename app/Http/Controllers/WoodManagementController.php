@@ -26,7 +26,10 @@ class WoodManagementController extends Controller
 
     public function store(StoreWoodRequest $request): RedirectResponse
     {
-        $data = $request->only(['name', 'type']);
+        $data = $request->only(['name', 'type', 'bending_strength',
+            'tension_parallel', 'tension_perpendicular',
+            'compression_parallel', 'compression_perpendicular',
+            'shear_strength', 'e_modulus']);
 
         Wood::create($data);
 
@@ -37,7 +40,11 @@ class WoodManagementController extends Controller
     {
         $wood = Wood::findOrFail($id);
 
-        $data = $request->only(['name', 'type']);
+        $data = $request->only(['name', 'type', 'bending_strength',
+            'tension_parallel', 'tension_perpendicular',
+            'compression_parallel', 'compression_perpendicular',
+            'shear_strength', 'e_modulus']);
+
         $wood->update($data);
 
         return Redirect::to('/wood-management')->with('status', 'success');
