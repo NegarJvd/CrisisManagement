@@ -36,6 +36,12 @@
                     <form method="post" action="{{ route('design.store.step4') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                         @csrf
 
+                        <div class="flex flex-row">
+                            <div class="w-full m-4 p-4">
+                                <img src="{{asset('/images/cross_section.jpg')}}" alt="Helper">
+                            </div>
+                        </div>
+
                         <h2>
                             Enter cross section details:
                         </h2>

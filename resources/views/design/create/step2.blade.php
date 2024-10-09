@@ -17,6 +17,12 @@
                     <form method="post" action="{{ route('design.store.step2') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                         @csrf
 
+                        <div class="flex flex-row">
+                            <div class="w-full m-4 p-4">
+                                <img src="{{asset('/images/footprint.jpg')}}" alt="Helper">
+                            </div>
+                        </div>
+
                         <h2>
                             Enter footprint shelter's details:
                         </h2>
