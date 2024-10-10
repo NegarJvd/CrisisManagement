@@ -49,25 +49,25 @@
                         <div class="flex flex-row">
                             <div class="basis-1/3 mr-2">
                                 <x-input-label for="beam_w" :value="__('Beam width')" />
-                                <x-text-input id="beam_w" name="beam_w" type="number" class="mt-1 block w-full" :value="$design->beam_w" required autofocus autocomplete="beam_w" />
+                                <x-text-input id="beam_w" name="beam_w" type="number" step="0.1" class="mt-1 block w-full" :value="$design->beam_w" required autofocus autocomplete="beam_w" />
                                 <x-input-error class="mt-2" :messages="$errors->get('beam_w')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="column_w" :value="__('Column width')" />
-                                <x-text-input id="column_w" name="column_w" type="number" class="mt-1 block w-full" :value="$design->column_w" required autofocus autocomplete="column_w" />
+                                <x-text-input id="column_w" name="column_w" type="number" step="0.1" class="mt-1 block w-full" :value="$design->column_w" required autofocus autocomplete="column_w" />
                                 <x-input-error class="mt-2" :messages="$errors->get('column_w')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="top_plate_w" :value="__('Top Plate width')" />
-                                <x-text-input id="top_plate_w" name="top_plate_w" type="number" class="mt-1 block w-full" :value="$design->top_plate_w" required autofocus autocomplete="top_plate_w" />
+                                <x-text-input id="top_plate_w" name="top_plate_w" type="number" step="0.1" class="mt-1 block w-full" :value="$design->top_plate_w" required autofocus autocomplete="top_plate_w" />
                                 <x-input-error class="mt-2" :messages="$errors->get('top_plate_w')" />
                             </div>
 
                             <div class="basis-1/3 ml-2">
                                 <x-input-label for="long_sill_w" :value="__('Long sill width')" />
-                                <x-text-input id="long_sill_w" name="long_sill_w" type="number" class="mt-1 block w-full" :value="$design->long_sill_w" required autofocus autocomplete="long_sill_w" />
+                                <x-text-input id="long_sill_w" name="long_sill_w" type="number" step="0.1" class="mt-1 block w-full" :value="$design->long_sill_w" required autofocus autocomplete="long_sill_w" />
                                 <x-input-error class="mt-2" :messages="$errors->get('long_sill_w')" />
                             </div>
                         </div>
@@ -76,25 +76,25 @@
                         <div class="flex flex-row">
                             <div class="basis-1/3 mr-2">
                                 <x-input-label for="beam_h" :value="__('Beam height')" />
-                                <x-text-input id="beam_h" name="beam_h" type="number" class="mt-1 block w-full" :value="$design->beam_h" required autofocus autocomplete="beam_h" />
+                                <x-text-input id="beam_h" name="beam_h" type="number" step="0.1" class="mt-1 block w-full" :value="$design->beam_h" required autofocus autocomplete="beam_h" />
                                 <x-input-error class="mt-2" :messages="$errors->get('beam_h')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="column_h" :value="__('Column height')" />
-                                <x-text-input id="column_h" name="column_h" type="number" class="mt-1 block w-full" :value="$design->column_h" required autofocus autocomplete="column_h" />
+                                <x-text-input id="column_h" name="column_h" type="number" step="0.1" class="mt-1 block w-full" :value="$design->column_h" required autofocus autocomplete="column_h" />
                                 <x-input-error class="mt-2" :messages="$errors->get('column_h')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="top_plate_h" :value="__('Top Plate height')" />
-                                <x-text-input id="top_plate_h" name="top_plate_h" type="number" class="mt-1 block w-full" :value="$design->top_plate_h" required autofocus autocomplete="top_plate_h" />
+                                <x-text-input id="top_plate_h" name="top_plate_h" type="number" step="0.1" class="mt-1 block w-full" :value="$design->top_plate_h" required autofocus autocomplete="top_plate_h" />
                                 <x-input-error class="mt-2" :messages="$errors->get('top_plate_h')" />
                             </div>
 
                             <div class="basis-1/3 ml-2">
                                 <x-input-label for="long_sill_h" :value="__('Long sill height')" />
-                                <x-text-input id="long_sill_h" name="long_sill_h" type="number" class="mt-1 block w-full" :value="$design->long_sill_h" required autofocus autocomplete="long_sill_h" />
+                                <x-text-input id="long_sill_h" name="long_sill_h" type="number" step="0.1" class="mt-1 block w-full" :value="$design->long_sill_h" required autofocus autocomplete="long_sill_h" />
                                 <x-input-error class="mt-2" :messages="$errors->get('long_sill_h')" />
                             </div>
                         </div>

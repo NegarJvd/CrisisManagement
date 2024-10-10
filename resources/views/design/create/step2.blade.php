@@ -30,25 +30,25 @@
                         <div class="flex flex-row">
                             <div class="basis-1/3 mr-2">
                                 <x-input-label for="width" :value="__('Width')" />
-                                <x-text-input id="width" name="width" type="number" class="mt-1 block w-full" :value="$design->width" required autofocus autocomplete="width" />
+                                <x-text-input id="width" name="width" type="number" step="0.1" class="mt-1 block w-full" :value="$design->width" required autofocus autocomplete="width" />
                                 <x-input-error class="mt-2" :messages="$errors->get('width')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="length" :value="__('Length')" />
-                                <x-text-input id="length" name="length" type="number" class="mt-1 block w-full" :value="$design->length" required autofocus autocomplete="length" />
+                                <x-text-input id="length" name="length" type="number" step="0.1" class="mt-1 block w-full" :value="$design->length" required autofocus autocomplete="length" />
                                 <x-input-error class="mt-2" :messages="$errors->get('length')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="height" :value="__('Height')" />
-                                <x-text-input id="height" name="height" type="number" class="mt-1 block w-full" :value="$design->height" required autofocus autocomplete="height" />
+                                <x-text-input id="height" name="height" type="number" step="0.1" class="mt-1 block w-full" :value="$design->height" required autofocus autocomplete="height" />
                                 <x-input-error class="mt-2" :messages="$errors->get('height')" />
                             </div>
 
                             <div class="basis-1/3 ml-2">
                                 <x-input-label for="column_number" :value="__('Column number')" />
-                                <x-text-input id="column_number" name="column_number" type="number" class="mt-1 block w-full" :value="$design->column_number" required autofocus autocomplete="column_number" />
+                                <x-text-input id="column_number" name="column_number" step="0.1" type="number" class="mt-1 block w-full" :value="$design->column_number" required autofocus autocomplete="column_number" />
                                 <x-input-error class="mt-2" :messages="$errors->get('column_number')" />
                             </div>
                         </div>
