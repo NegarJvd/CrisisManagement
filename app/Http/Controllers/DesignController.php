@@ -231,30 +231,6 @@ class DesignController extends Controller
         return view('design.create.final_result');
     }
 
-    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $woods = Wood::all();
-        $machines = Machine::all();
-
-        return view('design.create', [
-            'woods' => $woods,
-            'machines' => $machines,
-        ]);
-    }
-    public function store(StoreDesignRequest $request): RedirectResponse
-    {
-        $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households', 'fork_id']);
-        $data['user_id'] = Auth::id();
-        $file = $request->file('file');
-        $path = $file->store('uploads', 'public');
-        $data['file_path'] = $path;
-
-        $design = Design::create($data);
-        $design->woods()->attach($request->get('woods'));
-        $design->machines()->attach($request->get('machines'));
-
-        return Redirect::to('/design')->with('status', 'success');
-    }
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $design = Design::findOrFail($id);
