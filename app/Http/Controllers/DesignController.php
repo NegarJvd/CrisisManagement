@@ -148,9 +148,6 @@ class DesignController extends Controller
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
 
-        $input = $request->only(['snow_load', 'wind_load', 'dead_load', 'live_load']);
-        $design->fill($input);
-
         $request->session()->put('design', $design);
         $request->session()->put('woods', $woods);
 
@@ -207,18 +204,21 @@ class DesignController extends Controller
             'joint2' => ['required', Rule::in(JointTypeEnum::values())],
             'joint3' => ['required', Rule::in(JointTypeEnum::values())],
             'joint4' => ['required', Rule::in(JointTypeEnum::values())],
-            'joint_d' => ['required'],
-            'joint_lim_e' => ['required'],
-            'joint_lim_s' => ['required'],
-            'joint_lim_v' => ['required'],
-            'joint_lim_g' => ['required'],
-
+            'joint1_dtl_clm' => ['required','numeric'],
         ]);
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
 
-        $input = $request->only(['joint1', 'joint2', 'joint3', 'joint4', 'joint_d', 'joint_lim_e', 'joint_lim_s', 'joint_lim_v', 'joint_lim_g']);
+        $input = $request->only(['joint1', 'joint2', 'joint3', 'joint4',
+            'joint1_dtl_clm', 'joint1_dtj_clm', 'joint1_btl_clm', 'joint1_ttl_clm', 'joint1_b_clm',
+            'joint2_jc1', 'joint2_jc2', 'joint2_jc3', 'joint2_jc4', 'joint2_jc5', 'joint2_jc6', 'joint2_jc7',
+            'joint3_lim_e', 'joint3_lim_s', 'joint3_lim_v', 'joint3_lim_g', 'joint3_lim_t', 'joint3_wtb',
+            'joint3_wt', 'joint3_tt', 'joint3_s2_clm',
+            'joint4_btucl', 'joint4_ttu_clm', 'joint4_gu_sb', 'joint4_esb', 'joint4_leu_sb', 'joint4_lsus',
+            'joint4_glsb', 'joint4_lsb', 'joint4_tb', 'joint4_wb'
+
+        ]);
         $design->fill($input);
         $design->user_id = Auth::id();
         $design->save();
