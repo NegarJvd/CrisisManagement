@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('shelter_seekers', [CrisisStrickenController::class, 'show'])->name('shelter_seekers');
     Route::post('shelter_seekers-suggest', [CrisisStrickenController::class, 'suggest'])->name('suggest');
 
-    Route::apiResource('wood-management', WoodManagementController::class)->only('index', 'store', 'update', 'destroy');
+    Route::resource('wood-management', WoodManagementController::class);
 
     Route::middleware('is_admin')->group(function (){
         Route::get('user-management', [UserController::class, 'users_list'])->name('user-management');

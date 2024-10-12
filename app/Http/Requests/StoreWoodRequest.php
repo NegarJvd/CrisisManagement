@@ -26,6 +26,14 @@ class StoreWoodRequest extends FormRequest
             'compression_perpendicular' => ['required', 'numeric'],
             'shear_strength' => ['required', 'numeric'],
             'e_modulus' => ['required', 'numeric'],
+            'partial_factor' => ['required', 'numeric'],
+            'density' => ['required', 'numeric'],
+            'e_modulus_5' => ['required', 'numeric'],
+            'modification_factor_permanent_term' => ['required', 'numeric'],
+            'modification_factor_medium_term' => ['required', 'numeric'],
+            'modification_factor_instantaneous_term' => ['required', 'numeric'],
+            'creep_factor' => ['required', 'numeric'],
+            'creep_factor_solid_timber' => ['required', 'numeric'],
         ];
     }
 }
