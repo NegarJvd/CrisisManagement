@@ -112,13 +112,14 @@ class DesignController extends Controller
             'width' => ['required', 'numeric', 'min:0'],
             'length' => ['required', 'numeric', 'min:0'],
             'height' => ['required', 'numeric', 'min:0'],
+            'slab_thickness' => ['required', 'numeric', 'min:0'],
             'column_number' => ['required', 'numeric', 'min:0'],
         ]);
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
 
-        $input = $request->only(['width', 'length', 'height', 'column_number']);
+        $input = $request->only(['width', 'length', 'height', 'slab_thickness', 'column_number']);
         $design->fill($input);
 
         $request->session()->put('design', $design);
@@ -239,11 +240,9 @@ class DesignController extends Controller
             return Redirect::to('/design')->with('status', 'error'); //You are not allowed to edit this design
 
         $woods = Wood::all();
-        $machines = Machine::all();
 
         return view('design.update', [
             'woods' => $woods,
-            'machines' => $machines,
             'design' => $design
         ]);
     }
@@ -254,18 +253,9 @@ class DesignController extends Controller
         if (!Auth::user()->is_admin and $design->user_id != Auth::id())
             return Redirect::to('/designs')->with('error', 'You are not allowed to edit this design');
 
-        $data = $request->only(['snow_load', 'wind_load', 'earthquake_load', 'number_of_households']);
-
-        if ($request->has('file'))
-        {
-            $file = $request->file('file');
-            $path = $file->store('uploads', 'public');
-            $data['file_path'] = $path;
-        }
-
+        $data = $request->all();
         $design->update($data);
         $design->woods()->sync($request->get('woods'));
-        $design->machines()->sync($request->get('machines'));
 
         return Redirect::to('design/'.$id.'/edit')->with('status', 'success');
     }
@@ -277,50 +267,10 @@ class DesignController extends Controller
             return Redirect::to('/design')->with('status', 'error');
 
         $design->woods()->sync([]);
-        $design->machines()->sync([]);
-
-        if ($design->file_path)
-        {
-            $path = public_path('storage/'.$design->file_path);
-            if (file_exists($path)) {
-                unlink($path);
-            }
-        }
 
         $design->delete();
 
         return Redirect::to('/design')->with('status', 'success');
-    }
-
-    public function delete_file($design_id): RedirectResponse
-    {
-        $design = Design::findOrFail($design_id);
-
-        if (Auth::user()->is_admin or $design->user_id == Auth::id())
-        {
-            if (Storage::exists($design->file_path))
-                Storage::delete($design->file_path);
-
-            $design->update([
-                'file_path' => null
-            ]);
-
-            return Redirect::back()->with('status', 'success');
-        }
-
-        return Redirect::back()->with('status', 'error');
-    }
-
-    public function download_file($design_id): StreamedResponse|RedirectResponse
-    {
-        $design = Design::findOrFail($design_id);
-
-        if (Auth::user()->is_admin or $design->user_id == Auth::id())
-        {
-            return Storage::download($design->file_path);
-        }
-
-        return Redirect::back()->with('status', 'error');
     }
 
     public function fork($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -328,11 +278,9 @@ class DesignController extends Controller
         $design = Design::findOrFail($id);
 
         $woods = Wood::all();
-        $machines = Machine::all();
 
         return view('design.update', [
             'woods' => $woods,
-            'machines' => $machines,
             'design' => $design,
             'fork' => 1
         ]);

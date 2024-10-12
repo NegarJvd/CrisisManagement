@@ -47,8 +47,16 @@
                             </div>
 
                             <div class="basis-1/3 ml-2">
+                                <x-input-label for="slab_thickness" :value="__('Slab thickness')" />
+                                <x-text-input id="slab_thickness" name="slab_thickness" type="number" step="0.1" class="mt-1 block w-full" :value="$design->slab_thickness" required autofocus autocomplete="slab_thickness" />
+                                <x-input-error class="mt-2" :messages="$errors->get('slab_thickness')" />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-row">
+                            <div class="basis-1/3 mr-2">
                                 <x-input-label for="column_number" :value="__('Column number')" />
-                                <x-text-input id="column_number" name="column_number" step="0.1" type="number" class="mt-1 block w-full" :value="$design->column_number" required autofocus autocomplete="column_number" />
+                                <x-text-input id="column_number" name="column_number" type="number" class="mt-1 block w-full" :value="$design->column_number" required autofocus autocomplete="column_number" />
                                 <x-input-error class="mt-2" :messages="$errors->get('column_number')" />
                             </div>
                         </div>
