@@ -45,6 +45,7 @@
                         <thead>
                             <tr class="border border-slate-600 bg-gray-100 py-3">
                                 <th class="border border-slate-600 py-3">Id</th>
+                                <th class="border border-slate-600 py-3">Provider name</th>
                                 <th class="border border-slate-600 py-3">Latitude</th>
                                 <th class="border border-slate-600 py-3">Longitude</th>
                                 <th class="border border-slate-600 py-3">Radius (km)</th>
@@ -55,6 +56,7 @@
                             @foreach($cnc_supplies as $cnc)
                                 <tr class="border border-slate-600 py-3">
                                     <td class="border border-slate-600 py-3">{{$cnc->id}}</td>
+                                    <td class="border border-slate-600 py-3">{{$cnc->user->name}}</td>
                                     <td class="border border-slate-600 py-3">{{$cnc->latitude}}</td>
                                     <td class="border border-slate-600 py-3">{{$cnc->longitude}}</td>
                                     <td class="border border-slate-600 py-3">{{$cnc->radius}}</td>

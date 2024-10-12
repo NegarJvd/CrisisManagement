@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Machine;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreCNCSupplyRequest extends FormRequest
 {
@@ -17,8 +15,6 @@ class StoreCNCSupplyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'machines' => ['required', 'array'],
-            'machines.*' => [Rule::in(Machine::pluck('id'))],
             'radius' => ['required', 'numeric'],
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],

@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let crisis_lat = crisis_lat_element.value;
             let crisis_lon = crisis_lon_element.value;
 
-            let center_lat = crisis_lat ?? 51.505;
-            let center_lon = crisis_lon ?? -0.09;
+            let center_lat = crisis_lat ?? 40.784;
+            let center_lon = crisis_lon ?? -73.998;
 
             const map = L.map('map').setView([center_lat, center_lon], 5);
 
@@ -81,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
         else if(latitude_element && longitude_element && radius_element)
         {
             //timber and CNC page
-            let center_lat = latitude_element.value ?? 51.505;
-            let center_lon = longitude_element.value ?? -0.09;
-            let radius = radius_element.value * 1000 > 0 ? radius_element.value * 1000 : 1000000; //1000 km
+            let center_lat = latitude_element.value ?? 40.784;
+            let center_lon = longitude_element.value ?? -73.998;
+            let radius = radius_element.value * 1000 > 0 ? radius_element.value * 1000 : 0; //1000 km
 
             let markers = [];
             let circles = [];
@@ -136,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else
         {
             //crisis stricken page
-            let center_lat = latitude_element.value ?? 51.505;
-            let center_lon = longitude_element.value ?? -0.09;
+            let center_lat = latitude_element.value ?? 40.784;
+            let center_lon = longitude_element.value ?? -73.998;
 
             let markers = [];
 

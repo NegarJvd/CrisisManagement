@@ -45,6 +45,7 @@
                         <thead>
                             <tr class="border border-slate-600 bg-gray-100 py-3">
                                 <th class="border border-slate-600 py-3">Id</th>
+                                <th class="border border-slate-600 py-3">Provider name</th>
                                 <th class="border border-slate-600 py-3">Woods</th>
                                 <th class="border border-slate-600 py-3">Latitude</th>
                                 <th class="border border-slate-600 py-3">Longitude</th>
@@ -56,6 +57,7 @@
                             @foreach($timbers as $timber)
                                 <tr class="border border-slate-600 py-3">
                                     <td class="border border-slate-600 py-3">{{$timber->id}}</td>
+                                    <td class="border border-slate-600 py-3">{{$timber->user->name}}</td>
                                     <td class="border border-slate-600 py-3">
                                         {{implode(' , ', $timber->woods()->pluck('name')->toArray())}}
                                     </td>
