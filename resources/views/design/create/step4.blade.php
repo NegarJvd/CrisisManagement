@@ -10,6 +10,20 @@
             $('#optimizer').on('click', function (){
                 $('#optimizer_result').removeClass('hidden')
 
+                // calculating from api results
+                // const beam_w = weight.value
+                // const beam_h = thickness.value
+                //
+                // const column_w = weight.value
+                // const column_h = thickness.value
+                //
+                // const top_plate_w = weight.value
+                // const top_plate_h = (3/2) * thickness.value
+                //
+                // const long_sill_h = weight.value
+                // const long_sill_w = (5/4) * thickness.value
+
+
                 $('#beam_w').val(85);
                 $('#column_w').val(85);
                 $('#top_plate_w').val(85);
@@ -60,13 +74,13 @@
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
-                                <x-input-label for="top_plate_w" :value="__('Top Plate width')" />
+                                <x-input-label for="top_plate_w" :value="__('Tie beam width')" />
                                 <x-text-input id="top_plate_w" name="top_plate_w" type="number" step="0.1" class="mt-1 block w-full" :value="$design->top_plate_w" required autofocus autocomplete="top_plate_w" />
                                 <x-input-error class="mt-2" :messages="$errors->get('top_plate_w')" />
                             </div>
 
                             <div class="basis-1/3 ml-2">
-                                <x-input-label for="long_sill_w" :value="__('Long sill width')" />
+                                <x-input-label for="long_sill_w" :value="__('Bottom sill width')" />
                                 <x-text-input id="long_sill_w" name="long_sill_w" type="number" step="0.1" class="mt-1 block w-full" :value="$design->long_sill_w" required autofocus autocomplete="long_sill_w" />
                                 <x-input-error class="mt-2" :messages="$errors->get('long_sill_w')" />
                             </div>
@@ -87,13 +101,13 @@
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
-                                <x-input-label for="top_plate_h" :value="__('Top Plate height')" />
+                                <x-input-label for="top_plate_h" :value="__('Tie beam height')" />
                                 <x-text-input id="top_plate_h" name="top_plate_h" type="number" step="0.1" class="mt-1 block w-full" :value="$design->top_plate_h" required autofocus autocomplete="top_plate_h" />
                                 <x-input-error class="mt-2" :messages="$errors->get('top_plate_h')" />
                             </div>
 
                             <div class="basis-1/3 ml-2">
-                                <x-input-label for="long_sill_h" :value="__('Long sill height')" />
+                                <x-input-label for="long_sill_h" :value="__('Bottom sill height')" />
                                 <x-text-input id="long_sill_h" name="long_sill_h" type="number" step="0.1" class="mt-1 block w-full" :value="$design->long_sill_h" required autofocus autocomplete="long_sill_h" />
                                 <x-input-error class="mt-2" :messages="$errors->get('long_sill_h')" />
                             </div>
