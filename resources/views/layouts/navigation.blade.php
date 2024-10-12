@@ -32,8 +32,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('crisis-stricken')" :active="request()->routeIs('crisis-stricken.*')">
-                        {{ __('Crisis Stricken') }}
+                    <x-nav-link :href="route('shelter_seekers')" :active="request()->routeIs('shelter_seekers.*')">
+                        {{ __('Shelter Seekers') }}
                     </x-nav-link>
                 </div>
 
@@ -71,10 +71,6 @@
 
                         <x-dropdown-link :href="route('wood-management.index')">
                             {{ __('Wood Management') }}
-                        </x-dropdown-link>
-
-                        <x-dropdown-link :href="route('machine-management.index')">
-                            {{ __('Machines Management') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -118,8 +114,8 @@
             <x-responsive-nav-link :href="route('cnc-supply.index')" :active="request()->routeIs('cnc-supply.*')">
                 {{ __('CNC Supply') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('crisis-stricken')" :active="request()->routeIs('crisis-stricken.*')">
-                {{ __('Crisis Stricken') }}
+            <x-responsive-nav-link :href="route('shelter_seekers')" :active="request()->routeIs('shelter_seekers.*')">
+                {{ __('Shelter Seekers') }}
             </x-responsive-nav-link>
 
         </div>
@@ -144,10 +140,6 @@
 
                 <x-responsive-nav-link :href="route('wood-management.index')">
                     {{ __('Wood Management') }}
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('machine-management.index')">
-                    {{ __('Machines Management') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
