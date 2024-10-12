@@ -56,7 +56,7 @@
                         <div class="flex flex-row">
                             <div class="basis-1/3 mr-2">
                                 <x-input-label for="column_number" :value="__('Column number')" />
-                                <x-text-input id="column_number" name="column_number" type="number" class="mt-1 block w-full" :value="$design->column_number" required autofocus autocomplete="column_number" />
+                                <x-text-input id="column_number" name="column_number" type="number" step="2" class="mt-1 block w-full" :value="$design->column_number" required autofocus autocomplete="column_number" />
                                 <x-input-error class="mt-2" :messages="$errors->get('column_number')" />
                             </div>
                         </div>

@@ -92,12 +92,9 @@
                         <thead>
                         <tr class="border border-slate-600 bg-gray-100 py-3">
                             <th class="border border-slate-600 py-3">Id</th>
+                            <th class="border border-slate-600 py-3">Designer</th>
                             <th class="border border-slate-600 py-3">Woods</th>
-{{--                            <th class="border border-slate-600 py-3">Machines</th>--}}
-                            <th class="border border-slate-600 py-3">Snow load</th>
-                            <th class="border border-slate-600 py-3">Wind load</th>
-{{--                            <th class="border border-slate-600 py-3">Earthquake load</th>--}}
-{{--                            <th class="border border-slate-600 py-3">Number of households</th>--}}
+                            <th class="border border-slate-600 py-3">Footprint</th>
                             <th class="border border-slate-600 py-3">Actions</th>
                         </tr>
                         </thead>
@@ -105,30 +102,27 @@
                         @foreach($designs as $design)
                             <tr class="border border-slate-600 py-3">
                                 <td class="border border-slate-600 py-3">{{$design->id}}</td>
+                                <td class="border border-slate-600 py-3">{{$design->user->name}}</td>
                                 <td class="border border-slate-600 py-3">
                                     {{implode(' , ', $design->woods()->pluck('name')->toArray())}}
                                 </td>
-{{--                                <td class="border border-slate-600 py-3">--}}
-{{--                                    {{implode(' , ', $design->machines()->pluck('name')->toArray())}}--}}
-{{--                                </td>--}}
-                                <td class="border border-slate-600 py-3">{{$design->snow_load}}</td>
-                                <td class="border border-slate-600 py-3">{{$design->wind_load}}</td>
-{{--                                <td class="border border-slate-600 py-3">{{$design->earthquake_load}}</td>--}}
-{{--                                <td class="border border-slate-600 py-3">{{$design->number_of_households}}</td>--}}
+                                <td class="border border-slate-600 py-3">
+                                    width: {{$design->width}} , length: {{$design->length}} , height: {{$design->height}} , slab_thickness: {{$design->slab_thickness}} , column_number: {{$design->column_number}}
+                                </td>
                                 <td class="py-3 flex flex-row items-center justify-center">
-                                    <div class="basis-1/2 flex items-center justify-center">
-                                        <a href="{{route('design.fork', $design->id)}}" title="fork">
-                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/fork.png')}}"
-                                                 alt="fork">
-                                        </a>
-                                    </div>
+{{--                                    <div class="basis-1/2 flex items-center justify-center">--}}
+{{--                                        <a href="{{route('design.fork', $design->id)}}" title="fork">--}}
+{{--                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/fork.png')}}"--}}
+{{--                                                 alt="fork">--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
                                     @if(Auth::user()->is_admin or $design->user_id == Auth::id())
-                                        <div class="basis-1/2 flex items-center justify-center">
-                                            <a href="{{route('design.edit', $design->id)}}" title="edit">
-                                                <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}"
-                                                     alt="edit">
-                                            </a>
-                                        </div>
+{{--                                        <div class="basis-1/2 flex items-center justify-center">--}}
+{{--                                            <a href="{{route('design.edit', $design->id)}}" title="edit">--}}
+{{--                                                <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/edit.png')}}"--}}
+{{--                                                     alt="edit">--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
                                         <div class="basis-1/2 flex items-center justify-center">
                                             <form method="post" action="{{ route('design.destroy', $design->id) }}"
                                                   title="delete">

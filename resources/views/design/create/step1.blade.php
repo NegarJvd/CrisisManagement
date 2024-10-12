@@ -29,9 +29,10 @@
                         @csrf
 
                         <div class="flex flex-row">
-                            <div class="basis-1/3 mr-2">
+                            <div class="basis-1/4 mr-2">
                                 <x-input-label for="woods" :value="__('Select woods')" />
                                 <x-select id="woods" name="woods" class="mt-1 block w-full" required autofocus autocomplete="woods">
+                                    <option></option>
                                     @foreach(App\Models\Wood::all() as $wood)
                                         <option value="{{$wood->id}}" @if($woods and $wood->id == $woods) selected @endif>{{$wood->name}} ({{$wood->type}})</option>
                                     @endforeach
@@ -39,24 +40,26 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('woods')" />
                             </div>
 
-                            <div class="basis-1/3 mr-2">
+                            <div class="basis-1/4 mr-2">
                                 <div id="create_wood" class="flex flex-row justify-start text-center mt-6">
-                                    <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('wood-management.index')}}" target=”_blank”>
+                                    <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('wood-management.create')}}" target=”_blank”>
                                         Create new
                                     </a>
                                 </div>
                             </div>
 
-                            <div class="basis-1/3 mr-2">
+                            <div class="basis-2/4 mr-2">
                                 @foreach(App\Models\Wood::all() as $wood)
                                     <p id="details_{{$wood->id}}" class="hidden details">
-                                        bending_strength : {{$wood->bending_strength}}
-                                        tension_parallel : {{$wood->tension_parallel}}
-                                        tension_perpendicular : {{$wood->tension_perpendicular}}
-                                        compression_parallel : {{$wood->compression_parallel}}
-                                        compression_perpendicular : {{$wood->compression_perpendicular}}
-                                        shear_strength : {{$wood->shear_strength}}
-                                        e_modulus : {{$wood->e_modulus}}
+                                        bending strength : {{$wood->bending_strength}} <br>
+                                        tension parallel : {{$wood->tension_parallel}} | tension perpendicular : {{$wood->tension_perpendicular}} <br>
+                                        compression parallel : {{$wood->compression_parallel}} | compression perpendicular : {{$wood->compression_perpendicular}} <br>
+                                        shear strength : {{$wood->shear_strength}} <br>
+                                        e modulus : {{$wood->e_modulus}} | e modulus 5% : {{$wood->e_modulus_5}} <br>
+                                        partial factor : {{$wood->partial_factor}} <br>
+                                        density : {{$wood->density}} <br>
+                                        modification factor permanent, medium and instantaneous term : {{$wood->modification_factor_permanent_term}} | {{$wood->modification_factor_medium_term}} | {{$wood->modification_factor_instantaneous_term}}<br>
+                                        creep factor : {{$wood->creep_factor}} creep factor solid timber : {{$wood->creep_factor_solid_timber}} <br>
                                     </p>
                                 @endforeach
                             </div>

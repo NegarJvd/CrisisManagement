@@ -71,7 +71,6 @@ class DesignController extends Controller
             'longitude' => $request->get('longitude')
         ]);
     }
-
     public function create_step_1(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $design = $request->session()->get('design');
@@ -79,7 +78,6 @@ class DesignController extends Controller
 
         return view('design.create.step1', compact('design', 'woods'));
     }
-
     public function store_step_1(Request $request): RedirectResponse
     {
         $request->validate([
@@ -97,7 +95,6 @@ class DesignController extends Controller
 
         return Redirect::to('/design/create/step2')->with('status', 'success');
     }
-
     public function create_step_2(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $design = $request->session()->get('design');
@@ -105,7 +102,6 @@ class DesignController extends Controller
 
         return view('design.create.step2', compact('design', 'woods'));
     }
-
     public function store_step_2(Request $request): RedirectResponse
     {
         $request->validate([
@@ -127,7 +123,6 @@ class DesignController extends Controller
 
         return Redirect::to('/design/create/step3')->with('status', 'success');
     }
-
     public function create_step_3(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $design = $request->session()->get('design');
@@ -136,14 +131,13 @@ class DesignController extends Controller
         return view('design.create.step3',
             compact('design', 'woods'));
     }
-
     public function store_step_3(Request $request): RedirectResponse
     {
         $request->validate([
-            'snow_load' => ['required', 'numeric', 'min:0'],
-            'wind_load' => ['required', 'numeric', 'min:0'],
-            'dead_load' => ['required', 'numeric', 'min:0'],
-            'live_load' => ['required', 'numeric', 'min:0'],
+            'snow_load' => ['numeric', 'min:0'],
+            'wind_load' => ['numeric', 'min:0'],
+            'dead_load' => ['numeric', 'min:0'],
+            'live_load' => ['numeric', 'min:0'],
         ]);
 
         $design = $request->session()->get('design');
@@ -151,10 +145,13 @@ class DesignController extends Controller
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $woods);
+        $request->session()->put('snow_load', $request->get('snow_load'));
+        $request->session()->put('wind_load', $request->get('wind_load'));
+        $request->session()->put('dead_load', $request->get('dead_load'));
+        $request->session()->put('live_load', $request->get('live_load'));
 
         return Redirect::to('/design/create/step4')->with('status', 'success');
     }
-
     public function create_step_4(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $design = $request->session()->get('design');
@@ -163,7 +160,6 @@ class DesignController extends Controller
         return view('design.create.step4',
             compact('design', 'woods'));
     }
-
     public function store_step_4(Request $request): RedirectResponse
     {
         $request->validate([
@@ -179,16 +175,23 @@ class DesignController extends Controller
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $snow_load = $request->session()->get('snow_load');
+        $wind_load = $request->session()->get('wind_load');
+        $dead_load = $request->session()->get('dead_load');
+        $live_load = $request->session()->get('live_load');
 
         $input = $request->only(['beam_w', 'beam_h', 'column_w', 'column_h', 'top_plate_w', 'top_plate_h', 'long_sill_w', 'long_sill_h']);
         $design->fill($input);
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $woods);
+        $request->session()->put('snow_load', $snow_load);
+        $request->session()->put('wind_load', $wind_load);
+        $request->session()->put('dead_load', $dead_load);
+        $request->session()->put('live_load', $live_load);
 
         return Redirect::to('/design/create/step5')->with('status', 'success');
     }
-
     public function create_step_5(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $design = $request->session()->get('design');
@@ -197,7 +200,6 @@ class DesignController extends Controller
         return view('design.create.step5',
             compact('design', 'woods'));
     }
-
     public function store_step_5(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $request->validate([
@@ -205,11 +207,14 @@ class DesignController extends Controller
             'joint2' => ['required', Rule::in(JointTypeEnum::values())],
             'joint3' => ['required', Rule::in(JointTypeEnum::values())],
             'joint4' => ['required', Rule::in(JointTypeEnum::values())],
-            'joint1_dtl_clm' => ['required','numeric'],
         ]);
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $snow_load = $request->session()->get('snow_load');
+        $wind_load = $request->session()->get('wind_load');
+        $dead_load = $request->session()->get('dead_load');
+        $live_load = $request->session()->get('live_load');
 
         $input = $request->only(['joint1', 'joint2', 'joint3', 'joint4',
             'joint1_dtl_clm', 'joint1_dtj_clm', 'joint1_btl_clm', 'joint1_ttl_clm', 'joint1_b_clm',
@@ -228,10 +233,18 @@ class DesignController extends Controller
 
         $request->session()->forget('design');
         $request->session()->forget('woods');
+        $request->session()->forget('snow_load');
+        $request->session()->forget('wind_load');
+        $request->session()->forget('dead_load');
+        $request->session()->forget('live_load');
 
-        return view('design.create.final_result');
+        return view('design.create.final_result', [
+            'snow_load' => $snow_load,
+            'wind_load' => $wind_load,
+            'dead_load' => $dead_load,
+            'live_load' => $live_load,
+        ]);
     }
-
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $design = Design::findOrFail($id);
@@ -246,7 +259,7 @@ class DesignController extends Controller
             'design' => $design
         ]);
     }
-    public function update(UpdateDesignRequest $request, $id): RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
         $design = Design::findOrFail($id);
 
