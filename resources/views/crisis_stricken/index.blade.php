@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-row justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Suggest design') }}
+                {{ __('Lets find shelter for you!') }}
             </h2>
         </div>
     </x-slot>
