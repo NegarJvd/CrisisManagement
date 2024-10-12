@@ -67,17 +67,17 @@
                                             </div>
                                         </a>
 
-                                        <a href="{{route('timber-supply.index')}}" class="basis-1/4 group block max-w-xs mx-auto rounded-lg p-6 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100">
+                                        <a href="{{route('timber-provider.index')}}" class="basis-1/4 group block max-w-xs mx-auto rounded-lg p-6 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100">
                                             <div class="items-center text-center">
                                                 <img src="{{asset('/icons/timber-supplier.png')}}" alt="Timber Supplier Dashboard">
-                                                <h2 class="mt-2 dark:text-gray-100">{{ __('Timber Supplier Dashboard') }}</h2>
+                                                <h2 class="mt-2 dark:text-gray-100">{{ __('Timber Provider Dashboard') }}</h2>
                                             </div>
                                         </a>
 
-                                        <a href="{{route('cnc-supply.index')}}" class="basis-1/4 group block max-w-xs mx-auto rounded-lg p-6 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100">
+                                        <a href="{{route('cnc-provider.index')}}" class="basis-1/4 group block max-w-xs mx-auto rounded-lg p-6 mr-2 ml-2 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-gray-100 hover:ring-gray-100">
                                             <div class="items-center text-center">
                                                 <img src="{{asset('/icons/cnc-supplier.png')}}" alt="CNC Supplier Dashboard">
-                                                <h2 class="mt-2 dark:text-gray-100">{{ __('CNC Supplier Dashboard') }}</h2>
+                                                <h2 class="mt-2 dark:text-gray-100">{{ __('CNC Provider Dashboard') }}</h2>
                                             </div>
                                         </a>
 

@@ -22,13 +22,13 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('timber-supply.index')" :active="request()->routeIs('timber-supply.*')">
-                        {{ __('Timber Supply') }}
+                    <x-nav-link :href="route('timber-provider.index')" :active="request()->routeIs('timber-provider.*')">
+                        {{ __('Timber Provider') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('cnc-supply.index')" :active="request()->routeIs('cnc-supply.*')">
-                        {{ __('CNC Supply') }}
+                    <x-nav-link :href="route('cnc-provider.index')" :active="request()->routeIs('cnc-provider.*')">
+                        {{ __('CNC Provider') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -108,11 +108,11 @@
             <x-responsive-nav-link :href="route('design.index')" :active="request()->routeIs('design.*')">
                 {{ __('Design') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('timber-supply.index')" :active="request()->routeIs('timber-supply.*')">
-                {{ __('Timber Supply') }}
+            <x-responsive-nav-link :href="route('timber-provider.index')" :active="request()->routeIs('timber-provider.*')">
+                {{ __('Timber Provider') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('cnc-supply.index')" :active="request()->routeIs('cnc-supply.*')">
-                {{ __('CNC Supply') }}
+            <x-responsive-nav-link :href="route('cnc-provider.index')" :active="request()->routeIs('cnc-provider.*')">
+                {{ __('CNC Provider') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('shelter_seekers')" :active="request()->routeIs('shelter_seekers.*')">
                 {{ __('Shelter Seekers') }}

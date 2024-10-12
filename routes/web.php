@@ -3,7 +3,6 @@
 use App\Http\Controllers\CNCSupplyController;
 use App\Http\Controllers\CrisisStrickenController;
 use App\Http\Controllers\DesignController;
-use App\Http\Controllers\MachineManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimberSupplyController;
 use App\Http\Controllers\UserController;
@@ -37,9 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('design', DesignController::class)->except(['store', 'create']);
     Route::get('design/fork/{design_id}', [DesignController::class, 'fork'])->name('design.fork');
 
-    Route::resource('timber-supply', TimberSupplyController::class)->except('show');
+    Route::resource('timber-provider', TimberSupplyController::class)->except('show');
 
-    Route::resource('cnc-supply', CNCSupplyController::class)->except('show');
+    Route::resource('cnc-provider', CNCSupplyController::class)->except('show');
 
     Route::get('shelter_seekers', [CrisisStrickenController::class, 'show'])->name('shelter_seekers');
     Route::post('shelter_seekers-suggest', [CrisisStrickenController::class, 'suggest'])->name('suggest');
