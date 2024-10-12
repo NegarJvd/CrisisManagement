@@ -24,7 +24,7 @@ return new class extends Migration
             $table->float('long_sill_w')->default(0.0)->change();
             $table->float('long_sill_h')->default(0.0)->change();
             $table->float('column_h')->default(0.0)->change();
-            $table->float('column_W')->default(0.0)->change();
+            $table->float('column_w')->default(0.0)->change();
 
         });
     }

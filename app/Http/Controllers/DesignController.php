@@ -127,28 +127,29 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $snow_load = $request->session()->get('snow_load') ?? 0;
+        $wind_load = $request->session()->get('wind_load') ?? 0;
+        $dead_load = $request->session()->get('dead_load') ?? 0;
+        $live_load = $request->session()->get('live_load') ?? 0;
 
         return view('design.create.step3',
-            compact('design', 'woods'));
+            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
     }
     public function store_step_3(Request $request): RedirectResponse
     {
-        $request->validate([
-            'snow_load' => ['numeric', 'min:0'],
-            'wind_load' => ['numeric', 'min:0'],
-            'dead_load' => ['numeric', 'min:0'],
-            'live_load' => ['numeric', 'min:0'],
-        ]);
-
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $snow_load = $request->get('snow_load') ?? 0;
+        $wind_load = $request->get('wind_load') ?? 0;
+        $dead_load = $request->get('dead_load') ?? 0;
+        $live_load = $request->get('live_load') ?? 0;
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $woods);
-        $request->session()->put('snow_load', $request->get('snow_load'));
-        $request->session()->put('wind_load', $request->get('wind_load'));
-        $request->session()->put('dead_load', $request->get('dead_load'));
-        $request->session()->put('live_load', $request->get('live_load'));
+        $request->session()->put('snow_load', $snow_load);
+        $request->session()->put('wind_load', $wind_load);
+        $request->session()->put('dead_load', $dead_load);
+        $request->session()->put('live_load', $live_load);
 
         return Redirect::to('/design/create/step4')->with('status', 'success');
     }
@@ -156,9 +157,13 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $snow_load = $request->session()->get('snow_load');
+        $wind_load = $request->session()->get('wind_load');
+        $dead_load = $request->session()->get('dead_load');
+        $live_load = $request->session()->get('live_load');
 
         return view('design.create.step4',
-            compact('design', 'woods'));
+            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
     }
     public function store_step_4(Request $request): RedirectResponse
     {
@@ -196,9 +201,13 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $snow_load = $request->session()->get('snow_load');
+        $wind_load = $request->session()->get('wind_load');
+        $dead_load = $request->session()->get('dead_load');
+        $live_load = $request->session()->get('live_load');
 
         return view('design.create.step5',
-            compact('design', 'woods'));
+            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
     }
     public function store_step_5(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -238,12 +247,8 @@ class DesignController extends Controller
         $request->session()->forget('dead_load');
         $request->session()->forget('live_load');
 
-        return view('design.create.final_result', [
-            'snow_load' => $snow_load,
-            'wind_load' => $wind_load,
-            'dead_load' => $dead_load,
-            'live_load' => $live_load,
-        ]);
+        return view('design.create.final_result',
+            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
     }
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {

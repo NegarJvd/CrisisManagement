@@ -8,6 +8,11 @@
     <script type="module">
         $(document).ready(function() {
             $('#optimizer').on('click', function (){
+                //calculate data for send to api
+                const length = "{{$design->length}}";
+                const column_number = "{{$design->column_number}}";
+                const l = length / ((column_number / 2) - 1)
+
                 $('#optimizer_result').removeClass('hidden')
 
                 // calculating from api results

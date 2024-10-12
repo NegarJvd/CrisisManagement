@@ -32,25 +32,25 @@
                         <div class="flex flex-row">
                             <div class="basis-1/3 mr-2">
                                 <x-input-label for="snow_load" :value="__('Snow Load')" />
-                                <x-text-input id="snow_load" name="snow_load" type="number" step="0.1" class="mt-1 block w-full" :value="$design->snow_load" autofocus autocomplete="snow_load" />
+                                <x-text-input id="snow_load" name="snow_load" type="number" step="0.1" class="mt-1 block w-full" :value="$snow_load" autofocus autocomplete="snow_load" />
                                 <x-input-error class="mt-2" :messages="$errors->get('snow_load')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="wind_load" :value="__('Wind load')" />
-                                <x-text-input id="wind_load" name="wind_load" type="number" step="0.1" class="mt-1 block w-full" :value="$design->wind_load" autofocus autocomplete="wind_load" />
+                                <x-text-input id="wind_load" name="wind_load" type="number" step="0.1" class="mt-1 block w-full" :value="$wind_load" autofocus autocomplete="wind_load" />
                                 <x-input-error class="mt-2" :messages="$errors->get('wind_load')" />
                             </div>
 
                             <div class="basis-1/3 mr-2 ml-2">
                                 <x-input-label for="dead_load" :value="__('Dead load')" />
-                                <x-text-input id="dead_load" name="dead_load" type="number" step="0.1" class="mt-1 block w-full" :value="$design->dead_load" autofocus autocomplete="dead_load" />
+                                <x-text-input id="dead_load" name="dead_load" type="number" step="0.1" class="mt-1 block w-full" :value="$dead_load" autofocus autocomplete="dead_load" />
                                 <x-input-error class="mt-2" :messages="$errors->get('dead_load')" />
                             </div>
 
                             <div class="basis-1/3 ml-2">
                                 <x-input-label for="live_load" :value="__('Live load')" />
-                                <x-text-input id="live_load" name="live_load" type="number" step="0.1" class="mt-1 block w-full" :value="$design->live_load" autofocus autocomplete="live_load" />
+                                <x-text-input id="live_load" name="live_load" type="number" step="0.1" class="mt-1 block w-full" :value="$live_load" autofocus autocomplete="live_load" />
                                 <x-input-error class="mt-2" :messages="$errors->get('live_load')" />
                             </div>
                         </div>
