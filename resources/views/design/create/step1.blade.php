@@ -58,7 +58,7 @@
                                         e modulus : {{$wood->e_modulus}} | e modulus 5% : {{$wood->e_modulus_5}} <br>
                                         partial factor : {{$wood->partial_factor}} | density : {{$wood->density}}  <br>
                                         modification factor permanent, medium and instantaneous term : {{$wood->modification_factor_permanent_term}} | {{$wood->modification_factor_medium_term}} | {{$wood->modification_factor_instantaneous_term}}<br>
-                                        creep factor : {{$wood->creep_factor}} creep factor solid timber : {{$wood->creep_factor_solid_timber}} <br>
+                                        creep factor : {{$wood->creep_factor}} | creep factor solid timber : {{$wood->creep_factor_solid_timber}} <br>
                                         end distance : {{$wood->dtl_e}} | edge distance : {{$wood->dtl_v}} <br>
                                         vertical edge distance : {{$wood->dtl_g}} | peg spacing distance : {{$wood->dtl_s}}
                                     </p>
