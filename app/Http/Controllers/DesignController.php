@@ -226,12 +226,11 @@ class DesignController extends Controller
         $live_load = $request->session()->get('live_load');
 
         $input = $request->only(['joint1', 'joint2', 'joint3', 'joint4',
-            'joint1_dtl_clm', 'joint1_dtj_clm', 'joint1_btl_clm', 'joint1_ttl_clm', 'joint1_b_clm',
+            'joint1_dtl_clm', 'joint1_dtj_clm', 'joint1_btl_clm', 'joint1_ttl_clm', 'joint1_b_clm', 'joint1_dtt_clm',
             'joint2_jc1', 'joint2_jc2', 'joint2_jc3', 'joint2_jc4', 'joint2_jc5', 'joint2_jc6', 'joint2_jc7',
-            'joint3_lim_e', 'joint3_lim_s', 'joint3_lim_v', 'joint3_lim_g', 'joint3_lim_t', 'joint3_wtb',
-            'joint3_wt', 'joint3_tt', 'joint3_s2_clm',
-            'joint4_btucl', 'joint4_ttu_clm', 'joint4_gu_sb', 'joint4_esb', 'joint4_leu_sb', 'joint4_lsus',
-            'joint4_glsb', 'joint4_lsb', 'joint4_tb', 'joint4_wb'
+            'joint3_lim_e', 'joint3_lim_s', 'joint3_lim_v', 'joint3_lim_g', 'joint3_d',
+            'joint4_btucl', 'joint4_ttu_clm', 'joint4_l_scr', 'joint4_esb', 'joint4_leu_sb', 'joint4_lsu_s_b',
+            'joint4_glsb', 'joint4_tb', 'joint4_wb', 'joint4_d'
 
         ]);
         $design->fill($input);

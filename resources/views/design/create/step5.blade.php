@@ -77,9 +77,17 @@
                                     <x-text-input id="joint1_b_clm" name="joint1_b_clm" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint1_b_clm" required autofocus autocomplete="joint1_b_clm" />
                                     <x-input-error class="mt-2" :messages="$errors->get('joint1_b_clm')" />
                                 </div>
+
+                                <div>
+                                    <x-input-label for="joint1_dtt_clm" :value="__('dtt_clm (mm)')" />
+                                    <x-text-input id="joint1_dtt_clm" name="joint1_dtt_clm" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint1_dtt_clm" required autofocus autocomplete="joint1_dtt_clm" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('joint1_dtt_clm')" />
+                                </div>
+
+
                             </div>
 
-                            <div class="basis-1/2 ml-2 content-center">
+                            <div class="basis-1/2 ml-2 content-center justify-center">
                                 <img style="max-height: 500px;" class="p-8" src="{{asset('/images/Joint_1.jpg')}}" alt="Helper">
                             </div>
                         </div>
@@ -141,7 +149,7 @@
                                 </div>
                             </div>
 
-                            <div class="basis-1/2 ml-2 content-center">
+                            <div class="basis-1/2 ml-2 content-center justify-center">
                                 <img style="max-height: 500px;" class="p-8" src="{{asset('/images/Joint_2.jpg')}}" alt="Helper">
                             </div>
                         </div>
@@ -185,37 +193,13 @@
                                 </div>
 
                                 <div>
-                                    <x-input-label for="joint3_lim_t" :value="__('lim_t (mm)')" />
-                                    <x-text-input id="joint3_lim_t" name="joint3_lim_t" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint3_lim_t" required autofocus autocomplete="joint3_lim_t" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint3_lim_t')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label for="joint3_wtb" :value="__('wtb (mm)')" />
-                                    <x-text-input id="joint3_wtb" name="joint3_wtb" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint3_wtb" required autofocus autocomplete="joint3_wtb" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint3_wtb')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label for="joint3_wt" :value="__('wt (mm)')" />
-                                    <x-text-input id="joint3_wt" name="joint3_wt" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint3_wt" required autofocus autocomplete="joint3_wt" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint3_wt')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label for="joint3_tt" :value="__('tt (mm)')" />
-                                    <x-text-input id="joint3_tt" name="joint3_tt" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint3_tt" required autofocus autocomplete="joint3_tt" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint3_tt')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label for="joint3_s2_clm" :value="__('s2_clm (mm)')" />
-                                    <x-text-input id="joint3_s2_clm" name="joint3_s2_clm" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint3_s2_clm" required autofocus autocomplete="joint3_s2_clm" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint3_s2_clm')" />
+                                    <x-input-label for="joint3_d" :value="__('d (mm)')" />
+                                    <x-text-input id="joint3_d" name="joint3_d" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint3_d" required autofocus autocomplete="joint3_d" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('joint3_d')" />
                                 </div>
                             </div>
 
-                            <div class="basis-1/2 ml-2 content-center">
+                            <div class="basis-1/2 ml-2 content-center justify-center">
                                 <img style="max-height: 500px;" class="p-8" src="{{asset('/images/Joint_3.jpg')}}" alt="Helper">
                             </div>
                         </div>
@@ -235,6 +219,12 @@
                                 </div>
 
                                 <div>
+                                    <x-input-label for="joint4_d" :value="__('D (mm)')" />
+                                    <x-text-input id="joint4_d" name="joint4_d" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_d" required autofocus autocomplete="joint4_d" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('joint4_d')" />
+                                </div>
+
+                                <div>
                                     <x-input-label for="joint4_btucl" :value="__('btucl (mm)')" />
                                     <x-text-input id="joint4_btucl" name="joint4_btucl" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_btucl" required autofocus autocomplete="joint4_btucl" />
                                     <x-input-error class="mt-2" :messages="$errors->get('joint4_btucl')" />
@@ -247,9 +237,9 @@
                                 </div>
 
                                 <div>
-                                    <x-input-label for="joint4_gu_sb" :value="__('gu_sb (mm)')" />
-                                    <x-text-input id="joint4_gu_sb" name="joint4_gu_sb" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_gu_sb" required autofocus autocomplete="joint4_gu_sb" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint4_gu_sb')" />
+                                    <x-input-label for="joint4_l_scr" :value="__('l_scr (mm)')" />
+                                    <x-text-input id="joint4_l_scr" name="joint4_l_scr" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_l_scr" required autofocus autocomplete="joint4_l_scr" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('joint4_l_scr')" />
                                 </div>
 
                                 <div>
@@ -265,21 +255,15 @@
                                 </div>
 
                                 <div>
-                                    <x-input-label for="joint4_lsus" :value="__('lsus (mm)')" />
-                                    <x-text-input id="joint4_lsus" name="joint4_lsus" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_lsus" required autofocus autocomplete="joint4_lsus" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint4_lsus')" />
+                                    <x-input-label for="joint4_lsu_s_b" :value="__('lsu_s_b (mm)')" />
+                                    <x-text-input id="joint4_lsu_s_b" name="joint4_lsu_s_b" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_lsu_s_b" required autofocus autocomplete="joint4_lsu_s_b" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('joint4_lsu_s_b')" />
                                 </div>
 
                                 <div>
                                     <x-input-label for="joint4_glsb" :value="__('glsb (mm)')" />
                                     <x-text-input id="joint4_glsb" name="joint4_glsb" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_glsb" required autofocus autocomplete="joint4_glsb" />
                                     <x-input-error class="mt-2" :messages="$errors->get('joint4_glsb')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label for="joint4_lsb" :value="__('lsb (mm)')" />
-                                    <x-text-input id="joint4_lsb" name="joint4_lsb" type="number" step="0.1" class="mt-1 block w-full" :value="$design->joint4_lsb" required autofocus autocomplete="joint4_lsb" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('joint4_lsb')" />
                                 </div>
 
                                 <div>
@@ -295,7 +279,7 @@
                                 </div>
                             </div>
 
-                            <div class="basis-1/2 ml-2 content-center">
+                            <div class="basis-1/2 ml-2 content-center justify-center">
                                 <img style="max-height: 500px;" class="p-8" src="{{asset('/images/Joint_4.jpg')}}" alt="Helper">
                             </div>
                         </div>
@@ -316,8 +300,7 @@
                     </form>
 
                     <div id="optimizer_result" class="hidden mt-4">
-                        joints details:
-                        D (mm): 26.416, lim_e (mm): 56.85, lim_s (mm): 71.07, lim_v (mm): 42.64, lim_g (mm): 42.64, Capacity (kN): 11.47, Status: Acceptable
+
                     </div>
                 </div>
             </div>
