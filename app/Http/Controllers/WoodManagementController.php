@@ -38,7 +38,7 @@ class WoodManagementController extends Controller
             'shear_strength', 'e_modulus', 'partial_factor',
             'density', 'e_modulus_5', 'modification_factor_permanent_term',
             'modification_factor_medium_term', 'modification_factor_instantaneous_term',
-            'creep_factor', 'creep_factor_solid_timber'
+            'creep_factor', 'creep_factor_solid_timber', 'dtl_e', 'dtl_g', 'dtl_s', 'dtl_v'
             ]);
 
         Wood::create($data);
@@ -66,7 +66,7 @@ class WoodManagementController extends Controller
             'shear_strength', 'e_modulus', 'partial_factor',
             'density', 'e_modulus_5', 'modification_factor_permanent_term',
             'modification_factor_medium_term', 'modification_factor_instantaneous_term',
-            'creep_factor', 'creep_factor_solid_timber'
+            'creep_factor', 'creep_factor_solid_timber', 'dtl_e', 'dtl_g', 'dtl_s', 'dtl_v'
         ]);
 
         $wood->update($data);

@@ -160,6 +160,31 @@
                                 <x-text-input id="creep_factor_solid_timber" name="creep_factor_solid_timber" type="number" step="0.1" step="0.1" class="mt-1 block w-full" :value="old('creep_factor_solid_timber', $wood->creep_factor_solid_timber)" required autofocus autocomplete="creep_factor_solid_timber" />
                                 <x-input-error class="mt-2" :messages="$errors->get('creep_factor_solid_timber')" />
                             </div>
+                            <div class="basis-1/3 ml-2">
+                                <x-input-label for="dtl_e" :value="__('End distance requirement')" />
+                                <x-text-input id="dtl_e" name="dtl_e" type="number" step="0.1" step="0.1" class="mt-1 block w-full" :value="old('dtl_e', $wood->dtl_e)" required autofocus autocomplete="dtl_e" />
+                                <x-input-error class="mt-2" :messages="$errors->get('dtl_e')" />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-row">
+                            <div class="basis-1/3 mr-2">
+                                <x-input-label for="dtl_g" :value="__('Vertical edge distance requirement')" />
+                                <x-text-input id="dtl_g" name="dtl_g" type="number" step="0.1" step="0.1" class="mt-1 block w-full" :value="old('dtl_g', $wood->dtl_g)" required autofocus autocomplete="dtl_g" />
+                                <x-input-error class="mt-2" :messages="$errors->get('dtl_g')" />
+                            </div>
+
+                            <div class="basis-1/3 mr-2 ml-2">
+                                <x-input-label for="dtl_s" :value="__('Peg spacing distance requirement')" />
+                                <x-text-input id="dtl_s" name="dtl_s" type="number" step="0.1" step="0.1" class="mt-1 block w-full" :value="old('dtl_s', $wood->dtl_s)" required autofocus autocomplete="dtl_s" />
+                                <x-input-error class="mt-2" :messages="$errors->get('dtl_s')" />
+                            </div>
+
+                            <div class="basis-1/3 ml-2">
+                                <x-input-label for="dtl_v" :value="__('Edge distance requirement')" />
+                                <x-text-input id="dtl_v" name="dtl_v" type="number" step="0.1" step="0.1" class="mt-1 block w-full" :value="old('dtl_v', $wood->dtl_v)" required autofocus autocomplete="dtl_v" />
+                                <x-input-error class="mt-2" :messages="$errors->get('dtl_v')" />
+                            </div>
                         </div>
 
                         <div class="flex items-center gap-4">

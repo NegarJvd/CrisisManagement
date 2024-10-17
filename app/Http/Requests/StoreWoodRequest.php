@@ -34,6 +34,11 @@ class StoreWoodRequest extends FormRequest
             'modification_factor_instantaneous_term' => ['required', 'numeric'],
             'creep_factor' => ['required', 'numeric'],
             'creep_factor_solid_timber' => ['required', 'numeric'],
+            'dtl_e' => ['required', 'numeric'],
+            'dtl_g' => ['required', 'numeric'],
+            'dtl_s' => ['required', 'numeric'],
+            'dtl_v' => ['required', 'numeric'],
+
         ];
     }
 }
