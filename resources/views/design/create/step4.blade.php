@@ -53,18 +53,23 @@
 
                         for (let i = 0; i < response.length; i++){
                             const div = document.createElement('div');
-                            div.classList.add('border', 'border-gray-300', 'rounded-lg', 'p-4', 'cursor-pointer', 'hover:bg-gray-100', 'mt-2', 'fill_the_cross_section');
+                            div.classList.add('border', 'border-gray-300', 'rounded-lg', 'p-4', 'mt-2');
                             const cross_section_option = response[i]
                             let div_text = "";
 
                             const print_value = document.createElement('p')
                             let weight_input
                             let thickness_input
+                            let final_utilisation_status
 
                             // Iterate over all the keys in the object
                             for (let key in cross_section_option) {
                                 if (typeof cross_section_option[key] === 'object' && cross_section_option[key].print_value) {
                                     div_text += key + " : " + cross_section_option[key].print_value + ", "
+
+                                    if (key === "final_utilisation_status") {
+                                        final_utilisation_status = cross_section_option[key].value
+                                    }
 
                                     if (key === "weight"){
                                         weight_input = document.createElement('input')
@@ -85,6 +90,13 @@
                             div.appendChild(print_value)
                             div.appendChild(weight_input)
                             div.appendChild(thickness_input)
+
+                            if (final_utilisation_status){
+                                div.classList.add('fill_the_cross_section', 'cursor-pointer', 'hover:bg-gray-100')
+                            }else{
+                                div.classList.add('cursor-not-allowed')
+                            }
+
                             optimizer_result.appendChild(div)
                         }
 
