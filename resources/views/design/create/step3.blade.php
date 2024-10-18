@@ -1,4 +1,3 @@
-@php use App\Models\Wood; @endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -9,8 +8,10 @@
     <script type="module">
         $(document).ready(function () {
             $('#load_calculator').on('click', function () {
+                const url = "{!! env('FLASK_URL') !!}" + '/load_calculator';
+
                 $.ajax({
-                    url: 'http://127.0.0.1:5000/load_calculator',
+                    url: url,
                     type: 'POST',
                     async: true,
                     contentType: 'application/json',
@@ -23,11 +24,14 @@
                             "width": parseFloat("{{$design->width}}")
                         },
                         "material": {
-                            "density": parseFloat("{{Wood::findOrFail($woods)->density}}")
+                            "density": parseFloat("{{$wood_model->density}}")
                         }
                     }),
                     success: function (data, textStatus, jQxhr) {
                         const response = JSON.parse(jQxhr.responseText);
+
+                        let load_calculator_json_values = {}
+
                         const load_calculator_result = document.getElementById('load_calculator_result')
                         load_calculator_result.innerHTML = ""
 
@@ -35,11 +39,16 @@
                         $("#wind_load").val(response.wk.value).change()
                         // Iterate over all the keys in the object
                         for (let key in response) {
-                            if (typeof response[key] === 'object' && response[key].print_value) {
-                                // Create a paragraph element and add the print_value
-                                const p = document.createElement('p');
-                                p.textContent = response[key].print_value;
-                                load_calculator_result.appendChild(p);
+                            if (typeof response[key] === 'object') {
+                                if (response[key].print_value) {
+                                    // Create a paragraph element and add the print_value
+                                    const p = document.createElement('p');
+                                    p.textContent = response[key].print_value;
+                                    load_calculator_result.appendChild(p);
+                                }
+                                if (response[key].value) {
+                                    load_calculator_json_values[key] = response[key].value
+                                }
                             }
                             // Handle nested objects (like wind_direct and wind_side)
                             if (typeof response[key] === 'object') {
@@ -53,6 +62,7 @@
                             }
                         }
 
+                        $('#load_calculator_values_as_object').val(JSON.stringify(load_calculator_json_values)).change();
                     },
                     error: function (jqXhr, textStatus, errorThrown) {
                         const response = JSON.parse(jqXhr.responseText);
@@ -122,6 +132,9 @@
                             </div>
                         </div>
 
+                        <x-text-input id="load_calculator_values_as_object" name="load_calculator_values_as_object" type="text"
+                                      class="hidden" :value="$load_calculator_values_as_object"/>
+
                         <div class="flex items-center gap-4">
                             <a href="{{route('design.create.step2')}}">
                                 <x-secondary-button>{{__('Previous')}}</x-secondary-button>
@@ -133,7 +146,7 @@
                         </div>
                     </form>
 
-                    <div id="load_calculator_result" class="mt-6"></div>
+                    <div id="load_calculator_result" class="mt-4"></div>
 
                 </div>
             </div>

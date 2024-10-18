@@ -75,8 +75,9 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
 
-        return view('design.create.step1', compact('design', 'woods'));
+        return view('design.create.step1', compact('design', 'woods', 'wood_model'));
     }
     public function store_step_1(Request $request): RedirectResponse
     {
@@ -86,12 +87,15 @@ class DesignController extends Controller
 
         if(empty($request->session()->get('woods'))){
             $design = new Design();
+            $wood_model = new Wood();
         }else{
             $design = $request->session()->get('design');
+            $wood_model = Wood::findOrFail($request->get('woods'));
         }
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $request->get('woods'));
+        $request->session()->put('wood_model', $wood_model);
 
         return Redirect::to('/design/create/step2')->with('status', 'success');
     }
@@ -99,8 +103,9 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
 
-        return view('design.create.step2', compact('design', 'woods'));
+        return view('design.create.step2', compact('design', 'woods', 'wood_model'));
     }
     public function store_step_2(Request $request): RedirectResponse
     {
@@ -114,12 +119,14 @@ class DesignController extends Controller
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
 
         $input = $request->only(['width', 'length', 'height', 'slab_thickness', 'column_number']);
         $design->fill($input);
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $woods);
+        $request->session()->put('wood_model', $wood_model);
 
         return Redirect::to('/design/create/step3')->with('status', 'success');
     }
@@ -127,29 +134,35 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
         $snow_load = $request->session()->get('snow_load') ?? 0;
         $wind_load = $request->session()->get('wind_load') ?? 0;
         $dead_load = $request->session()->get('dead_load') ?? 0;
         $live_load = $request->session()->get('live_load') ?? 0;
+        $load_calculator_values_as_object = $request->session()->get('load_calculator_values_as_object') ?? "";
 
         return view('design.create.step3',
-            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
+            compact('design', 'woods', 'wood_model', 'snow_load', 'wind_load', 'dead_load', 'live_load', 'load_calculator_values_as_object'));
     }
     public function store_step_3(Request $request): RedirectResponse
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
         $snow_load = $request->get('snow_load') ?? 0;
         $wind_load = $request->get('wind_load') ?? 0;
         $dead_load = $request->get('dead_load') ?? 0;
         $live_load = $request->get('live_load') ?? 0;
+        $load_calculator_values_as_object = $request->get('load_calculator_values_as_object');
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $woods);
+        $request->session()->put('wood_model', $wood_model);
         $request->session()->put('snow_load', $snow_load);
         $request->session()->put('wind_load', $wind_load);
         $request->session()->put('dead_load', $dead_load);
         $request->session()->put('live_load', $live_load);
+        $request->session()->put('load_calculator_values_as_object', $load_calculator_values_as_object);
 
         return Redirect::to('/design/create/step4')->with('status', 'success');
     }
@@ -157,13 +170,15 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
         $snow_load = $request->session()->get('snow_load');
         $wind_load = $request->session()->get('wind_load');
         $dead_load = $request->session()->get('dead_load');
         $live_load = $request->session()->get('live_load');
+        $load_calculator_values_as_object = $request->session()->get('load_calculator_values_as_object');
 
         return view('design.create.step4',
-            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
+            compact('design', 'woods', 'wood_model', 'snow_load', 'wind_load', 'dead_load', 'live_load', 'load_calculator_values_as_object'));
     }
     public function store_step_4(Request $request): RedirectResponse
     {
@@ -180,6 +195,7 @@ class DesignController extends Controller
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
         $snow_load = $request->session()->get('snow_load');
         $wind_load = $request->session()->get('wind_load');
         $dead_load = $request->session()->get('dead_load');
@@ -190,6 +206,7 @@ class DesignController extends Controller
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $woods);
+        $request->session()->put('wood_model', $wood_model);
         $request->session()->put('snow_load', $snow_load);
         $request->session()->put('wind_load', $wind_load);
         $request->session()->put('dead_load', $dead_load);
@@ -201,13 +218,14 @@ class DesignController extends Controller
     {
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
         $snow_load = $request->session()->get('snow_load');
         $wind_load = $request->session()->get('wind_load');
         $dead_load = $request->session()->get('dead_load');
         $live_load = $request->session()->get('live_load');
 
         return view('design.create.step5',
-            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
+            compact('design', 'woods', 'wood_model', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
     }
     public function store_step_5(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -220,6 +238,7 @@ class DesignController extends Controller
 
         $design = $request->session()->get('design');
         $woods = $request->session()->get('woods');
+        $wood_model = $request->session()->get('wood_model');
         $snow_load = $request->session()->get('snow_load');
         $wind_load = $request->session()->get('wind_load');
         $dead_load = $request->session()->get('dead_load');
@@ -241,13 +260,14 @@ class DesignController extends Controller
 
         $request->session()->forget('design');
         $request->session()->forget('woods');
+        $request->session()->forget('wood_model');
         $request->session()->forget('snow_load');
         $request->session()->forget('wind_load');
         $request->session()->forget('dead_load');
         $request->session()->forget('live_load');
 
         return view('design.create.final_result',
-            compact('design', 'woods', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
+            compact('design', 'woods', 'wood_model', 'snow_load', 'wind_load', 'dead_load', 'live_load'));
     }
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
