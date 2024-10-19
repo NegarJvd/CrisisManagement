@@ -58,7 +58,7 @@
                             let div_text = "";
 
                             const print_value = document.createElement('p')
-                            let weight_input
+                            let width_input
                             let thickness_input
                             let final_utilisation_status
 
@@ -71,11 +71,11 @@
                                         final_utilisation_status = cross_section_option[key].value
                                     }
 
-                                    if (key === "weight"){
-                                        weight_input = document.createElement('input')
-                                        weight_input.type = 'number'
-                                        weight_input.value = cross_section_option[key].value
-                                        weight_input.classList.add('cross_section_optimization_weight', 'hidden')
+                                    if (key === "width"){
+                                        width_input = document.createElement('input')
+                                        width_input.type = 'number'
+                                        width_input.value = cross_section_option[key].value
+                                        width_input.classList.add('cross_section_optimization_width', 'hidden')
                                     }
 
                                     if (key === "thickness"){
@@ -88,7 +88,7 @@
                             }
                             print_value.textContent = div_text
                             div.appendChild(print_value)
-                            div.appendChild(weight_input)
+                            div.appendChild(width_input)
                             div.appendChild(thickness_input)
 
                             if (final_utilisation_status){
@@ -119,19 +119,19 @@
             $(this).addClass('bg-gray-300')
 
             // calculating from api results
-            const weight = $(this).find('.cross_section_optimization_weight').val()
+            const width = $(this).find('.cross_section_optimization_width').val()
             const thickness = $(this).find('.cross_section_optimization_thickness').val()
 
-            const beam_w = weight
+            const beam_w = width
             const beam_h = thickness
 
-            const column_w = weight
+            const column_w = width
             const column_h = thickness
 
-            const top_plate_w = weight
+            const top_plate_w = width
             const top_plate_h = (3/2) * thickness
 
-            const long_sill_h = weight
+            const long_sill_h = width
             const long_sill_w = (5/4) * thickness
 
             $('#beam_w').val(beam_w).change();
