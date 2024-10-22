@@ -17,7 +17,6 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "leaflet": "^1.9.4",
-        "select2": "^4.1.0-rc.0"
+        "leaflet": "^1.9.4"
     }
 }
