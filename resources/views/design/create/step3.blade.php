@@ -132,6 +132,30 @@
                             </div>
                         </div>
 
+                        <div class="w-full mb-2">
+                            <div id="map" style="height: 400px"></div>
+                        </div>
+
+                        <div class="flex flex-row">
+                            <div class="basis-1/3 mr-2">
+                                <h2>
+                                    Choose your coordinate on map:
+                                </h2>
+                            </div>
+
+                            <div class="basis-1/3 mr-2 ml-2">
+                                <x-input-label for="latitude" :value="__('Latitude')" />
+                                <x-text-input readonly id="latitude" name="latitude" type="text" class="mt-1 block w-full" :value="old('latitude')" required autofocus autocomplete="latitude" />
+                                <x-input-error class="mt-2" :messages="$errors->get('latitude')" />
+                            </div>
+
+                            <div class="basis-1/3 ml-2">
+                                <x-input-label for="longitude" :value="__('Longitude')" />
+                                <x-text-input readonly id="longitude" name="longitude" type="text" class="mt-1 block w-full" :value="old('longitude')" required autofocus autocomplete="longitude" />
+                                <x-input-error class="mt-2" :messages="$errors->get('longitude')" />
+                            </div>
+                        </div>
+
                         <x-text-input id="load_calculator_values_as_object" name="load_calculator_values_as_object" type="text"
                                       class="hidden" :value="$load_calculator_values_as_object"/>
 
