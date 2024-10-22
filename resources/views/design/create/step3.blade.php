@@ -95,7 +95,7 @@
                         @csrf
 
                         <h2>
-                            Enter loading actions:
+                            Enter loading actions or use {{__('Load calculator')}}:
                         </h2>
 
                         <div class="flex flex-row">
