@@ -7,6 +7,7 @@
 
     <script type="module">
         $(document).ready(function() {
+
             $('#woods').on('click', function (){
                 const id = $('#woods').val()
                 $('.details').addClass('hidden')

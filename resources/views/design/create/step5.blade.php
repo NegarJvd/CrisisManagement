@@ -55,6 +55,18 @@
                         $('#joint4_glsb').val(response.gl_s_b.value).change()
                         $('#joint4_tb').val(response.t_b.value).change()
                         $('#joint4_wb').val(response.w_b.value).change()
+
+                        let joint_details_as_string = $('#joint_details_as_string').val()
+                        // Iterate over all the keys in the object
+                        for (let key in response) {
+                            if (typeof response[key] === 'object') {
+                                if (response[key].print_value){
+                                    joint_details_as_string += response[key].print_value + ", "
+                                }
+                            }
+                        }
+                        $('#joint_details_as_string').val(joint_details_as_string).change()
+
                     },
                     error: function (jqXhr, textStatus, errorThrown) {
                         const response = JSON.parse(jqXhr.responseText);
@@ -98,6 +110,17 @@
                         $('#joint3_lim_g').val(response.lim_g.value).change()
                         $('#joint3_d').val(response.d.value).change()
                         $('#joint3_capacity_kN').text("capacity : " + response.capacity_kN.print_value).change()
+
+                        let joint_details_as_string = $('#joint_details_as_string').val()
+                        // Iterate over all the keys in the object
+                        for (let key in response) {
+                            if (typeof response[key] === 'object') {
+                                if (response[key].print_value){
+                                    joint_details_as_string += key + " : " + response[key].print_value + ", "
+                                }
+                            }
+                        }
+                        $('#joint_details_as_string').val(joint_details_as_string).change()
                     },
                     error: function (jqXhr, textStatus, errorThrown) {
                         const response = JSON.parse(jqXhr.responseText);
@@ -442,6 +465,8 @@
                                      alt="Helper">
                             </div>
                         </div>
+
+                        <textarea id="joint_details_as_string" name="joint_details_as_string" class="hidden">{{$joint_details_as_string}}</textarea>
 
                         <div class="flex items-center gap-4">
                             <a href="{{route('design.create.step4')}}">

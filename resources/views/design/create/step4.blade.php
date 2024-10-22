@@ -117,6 +117,7 @@
         $(document).on('click', '.fill_the_cross_section', function (){
             $('.fill_the_cross_section').removeClass('bg-gray-300')
             $(this).addClass('bg-gray-300')
+            let cross_section_optimization_as_string = $(this).find('p').text()
 
             // calculating from api results
             const width = $(this).find('.cross_section_optimization_width').val()
@@ -143,6 +144,8 @@
             $('#column_h').val(column_h).change();
             $('#top_plate_h').val(top_plate_h).change();
             $('#long_sill_h').val(long_sill_h).change();
+
+            $('#cross_section_optimization_as_string').val(cross_section_optimization_as_string).change()
         })
     </script>
 
@@ -220,6 +223,8 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('long_sill_h')" />
                             </div>
                         </div>
+
+                        <textarea id="cross_section_optimization_as_string" name="cross_section_optimization_as_string" class="hidden">{{$cross_section_optimization_as_string}}</textarea>
 
                         <div class="flex items-center gap-4">
                             <a href="{{route('design.create.step3')}}">

@@ -35,6 +35,8 @@
                         const load_calculator_result = document.getElementById('load_calculator_result')
                         load_calculator_result.innerHTML = ""
 
+                        let load_calculator_values_as_string = ""
+
                         $("#dead_load").val(response.gk.value).change()
                         $("#wind_load").val(response.wk.value).change()
                         // Iterate over all the keys in the object
@@ -45,6 +47,8 @@
                                     const p = document.createElement('p');
                                     p.textContent = response[key].print_value;
                                     load_calculator_result.appendChild(p);
+
+                                    load_calculator_values_as_string += response[key].print_value + "<br>"
                                 }
                                 if (response[key].value) {
                                     load_calculator_json_values[key] = response[key].value
@@ -57,11 +61,14 @@
                                         const p = document.createElement('p');
                                         p.textContent = response[key][subKey].print_value;
                                         load_calculator_result.appendChild(p);
+
+                                        load_calculator_values_as_string += response[key][subKey].print_value + "<br>"
                                     }
                                 }
                             }
                         }
 
+                        $('#load_calculator_values_as_string').val(load_calculator_values_as_string).change();
                         $('#load_calculator_values_as_object').val(JSON.stringify(load_calculator_json_values)).change();
                     },
                     error: function (jqXhr, textStatus, errorThrown) {
@@ -155,6 +162,8 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('longitude')" />
                             </div>
                         </div>
+
+                        <textarea id="load_calculator_values_as_string" name="load_calculator_values_as_string" class="hidden">{{$load_calculator_values_as_string}}</textarea>
 
                         <x-text-input id="load_calculator_values_as_object" name="load_calculator_values_as_object" type="text"
                                       class="hidden" :value="$load_calculator_values_as_object"/>

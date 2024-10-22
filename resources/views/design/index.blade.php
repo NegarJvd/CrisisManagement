@@ -116,6 +116,14 @@
 {{--                                                 alt="fork">--}}
 {{--                                        </a>--}}
 {{--                                    </div>--}}
+
+                                    <div class="basis-1/2 flex items-center justify-center">
+                                        <a href="{{route('design.show', $design->id)}}" title="show details">
+                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/show.png')}}"
+                                                 alt="fork">
+                                        </a>
+                                    </div>
+
                                     @if(Auth::user()->is_admin or $design->user_id == Auth::id())
 {{--                                        <div class="basis-1/2 flex items-center justify-center">--}}
 {{--                                            <a href="{{route('design.edit', $design->id)}}" title="edit">--}}

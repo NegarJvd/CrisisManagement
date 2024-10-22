@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static pluck(string $string)
  * @method static create(array $data)
  * @method static findOrFail($id)
+ * @method static find(mixed $get)
  */
 class Wood extends Model
 {
