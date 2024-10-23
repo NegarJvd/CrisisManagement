@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SuggestRequest;
+use App\Models\CNCSupply;
 use App\Models\Design;
+use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 
 class CrisisStrickenController extends Controller
 {
@@ -35,15 +38,74 @@ class CrisisStrickenController extends Controller
         $distance = $this->haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo);
         return $distance <= floatval($radius);
     }
+    public function providers_list(SuggestRequest $request): JsonResponse
+    {
+        $crisis_lat = $request->get('latitude');
+        $crisis_lon = $request->get('longitude');
+
+        //timber_providers
+        $timber_providers = User::query()
+                        ->whereHas('timber_supplies')
+                        ->get();
+
+        $timber_providers_in_range = [];
+        foreach ($timber_providers as $provider)
+        {
+            $in_range_supply_points = [];
+            foreach ($provider->timber_supplies as $supply_point){
+                $is_in_range = $this->is_in_range($supply_point->latitude, $supply_point->longitude, $crisis_lat, $crisis_lon, $supply_point->radius);
+                if ($is_in_range)
+                    $in_range_supply_points[] = $supply_point;
+            }
+
+            if (count($in_range_supply_points) > 0){
+                $timber_providers_in_range[] = [
+                    'provider' => [
+                        'id' => $provider->id,
+                        'name' => $provider->name,
+                        'email' => $provider->email
+                    ],
+                    'supply_points' => $in_range_supply_points];
+            }
+        }
+
+        //CNC providers
+        $CNC_providers = User::query()
+            ->whereHas('cnc_supplies')
+            ->get();
+
+        $CNC_providers_in_range = [];
+        foreach ($CNC_providers as $provider)
+        {
+            $in_range_supply_points = [];
+            foreach ($provider->cnc_supplies as $supply_point){
+                $is_in_range = $this->is_in_range($supply_point->latitude, $supply_point->longitude, $crisis_lat, $crisis_lon, $supply_point->radius);
+                if ($is_in_range)
+                    $in_range_supply_points[] = $supply_point;
+            }
+
+            if (count($in_range_supply_points) > 0){
+                $CNC_providers_in_range[] = [
+                    'provider' => [
+                        'id' => $provider->id,
+                        'name' => $provider->name,
+                        'email' => $provider->email
+                    ],
+                    'supply_points' => $in_range_supply_points];
+            }
+        }
+
+        return response()->json([
+            'timber_providers' => $timber_providers_in_range,
+            'cnc_providers' => $CNC_providers_in_range
+        ]);
+    }
     public function suggest(SuggestRequest $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $crisis_lat = $request->get('latitude');
         $crisis_lon = $request->get('longitude');
-        $number_of_households = $request->get('number_of_households');
 
-        $designs = Design::query()
-                            ->where('number_of_households', $number_of_households) //
-                            ->get();
+        $designs = Design::all();
 
         $accepted_designs = [];
         foreach ($designs as $design)
@@ -62,7 +124,7 @@ class CrisisStrickenController extends Controller
                 continue;
 
             //cnc
-            $cnc = $design->cnc();
+            $cnc = CNCSupply::all();
             $cnc_in_range = [];
             foreach ($cnc as $c)
             {
@@ -83,7 +145,7 @@ class CrisisStrickenController extends Controller
             'designs' => $accepted_designs,
             'latitude' => $crisis_lat,
             'longitude' => $crisis_lon,
-            'number_of_households' => $number_of_households
+            'number_of_households' => 0
         ]);
     }
 }

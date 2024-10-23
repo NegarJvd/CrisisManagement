@@ -32,7 +32,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('shelter_seekers')" :active="request()->routeIs('shelter_seekers.*')">
+                    <x-nav-link :href="route('shelter_seekers.show')" :active="request()->routeIs('shelter_seekers.*')">
                         {{ __('Shelter Seekers') }}
                     </x-nav-link>
                 </div>
@@ -114,7 +114,7 @@
             <x-responsive-nav-link :href="route('cnc-provider.index')" :active="request()->routeIs('cnc-provider.*')">
                 {{ __('CNC Provider') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('shelter_seekers')" :active="request()->routeIs('shelter_seekers.*')">
+            <x-responsive-nav-link :href="route('shelter_seekers.show')" :active="request()->routeIs('shelter_seekers.*')">
                 {{ __('Shelter Seekers') }}
             </x-responsive-nav-link>
 

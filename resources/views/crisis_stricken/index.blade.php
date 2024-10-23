@@ -7,6 +7,12 @@
         </div>
     </x-slot>
 
+{{--    <script type="module">--}}
+{{--        $(document).ready(function() {--}}
+{{--            --}}
+{{--        })--}}
+{{--    </script>--}}
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
@@ -38,12 +44,11 @@
                         <div id="map" style="height: 400px"></div>
                     </div>
 
-                    <form method="post" action="{{ route('suggest') }}" class="flex flex-row">
-                        @csrf
+                    <div class="flex flex-row mb-4">
 
                         <div class="basis-1/4 mr-2 flex items-center">
                             <span>
-                                Search for best designs for your location and condition:
+                                Choose your location:
                             </span>
                         </div>
 
@@ -61,71 +66,76 @@
                             <x-input-error class="mt-2" :messages="$errors->get('longitude')"/>
                         </div>
 
-                        <div class="basis-1/4 mr-2">
-                            <x-input-label for="number_of_households" :value="__('Number of households')"/>
-                            <x-text-input id="number_of_households" name="number_of_households" type="text" class="mt-1 block w-full"
-                                          :value="$number_of_households ?? null" required autofocus autocomplete="number_of_households"/>
-                            <x-input-error class="mt-2" :messages="$errors->get('number_of_households')"/>
+{{--                        <div class="basis-1/4 flex items-end mb-1">--}}
+{{--                            <x-primary-button>{{ __('Search') }}</x-primary-button>--}}
+{{--                        </div>--}}
+                    </div>
+
+                    <hr>
+
+                    <div class="flex flex-row mt-4 mb-4" id="timber_providers_div">
+                        <div class="basis-1/2 mr-2">
+                            <h2 class="mb-2">In range timber providers</h2>
+                            <table class="table-auto w-full border-collapse border border-slate-500 text-center" id="timber_provider_table">
+                                <thead>
+                                    <tr class="border border-slate-600 bg-gray-100 py-3">
+                                        <th class="border border-slate-600 py-3">Id</th>
+                                        <th class="border border-slate-600 py-3">Name</th>
+                                        <th class="border border-slate-600 py-3">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
 
-                        <div class="basis-1/4 flex items-end mb-1">
-                            <x-primary-button>{{ __('Search') }}</x-primary-button>
+                        <div class="basis-1/2 ml-2">
+                            <h2 class="mb-2">In range supply points</h2>
+                            <table class="table-auto w-full border-collapse border border-slate-500 text-center" id="timber_supply_points_table">
+                                <thead>
+                                    <tr class="border border-slate-600 bg-gray-100 py-3">
+                                        <th class="border border-slate-600 py-3">Id</th>
+                                        <th class="border border-slate-600 py-3">Range (Km)</th>
+                                        <th class="border border-slate-600 py-3">Order</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
-                    </form>
-                </div>
 
-                <hr>
+                    </div>
 
-                <div class="p-6 text-gray-900 overflow-x-auto dark:text-gray-100">
-                    <table class="table-auto w-full border-collapse border border-slate-500 text-center">
-                        <thead>
-                        <tr class="border border-slate-600 bg-gray-100 py-3">
-                            <th class="border border-slate-600 py-3">Id</th>
-                            <th class="border border-slate-600 py-3">Woods</th>
-                            <th class="border border-slate-600 py-3">Machines</th>
-                            <th class="border border-slate-600 py-3">Snow load</th>
-                            <th class="border border-slate-600 py-3">Wind load</th>
-                            <th class="border border-slate-600 py-3">Earthquake load</th>
-                            <th class="border border-slate-600 py-3">Number of households</th>
-                            <th class="border border-slate-600 py-3">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @isset($designs)
-                            @foreach($designs as $design)
-                                <tr class="border border-slate-600 py-3">
-                                    <td class="border border-slate-600 py-3">{{$design->id}}</td>
-                                    <td class="border border-slate-600 py-3">
-                                        @foreach($design->woods as $wood)
-                                            <span>[{{$wood->name}}]</span>
-                                        @endforeach
-                                    </td>
-                                    <td class="border border-slate-600 py-3">
-                                        @foreach($design->machines as $machine)
-                                            <span>[{{$machine->name}}]</span>
-                                        @endforeach
-                                    </td>
-                                    <td class="border border-slate-600 py-3">{{$design->snow_load}}</td>
-                                    <td class="border border-slate-600 py-3">{{$design->wind_load}}</td>
-                                    <td class="border border-slate-600 py-3">{{$design->earthquake_load}}</td>
-                                    <td class="border border-slate-600 py-3">{{$design->number_of_households}}</td>
-                                    <td class="py-3 flex flex-row items-center justify-center">
-                                        <a href="{{route('design.show', ['design' => $design->id, 'latitude' => $latitude ?? null, 'longitude' => $longitude ?? null])}}">
-                                            <img class="w-8 hover:bg-gray-300" src="{{asset('/icons/show.png')}}" alt="show">
-                                        </a>
-                                    </td>
+                    <hr>
+
+                    <div class="flex flex-row mt-4 mb-4" id="cnc_providers_div">
+                        <div class="basis-1/2 mr-2">
+                            <h2 class="mb-2">In range cnc providers</h2>
+                            <table class="table-auto w-full border-collapse border border-slate-500 text-center" id="cnc_provider_table">
+                                <thead>
+                                <tr class="border border-slate-600 bg-gray-100 py-3">
+                                    <th class="border border-slate-600 py-3">Id</th>
+                                    <th class="border border-slate-600 py-3">Name</th>
+                                    <th class="border border-slate-600 py-3">Email</th>
                                 </tr>
-                            @endforeach
-                        @endisset
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
 
-                        </tbody>
-                    </table>
+                        <div class="basis-1/2 ml-2">
+                            <h2 class="mb-2">In range cnc points</h2>
+                            <table class="table-auto w-full border-collapse border border-slate-500 text-center" id="cnc_supply_points_table">
+                                <thead>
+                                <tr class="border border-slate-600 bg-gray-100 py-3">
+                                    <th class="border border-slate-600 py-3">Id</th>
+                                    <th class="border border-slate-600 py-3">Range (Km)</th>
+                                    <th class="border border-slate-600 py-3">Order</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
 
-                    {{--                    <div class="mt-3">--}}
-                    {{--                        @isset($designs)--}}
-                    {{--                            {{$designs->links()}}--}}
-                    {{--                        @endisset--}}
-                    {{--                    </div>--}}
+                    </div>
                 </div>
             </div>
         </div>

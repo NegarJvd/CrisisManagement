@@ -18,32 +18,44 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('profile')->name('profile.')->group(function (){
+        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    });
 
+    Route::prefix('design')->name('design.')->group(function (){
+        Route::resource('/', DesignController::class)->only(['index', 'show', 'destroy']);
+        Route::get('/fork/{design_id}', [DesignController::class, 'fork'])->name('fork');
 
-    Route::get('design/create/step1', [DesignController::class, 'create_step_1'])->name('design.create.step1');
-    Route::post('design/store/step1', [DesignController::class, 'store_step_1'])->name('design.store.step1');
-    Route::get('design/create/step2', [DesignController::class, 'create_step_2'])->name('design.create.step2');
-    Route::post('design/store/step2', [DesignController::class, 'store_step_2'])->name('design.store.step2');
-    Route::get('design/create/step3', [DesignController::class, 'create_step_3'])->name('design.create.step3');
-    Route::post('design/store/step3', [DesignController::class, 'store_step_3'])->name('design.store.step3');
-    Route::get('design/create/step4', [DesignController::class, 'create_step_4'])->name('design.create.step4');
-    Route::post('design/store/step4', [DesignController::class, 'store_step_4'])->name('design.store.step4');
-    Route::get('design/create/step5', [DesignController::class, 'create_step_5'])->name('design.create.step5');
-    Route::post('design/store/step5', [DesignController::class, 'store_step_5'])->name('design.store.step5');
-    Route::resource('design', DesignController::class)->except(['store', 'create']);
-    Route::get('design/fork/{design_id}', [DesignController::class, 'fork'])->name('design.fork');
+        Route::prefix('create')->name('create.')->group(function (){
+            Route::get('/step1', [DesignController::class, 'create_step_1'])->name('step1');
+            Route::get('/step2', [DesignController::class, 'create_step_2'])->name('step2');
+            Route::get('/step3', [DesignController::class, 'create_step_3'])->name('step3');
+            Route::get('/step4', [DesignController::class, 'create_step_4'])->name('step4');
+            Route::get('/step5', [DesignController::class, 'create_step_5'])->name('step5');
+        });
+
+        Route::prefix('store')->name('store.')->group(function (){
+            Route::post('/step1', [DesignController::class, 'store_step_1'])->name('step1');
+            Route::post('/step2', [DesignController::class, 'store_step_2'])->name('step2');
+            Route::post('/step3', [DesignController::class, 'store_step_3'])->name('step3');
+            Route::post('/step4', [DesignController::class, 'store_step_4'])->name('step4');
+            Route::post('/step5', [DesignController::class, 'store_step_5'])->name('step5');
+        });
+    });
+
 
     Route::resource('timber-provider', TimberSupplyController::class)->except('show');
-
     Route::resource('cnc-provider', CNCSupplyController::class)->except('show');
-
-    Route::get('shelter_seekers', [CrisisStrickenController::class, 'show'])->name('shelter_seekers');
-    Route::post('shelter_seekers-suggest', [CrisisStrickenController::class, 'suggest'])->name('suggest');
-
     Route::resource('wood-management', WoodManagementController::class);
+
+    Route::prefix('shelter_seekers')->name('shelter_seekers.')->group(function (){
+        Route::get('/', [CrisisStrickenController::class, 'show'])->name('show');
+        Route::post('/providers', [CrisisStrickenController::class, 'providers_list'])->name('providers_list');
+//        Route::post('-suggest', [CrisisStrickenController::class, 'suggest'])->name('suggest');
+    });
+
 
     Route::middleware('is_admin')->group(function (){
         Route::get('user-management', [UserController::class, 'users_list'])->name('user-management');

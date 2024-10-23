@@ -17,7 +17,6 @@ class SuggestRequest extends FormRequest
         return [
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
-            'number_of_households' => ['required', 'numeric', 'min:1', 'max:100'],
         ];
     }
 }
