@@ -18,4 +18,16 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Order submitted successfully!');
     }
+
+    public function timber_orders()
+    {
+       $orders = Order::query()
+                        ->with(['user', 'design'])
+                        ->whereHas('timber_provider', function ($q){
+                            $q->where('user_id', Auth::id());
+                        })->orderByDesc('id')
+                        ->paginate();
+
+       return view('timber_supply.orders', compact('orders'));
+    }
 }

@@ -60,10 +60,12 @@ class DesignController extends Controller
     public function show($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $design = Design::findOrFail($id);
+        $wood = $design->woods()->get();
 
 
         return view('design.show', [
             'design' => $design,
+            'wood' => $wood[0]
         ]);
     }
     public function create_step_1(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

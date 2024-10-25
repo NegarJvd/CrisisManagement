@@ -21,6 +21,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function design(): BelongsTo
+    {
+        return $this->belongsTo(Design::class, 'design_id');
+    }
     public function timber_provider(): BelongsTo
     {
         return $this->belongsTo(TimberSupply::class, 'timber_id');

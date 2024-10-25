@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('order')->name('order.')->group(function (){
         Route::post('/', [OrderController::class, 'store'])->name('store');
+        Route::get('/timber_orders', [OrderController::class, 'timber_orders'])->name('timber');
+        Route::get('/cnc_orders', [OrderController::class, 'cnc_orders'])->name('cnc');
     });
 });
 
