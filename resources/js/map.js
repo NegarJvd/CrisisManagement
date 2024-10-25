@@ -298,6 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 $(document).on('click', '.timber_provider_row', function (){
+    $('.timber_provider_row').removeClass('bg-gray-300')
+    $(this).addClass('bg-gray-300')
+
     $('.timber_supply_points').addClass('hidden')
 
     let timber_provider_id = $(this)[0].id
@@ -328,6 +331,9 @@ $(document).on('click', '.timber_provider_row', function (){
 })
 
 $(document).on('click', '.cnc_provider_row', function (){
+    $('.cnc_provider_row').removeClass('bg-gray-300')
+    $(this).addClass('bg-gray-300')
+
     $('.cnc_supply_points').addClass('hidden')
 
     let cnc_provider_id = $(this)[0].id

@@ -28,7 +28,7 @@
                 },
                 success: function (data, textStatus, jQxhr) {
                     const response = JSON.parse(jQxhr.responseText);
-                    console.log(response)
+                    // console.log(response)
 
                     design_table_last_page = response.meta.last_page
                     design_table_page = page
@@ -84,8 +84,8 @@
                                 }
                             },
                             error: function (jqXhr, textStatus, errorThrown) {
-                                const response = JSON.parse(jqXhr.responseText);
-                                alert(response.message)
+                                // const response = JSON.parse(jqXhr.responseText);
+                                alert('Please inter valid data for range of footprints!')
                             },
                             headers: {
                                 'Accept': 'application/json',
