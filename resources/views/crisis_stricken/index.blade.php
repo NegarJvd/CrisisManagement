@@ -10,7 +10,6 @@
     <script type="module">
         let design_table_page = 1
         let design_table_last_page = 1
-        let filtered_designs = []
 
         function get_filtered_designs(page) {
             $.ajax({
@@ -29,9 +28,9 @@
                 },
                 success: function (data, textStatus, jQxhr) {
                     const response = JSON.parse(jQxhr.responseText);
-                    // console.log(response)
+                    console.log(response)
 
-                    design_table_last_page = response.last_page
+                    design_table_last_page = response.meta.last_page
                     design_table_page = page
                     if (design_table_last_page > design_table_page)
                         $('#load_more_design').removeClass('hidden')
@@ -41,7 +40,6 @@
                     if (response.data.length > 0) {
                         var design_list = response.data
 
-                        // console.log("first", design_table_page, design_table_last_page, filtered_designs)
                         //then send the results for load verify
                         const url = "{!! env('FLASK_URL') !!}" + '/design_verify';
                         $.ajax({
@@ -56,11 +54,10 @@
                                 const response2 = JSON.parse(jQxhr.responseText);
                                 // console.log(response2)
 
-                                if (response2.designs.length > 0) {
-                                    filtered_designs.push(...response2.designs)
+                                let filtered_designs = []
+                                if (response2.acceptable_designs.length > 0) {
+                                    filtered_designs.push(...response2.acceptable_designs)
                                 }
-
-                                // console.log("second", design_table_page, design_table_last_page, filtered_designs)
 
                                 //get the acceptable results to add the table
                                 let new_row
@@ -68,10 +65,10 @@
                                     new_row = '<tr class="border border-slate-600 py-3">' +
                                         '<td class="border border-slate-600 py-3 design_id">' + filtered_designs[i].id + '</td>' +
                                         '<td class="border border-slate-600 py-3">' + filtered_designs[i].user.name + '</td>' +
-                                        '<td class="border border-slate-600 py-3">' + filtered_designs[i].woods[0].name + '</td>' +
+                                        '<td class="border border-slate-600 py-3">' + filtered_designs[i].material.name + '</td>' +
                                         '<td class="border border-slate-600 py-3">' +
-                                        'width: ' + filtered_designs[i].width + ', length: ' + filtered_designs[i].length + ', height: ' + filtered_designs[i].height +
-                                        ', slab_thickness:  ' + filtered_designs[i].slab_thickness + ', column_number: ' + filtered_designs[i].column_number + '' +
+                                        'width: ' + filtered_designs[i].footprint.width + ', length: ' + filtered_designs[i].footprint.length + ', height: ' + filtered_designs[i].footprint.height +
+                                        ', slab_thickness:  ' + filtered_designs[i].footprint.slab_thickness + ', column_number: ' + filtered_designs[i].footprint.column_number + '' +
                                         '</td>' +
                                         '<td class="py-3 flex flex-row items-center justify-center">' +
                                         '<div class="basis-1/2 flex items-center justify-center">' +
@@ -120,7 +117,7 @@
                 //first send to designs api for check the footprint
                 design_table_page = 1
                 design_table_last_page = 1
-                filtered_designs = []
+                $('#designs_table tbody').html('')
 
                 get_filtered_designs(design_table_page)
             })

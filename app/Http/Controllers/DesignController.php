@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\JointTypeEnum;
 use App\Http\Requests\DesignFilterRequest;
+use App\Http\Resources\DesignResource;
 use App\Models\Design;
 use App\Models\Wood;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 
 class DesignController extends Controller
 {
-    public function index(DesignFilterRequest $request): \Illuminate\Contracts\Foundation\Application|Factory|View|Application|JsonResponse
+    public function index(DesignFilterRequest $request): \Illuminate\Contracts\Foundation\Application|Factory|View|Application|AnonymousResourceCollection
     {
         $width_min = $request->get('width_min');
         $length_min = $request->get('length_min');
@@ -50,7 +50,7 @@ class DesignController extends Controller
             ->paginate();
 
         if ($request->wantsJson()){
-            return response()->json($designs);
+            return DesignResource::collection($designs);
         }
 
         return view('design.index', [
