@@ -47,23 +47,23 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::resource('timber-provider', TimberSupplyController::class)->except('show');
+    Route::get('/timber-provider/orders', [OrderController::class, 'timber_orders'])->name('timber-provider.order');
+
     Route::resource('cnc-provider', CNCSupplyController::class)->except('show');
+    Route::get('/cnc-provider/orders', [OrderController::class, 'cnc_orders'])->name('cnc-provider.order');
+
     Route::resource('wood-management', WoodManagementController::class);
 
     Route::prefix('shelter_seekers')->name('shelter_seekers.')->group(function (){
         Route::get('/', [CrisisStrickenController::class, 'show'])->name('show');
         Route::post('/providers', [CrisisStrickenController::class, 'providers_list'])->name('providers_list');
     });
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 
     Route::middleware('is_admin')->group(function (){
         Route::get('user-management', [UserController::class, 'users_list'])->name('user-management');
     });
 
-    Route::prefix('order')->name('order.')->group(function (){
-        Route::post('/', [OrderController::class, 'store'])->name('store');
-        Route::get('/timber_orders', [OrderController::class, 'timber_orders'])->name('timber');
-        Route::get('/cnc_orders', [OrderController::class, 'cnc_orders'])->name('cnc');
-    });
 });
 
 require __DIR__.'/auth.php';

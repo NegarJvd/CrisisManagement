@@ -6,13 +6,14 @@
             </h2>
 
             <div class="flex flex-row justify-center text-center">
+                <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('cnc-provider.order')}}">List of orders</a>
+            </div>
+
+            <div class="flex flex-row justify-center text-center">
                 <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('cnc-provider.create')}}">Create new supply point</a>
             </div>
         </div>
     </x-slot>
-
-
-
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

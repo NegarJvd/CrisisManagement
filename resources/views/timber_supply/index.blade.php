@@ -6,7 +6,7 @@
             </h2>
 
             <div class="flex flex-row justify-center text-center">
-                <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('order.timber')}}">List of orders</a>
+                <a class="border border-slate-600 p-1 rounded-lg hover:bg-gray-100" href="{{route('timber-provider.order')}}">List of orders</a>
             </div>
 
             <div class="flex flex-row justify-center text-center">
