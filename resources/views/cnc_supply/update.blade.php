@@ -28,7 +28,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (session('status') === 'success')
+            @if (session('success') !== null)
                 <div
                     x-data="{ show: true }"
                     x-show="show"
@@ -36,9 +36,9 @@
                     x-init="setTimeout(() => show = false, 3000)"
                     class="bg-green-800 text-white p-4 mt-3 mb-3 rounded-lg dark:text-gray-400"
                 >
-                    {{ __('Success') }}
+                    {{ session('success') }}
                 </div>
-            @elseif(session('status') === 'error')
+            @elseif(session('error') !== null)
                 <div
                     x-data="{ show: true }"
                     x-show="show"
@@ -46,7 +46,7 @@
                     x-init="setTimeout(() => show = false, 3000)"
                     class="bg-red-800 text-white p-4 mt-3 mb-3 rounded-lg dark:text-gray-400"
                 >
-                    {{ __('Error') }}
+                    {{ session('error') }}
                 </div>
             @endif
 

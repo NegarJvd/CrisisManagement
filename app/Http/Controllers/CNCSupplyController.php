@@ -39,14 +39,14 @@ class CNCSupplyController extends Controller
 
         $cnc = CNCSupply::create($data);
 
-        return Redirect::to('/cnc-provider')->with('status', 'success');
+        return Redirect::to('/cnc-provider')->with('success', 'Stored successfully!');
     }
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $cnc = CNCSupply::findOrFail($id);
 
         if (!Auth::user()->is_admin and $cnc->user_id != Auth::id())
-            return Redirect::to('/cnc-supply')->with('status', 'error'); //You are not allowed to edit this design
+            return Redirect::to('/cnc-supply')->with('error', 'Permission denied!');
 
         return view('cnc_supply.update', [
             'cnc' => $cnc
@@ -57,23 +57,23 @@ class CNCSupplyController extends Controller
         $cnc = CNCSupply::findOrFail($id);
 
         if (!Auth::user()->is_admin and $cnc->user_id != Auth::id())
-            return Redirect::to('/cnc-provider')->with('status', 'error');
+            return Redirect::to('/cnc-provider')->with('error', 'Permission denied!');
 
         $data = $request->only(['radius', 'latitude', 'longitude']);
 
         $cnc->update($data);
 
-        return Redirect::to('cnc-provider/'.$id.'/edit')->with('status', 'success');
+        return Redirect::to('cnc-provider/'.$id.'/edit')->with('success', 'Updated successfully!');
     }
     public function destroy($id): RedirectResponse
     {
         $cnc = CNCSupply::findOrFail($id);
 
         if (!Auth::user()->is_admin and $cnc->user_id != Auth::id())
-            return Redirect::to('/cnc-provider')->with('status', 'error');
+            return Redirect::to('/cnc-provider')->with('error', 'Permission denied!');
 
         $cnc->delete();
 
-        return Redirect::to('/cnc-provider')->with('status', 'success');
+        return Redirect::to('/cnc-provider')->with('success', 'Deleted successfully!');
     }
 }
