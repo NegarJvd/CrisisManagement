@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * @method static create(array $data)
  * @method static findOrFail($id)
+ * @method static pluck(string $string)
  */
 class TimberSupply extends Model
 {

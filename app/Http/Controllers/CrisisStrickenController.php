@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SuggestRequest;
-use App\Models\CNCSupply;
-use App\Models\Design;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -98,54 +96,6 @@ class CrisisStrickenController extends Controller
         return response()->json([
             'timber_providers' => $timber_providers_in_range,
             'cnc_providers' => $CNC_providers_in_range
-        ]);
-    }
-    public function suggest(SuggestRequest $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        $crisis_lat = $request->get('latitude');
-        $crisis_lon = $request->get('longitude');
-
-        $designs = Design::all();
-
-        $accepted_designs = [];
-        foreach ($designs as $design)
-        {
-            //timbers
-            $timbers = $design->timbers();
-            $timber_in_range = [];
-            foreach ($timbers as $timber)
-            {
-                $is_in_range = $this->is_in_range($timber->latitude, $timber->longitude, $crisis_lat, $crisis_lon, $timber->radius);
-                if ($is_in_range)
-                    $timber_in_range[] = $timber;
-            }
-
-            if (count($timber_in_range) == 0)
-                continue;
-
-            //cnc
-            $cnc = CNCSupply::all();
-            $cnc_in_range = [];
-            foreach ($cnc as $c)
-            {
-                $is_in_range = $this->is_in_range($c->latitude, $c->longitude, $crisis_lat, $crisis_lon, $c->radius);
-                if ($is_in_range)
-                    $cnc_in_range[] = $c;
-            }
-
-            if (count($cnc_in_range) == 0)
-                continue;
-
-            //if all these steps pass, design is accepted
-            $accepted_designs[] = $design;
-        }
-
-        return view('crisis_stricken.index', [
-            'status' => 'success',
-            'designs' => $accepted_designs,
-            'latitude' => $crisis_lat,
-            'longitude' => $crisis_lon,
-            'number_of_households' => 0
         ]);
     }
 }

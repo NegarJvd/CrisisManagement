@@ -3,6 +3,7 @@
 use App\Http\Controllers\CNCSupplyController;
 use App\Http\Controllers\CrisisStrickenController;
 use App\Http\Controllers\DesignController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimberSupplyController;
 use App\Http\Controllers\UserController;
@@ -24,8 +25,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
     });
 
+    Route::resource('/design', DesignController::class)->only(['index', 'show', 'destroy']);
     Route::prefix('design')->name('design.')->group(function (){
-        Route::resource('/', DesignController::class)->only(['index', 'show', 'destroy']);
         Route::get('/fork/{design_id}', [DesignController::class, 'fork'])->name('fork');
 
         Route::prefix('create')->name('create.')->group(function (){
@@ -45,7 +46,6 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-
     Route::resource('timber-provider', TimberSupplyController::class)->except('show');
     Route::resource('cnc-provider', CNCSupplyController::class)->except('show');
     Route::resource('wood-management', WoodManagementController::class);
@@ -53,12 +53,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('shelter_seekers')->name('shelter_seekers.')->group(function (){
         Route::get('/', [CrisisStrickenController::class, 'show'])->name('show');
         Route::post('/providers', [CrisisStrickenController::class, 'providers_list'])->name('providers_list');
-//        Route::post('-suggest', [CrisisStrickenController::class, 'suggest'])->name('suggest');
     });
-
 
     Route::middleware('is_admin')->group(function (){
         Route::get('user-management', [UserController::class, 'users_list'])->name('user-management');
+    });
+
+    Route::prefix('order')->name('order.')->group(function (){
+        Route::post('/', [OrderController::class, 'store'])->name('store');
     });
 });
 

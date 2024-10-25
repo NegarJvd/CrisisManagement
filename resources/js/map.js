@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                             '</td><td class="supply_point_lng hidden">'+
                                             supply_point.longitude +
                                             '</td><td class="py-3 flex flex-row items-center justify-center"><div class="flex items-center justify-center">'+
-                                            '<img class="w-8 hover:bg-gray-300" src="/icons/order.png" alt="order">' +
+                                            '<input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded select_timber">' +
                                             '</div></td></tr>'
 
                                         timber_supply_points_table.append(supply_point_row)
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                             '</td><td class="supply_point_lng hidden">'+
                                             supply_point.longitude +
                                             '</td><td class="py-3 flex flex-row items-center justify-center"><div class="flex items-center justify-center">'+
-                                            '<img class="w-8 hover:bg-gray-300" src="/icons/order.png" alt="order">' +
+                                            '<input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded select_cnc">' +
                                             '</div></td></tr>'
 
                                         cnc_supply_points_table.append(supply_point_row)

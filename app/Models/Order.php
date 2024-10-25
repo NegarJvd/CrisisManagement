@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @method static create($data)
- * @method static findOrFail($id)
- * @method static pluck(string $string)
+ * @method static create(array $data)
  */
-class CNCSupply extends Model
+class Order extends Model
 {
     use HasFactory;
-    protected $table = "cnc_supplies";
+
+    protected $table = 'orders';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
@@ -22,4 +21,14 @@ class CNCSupply extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function timber_provider(): BelongsTo
+    {
+        return $this->belongsTo(TimberSupply::class, 'timber_id');
+    }
+    public function cnc_provider(): BelongsTo
+    {
+        return $this->belongsTo(CNCSupply::class, 'cnc_id');
+    }
+
+
 }

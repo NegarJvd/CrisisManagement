@@ -3,29 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Enums\JointTypeEnum;
-use App\Http\Requests\StoreDesignRequest;
-use App\Http\Requests\UpdateDesignRequest;
+use App\Http\Requests\DesignFilterRequest;
 use App\Models\Design;
-use App\Models\Machine;
 use App\Models\Wood;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DesignController extends Controller
 {
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(DesignFilterRequest $request): \Illuminate\Contracts\Foundation\Application|Factory|View|Application|JsonResponse
     {
+        $width_min = $request->get('width_min');
+        $length_min = $request->get('length_min');
+        $height_min = $request->get('height_min');
+        $width_max = $request->get('width_max');
+        $length_max = $request->get('length_max');
+        $height_max = $request->get('height_max');
+
         $designs = Design::query()
-            ->orderByDesc('id')
+                    ->with('user', function ($q){
+                        $q->select('id','name');
+                    })
+                    ->with('woods');
+
+        if ($width_min >= 0 and $width_max >= 0)
+        {
+            $designs = $designs->whereBetween('width', [$width_min, $width_max]);
+        }
+        if ($length_min >= 0 and $length_max >= 0)
+        {
+            $designs = $designs->whereBetween('length', [$length_min, $length_max]);
+        }
+        if ($height_min >= 0 and $height_max >= 0)
+        {
+            $designs = $designs->whereBetween('height', [$height_min, $height_max]);
+        }
+
+        $designs =  $designs->orderByDesc('id')
             ->paginate();
+
+        if ($request->wantsJson()){
+            return response()->json($designs);
+        }
 
         return view('design.index', [
             'designs' => $designs,
@@ -33,37 +59,8 @@ class DesignController extends Controller
     }
     public function show($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-//        $request->validate([
-//            'latitude' => ['numeric'],
-//            'longitude' => ['numeric'],
-//        ]);
-
         $design = Design::findOrFail($id);
 
-        /*
-        $timber_in_range = [];
-        $cnc_in_range = [];
-
-        if ($request->has('latitude') and $request->has('longitude'))
-        {
-            $crisis_lat = $request->get('latitude');
-            $crisis_lon = $request->get('longitude');
-            $controller = new CrisisStrickenController();
-
-            foreach ($design->timbers() as $timber)
-            {
-                $is_in_range = $controller->is_in_range($timber->latitude, $timber->longitude, $crisis_lat, $crisis_lon, $timber->radius);
-                if ($is_in_range)
-                    $timber_in_range[] = $timber;
-            }
-            foreach ($design->cnc() as $c)
-            {
-                $is_in_range = $controller->is_in_range($c->latitude, $c->longitude, $crisis_lat, $crisis_lon, $c->radius);
-                if ($is_in_range)
-                    $cnc_in_range[] = $c;
-            }
-        }
-        */
 
         return view('design.show', [
             'design' => $design,

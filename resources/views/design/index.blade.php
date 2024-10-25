@@ -119,8 +119,7 @@
 
                                     <div class="basis-1/2 flex items-center justify-center">
                                         <a href="{{route('design.show', $design->id)}}" title="show details">
-                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/show.png')}}"
-                                                 alt="fork">
+                                            <img class="w-4 hover:bg-gray-300" src="{{asset('/icons/show.png')}}" alt="show">
                                         </a>
                                     </div>
 
