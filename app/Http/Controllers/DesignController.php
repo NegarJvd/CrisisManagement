@@ -33,15 +33,15 @@ class DesignController extends Controller
                     })
                     ->with('woods');
 
-        if ($width_min >= 0 and $width_max >= 0)
+        if (!is_null($width_min) and !is_null($width_max))
         {
             $designs = $designs->whereBetween('width', [$width_min, $width_max]);
         }
-        if ($length_min >= 0 and $length_max >= 0)
+        if (!is_null($length_max) and !is_null($length_min))
         {
             $designs = $designs->whereBetween('length', [$length_min, $length_max]);
         }
-        if ($height_min >= 0 and $height_max >= 0)
+        if (!is_null($height_max) and !is_null($height_min))
         {
             $designs = $designs->whereBetween('height', [$height_min, $height_max]);
         }
