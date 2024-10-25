@@ -105,7 +105,7 @@ class DesignController extends Controller
         $request->session()->put('woods', $request->get('woods'));
         $request->session()->put('wood_model', $wood_model);
 
-        return Redirect::to('/design/create/step2')->with('status', 'success');
+        return Redirect::to('/design/create/step2')->with('success', 'Stored successfully!');
     }
     public function create_step_2(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -143,7 +143,7 @@ class DesignController extends Controller
 
         $request->session()->put('design', $design);
 
-        return Redirect::to('/design/create/step3')->with('status', 'success');
+        return Redirect::to('/design/create/step3')->with('success', 'Stored successfully!');
     }
     public function create_step_3(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -180,7 +180,7 @@ class DesignController extends Controller
         $request->session()->put('load_calculator_values_as_object', $load_calculator_values_as_object);
         $request->session()->put('load_calculator_values_as_string', $load_calculator_values_as_string);
 
-        return Redirect::to('/design/create/step4')->with('status', 'success');
+        return Redirect::to('/design/create/step4')->with('success', 'Stored successfully!');
     }
     public function create_step_4(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -222,7 +222,7 @@ class DesignController extends Controller
         $request->session()->put('design', $design);
         $request->session()->put('cross_section_optimization_as_string', $request->get('cross_section_optimization_as_string'));
 
-        return Redirect::to('/design/create/step5')->with('status', 'success');
+        return Redirect::to('/design/create/step5')->with('success', 'Stored successfully!');
     }
     public function create_step_5(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -286,14 +286,14 @@ class DesignController extends Controller
         $request->session()->forget('cross_section_optimization_as_string');
         $request->session()->forget('joint_details_as_string');
 
-        return Redirect::to('/design/'.$design->id)->with('status', 'success');
+        return Redirect::to('/design/'.$design->id)->with('success', 'Stored successfully!');
     }
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $design = Design::findOrFail($id);
 
         if (!Auth::user()->is_admin and $design->user_id != Auth::id())
-            return Redirect::to('/design')->with('status', 'error'); //You are not allowed to edit this design
+            return Redirect::to('/design')->with('error', 'Permission denied!');
 
         $woods = Wood::all();
 
@@ -307,26 +307,26 @@ class DesignController extends Controller
         $design = Design::findOrFail($id);
 
         if (!Auth::user()->is_admin and $design->user_id != Auth::id())
-            return Redirect::to('/designs')->with('error', 'You are not allowed to edit this design');
+            return Redirect::to('/designs')->with('error', 'Permission denied!');
 
         $data = $request->all();
         $design->update($data);
         $design->woods()->sync($request->get('woods'));
 
-        return Redirect::to('design/'.$id.'/edit')->with('status', 'success');
+        return Redirect::to('design/'.$id.'/edit')->with('success', 'Updated successfully!');
     }
     public function destroy($id): RedirectResponse
     {
         $design = Design::findOrFail($id);
 
         if (!Auth::user()->is_admin and $design->user_id != Auth::id())
-            return Redirect::to('/design')->with('status', 'error');
+            return Redirect::to('/design')->with('error', 'Permission denied!');
 
         $design->woods()->sync([]);
 
         $design->delete();
 
-        return Redirect::to('/design')->with('status', 'success');
+        return Redirect::to('/design')->with('success', 'Stored successfully!');
     }
 
     public function fork($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
