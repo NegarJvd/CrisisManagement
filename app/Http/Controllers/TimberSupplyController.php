@@ -45,14 +45,14 @@ class TimberSupplyController extends Controller
         $timber = TimberSupply::create($data);
         $timber->woods()->attach($request->get('woods'));
 
-        return Redirect::to('/timber-provider')->with('status', 'success');
+        return Redirect::to('/timber-provider')->with('success', 'Stored successfully!');
     }
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $timber = TimberSupply::findOrFail($id);
 
         if (!Auth::user()->is_admin and $timber->user_id != Auth::id())
-            return Redirect::to('/timber-provider')->with('status', 'error'); //You are not allowed to edit this design
+            return Redirect::to('/timber-provider')->with('error', 'Permission denied!');
 
         $woods = Wood::all();
 
@@ -66,26 +66,26 @@ class TimberSupplyController extends Controller
         $timber = TimberSupply::findOrFail($id);
 
         if (!Auth::user()->is_admin and $timber->user_id != Auth::id())
-            return Redirect::to('/timber-provider')->with('status', 'error');
+            return Redirect::to('/timber-provider')->with('error', 'Permission denied!');
 
         $data = $request->only(['radius', 'latitude', 'longitude']);
 
         $timber->update($data);
         $timber->woods()->sync($request->get('woods'));
 
-        return Redirect::to('timber-provider/'.$id.'/edit')->with('status', 'success');
+        return Redirect::to('timber-provider/'.$id.'/edit')->with('success', 'Updated successfully!');
     }
     public function destroy($id): RedirectResponse
     {
         $timber = TimberSupply::findOrFail($id);
 
         if (!Auth::user()->is_admin and $timber->user_id != Auth::id())
-            return Redirect::to('/timber-provider')->with('status', 'error');
+            return Redirect::to('/timber-provider')->with('error', 'Permission denied!');
 
         $timber->woods()->sync([]);
 
         $timber->delete();
 
-        return Redirect::to('/timber-provider')->with('status', 'success');
+        return Redirect::to('/timber-provider')->with('success', 'Deleted successfully!');
     }
 }
