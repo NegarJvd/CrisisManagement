@@ -43,7 +43,7 @@ class WoodManagementController extends Controller
 
         Wood::create($data);
 
-        return Redirect::to('/wood-management')->with('status', 'success');
+        return Redirect::to('/wood-management')->with('success', 'Stored successfully!');
     }
 
     public function edit($id): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
@@ -71,7 +71,7 @@ class WoodManagementController extends Controller
 
         $wood->update($data);
 
-        return Redirect::to('/wood-management')->with('status', 'success');
+        return Redirect::to('/wood-management')->with('success', 'Updated successfully!');
     }
 
     public function destroy($id): RedirectResponse
@@ -81,11 +81,11 @@ class WoodManagementController extends Controller
                 ->findOrFail($id);
 
         if ($wood->designs_count > 0 or $wood->timber_supplies_count > 0)
-            return Redirect::to('/wood-management')->with('status', 'error');
+            return Redirect::to('/wood-management')->with('error', 'Not available for deleting!');
 
         $wood->delete();
 
-        return Redirect::to('/wood-management')->with('status', 'success');
+        return Redirect::to('/wood-management')->with('success', 'Deleted successfully!');
     }
 
 
