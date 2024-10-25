@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('designs', function (Blueprint $table) {
             $table->mediumText('information')->nullable();
-            $table->mediumText('g_code')->nullable();
         });
     }
 
@@ -24,7 +23,6 @@ return new class extends Migration
     {
         Schema::table('designs', function (Blueprint $table) {
             $table->dropColumn('information');
-            $table->dropColumn('g_code');
         });
     }
 };
