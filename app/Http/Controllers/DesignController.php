@@ -246,10 +246,10 @@ class DesignController extends Controller
     public function store_step_5(Request $request): RedirectResponse
     {
         $request->validate([
-            'joint1' => ['required', Rule::in(JointTypeEnum::values())],
-            'joint2' => ['required', Rule::in(JointTypeEnum::values())],
-            'joint3' => ['required', Rule::in(JointTypeEnum::values())],
-            'joint4' => ['required', Rule::in(JointTypeEnum::values())],
+            'joint1' => ['required'],
+            'joint2' => ['required'],
+            'joint3' => ['required'],
+            'joint4' => ['required'],
         ]);
 
         $design = $request->session()->get('design');
