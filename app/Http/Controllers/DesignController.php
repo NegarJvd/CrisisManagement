@@ -95,11 +95,10 @@ class DesignController extends Controller
 
         if(empty($request->session()->get('woods'))){
             $design = new Design();
-            $wood_model = new Wood();
         }else{
             $design = $request->session()->get('design');
-            $wood_model = Wood::find($request->get('woods'));
         }
+        $wood_model = Wood::find($request->get('woods'));
 
         $request->session()->put('design', $design);
         $request->session()->put('woods', $request->get('woods'));
